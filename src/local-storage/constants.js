@@ -1,0 +1,9 @@
+export const BASE_URL = "BASE_URL";
+
+export const HTTP_OR_HTTPS = "HTTP_OR_HTTPS";
+
+export const ARCHIVES_RENDERED = "ARCHIVES_RENDERED";
+
+export const COLUMNS_DISPLAYED = "COLUMNS_DISPLAYED";
+
+export const RATING_NAMESPACE = "RATING_NAMESPACE";
