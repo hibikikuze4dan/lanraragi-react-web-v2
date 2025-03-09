@@ -3,44 +3,50 @@ import {
   updateDisplayAppBar,
   updateImagesScrollTarget,
 } from "../../../redux/slices/appSlice";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getDisplayAppBar,
-  getImagesScrollTarget,
-} from "../../../redux/selectors";
+import { getDisplayAppBar } from "../../../redux/selectors";
 
 export const ImageButton = ({ topOfImagesSectionRef, imageUrl, imageId }) => {
   const dispatch = useDispatch();
   const displayAppBar = useSelector(getDisplayAppBar);
-  const imagesScrollTarget = useSelector(getImagesScrollTarget);
   const [maxWidth, setMaxWidth] = useState("100%");
   const imageRef = useRef();
 
-  useEffect(() => {
-    try {
-      if (!imagesScrollTarget) {
-        topOfImagesSectionRef?.current?.scrollIntoView({
-          behavior: "instant",
-          block: "start",
-        });
-      } else {
-        document
-          .querySelector(imagesScrollTarget)
-          ?.scrollIntoView({ behavior: "instant", block: "start" });
+  const scrollToTargetImage = useCallback(
+    ({ imagesScrollTarget, topOfImagesSectionRef }) => {
+      console.log(imagesScrollTarget);
+      try {
+        if (!imagesScrollTarget) {
+          topOfImagesSectionRef?.current?.scrollIntoView({
+            behavior: "instant",
+            block: "start",
+          });
+        } else {
+          document
+            .querySelector(imagesScrollTarget)
+            ?.scrollIntoView({ behavior: "instant", block: "start" });
+        }
+      } catch (err) {
+        console.log(
+          `Something went wrong while trying to scroll to image page element: ${err}`
+        );
+        return;
       }
-    } catch (err) {
-      console.log(
-        `Something went wrong while trying to scroll to image page element: ${err}`
-      );
-      return;
-    }
-  }, [imagesScrollTarget, topOfImagesSectionRef]);
+    },
+    []
+  );
 
   const onImageClick = (event) => {
     const eventTargetId = event?.target?.id;
     dispatch(updateDisplayAppBar(!displayAppBar));
     dispatch(updateImagesScrollTarget(`#${eventTargetId}`));
+    setTimeout(() => {
+      scrollToTargetImage({
+        imagesScrollTarget: `#${eventTargetId}`,
+        topOfImagesSectionRef,
+      });
+    }, 250);
   };
 
   const onImageLoad = () => {

@@ -48,7 +48,7 @@ export const ImagesPage = () => {
       </LoadingSpinner>
       <Grid2 size={12}>
         <Grid2 className={clsx(!isSvp && "px-20")} container spacing={8}>
-          <Grid2 size={{ xs: 12, md: 6 }}>
+          <Grid2 alignContent="center" size={{ xs: 12, md: 6 }}>
             <ImagePageRating />
           </Grid2>
           <Grid2 size={{ xs: 12, md: 6 }}>

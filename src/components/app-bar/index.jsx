@@ -10,34 +10,30 @@ export const AppBar = ({ children }) => {
 
   return (
     <Box id="app-bar-wrapper" className="max-w-svw max-h-svh flex">
-      {displayAppBar ? (
-        <>
-          {!isSvp && (
-            <Box className="min-w-fit max-h-svh overflow-hidden">
-              <AppBarComponent />
-            </Box>
-          )}
-          <Box
-            className={clsx(
-              !isSvp && "max-h-svh overflow-scroll grow",
-              isSvp && "grow"
-            )}
-          >
-            <Grid2 className="p-2 w-full max-w-svw" container>
-              <Grid2
-                id="app-bar-children-wrapper"
-                className="min-h-svh content-center"
-                size={12}
-              >
-                {children}
-              </Grid2>
-            </Grid2>
+      <>
+        {!isSvp && displayAppBar && (
+          <Box className="min-w-fit max-h-svh overflow-hidden">
+            <AppBarComponent />
           </Box>
-          {isSvp && <AppBarComponent />}
-        </>
-      ) : (
-        <>{children}</>
-      )}
+        )}
+        <Box
+          className={clsx(
+            !isSvp && "max-h-svh overflow-scroll grow",
+            isSvp && "grow"
+          )}
+        >
+          <Grid2 className="p-2 w-full max-w-svw" container>
+            <Grid2
+              id="app-bar-children-wrapper"
+              className="min-h-svh content-center"
+              size={12}
+            >
+              {children}
+            </Grid2>
+          </Grid2>
+        </Box>
+        {isSvp && displayAppBar && <AppBarComponent />}
+      </>
     </Box>
   );
 };

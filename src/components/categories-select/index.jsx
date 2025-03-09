@@ -39,7 +39,7 @@ export const CategoriesSelect = ({ archiveId = "" }) => {
 
   return (
     <Grid2 className="h-full" container spacing={3}>
-      <Grid2 size={{ xs: 12, md: 6 }}>
+      <Grid2 alignContent="center" size={{ xs: 12, md: 6 }}>
         <TextField
           className="categories-select-text-field"
           fullWidth
@@ -64,7 +64,7 @@ export const CategoriesSelect = ({ archiveId = "" }) => {
           })}
         </TextField>
       </Grid2>
-      <Grid2 size={{ xs: 12, md: 6 }}>
+      <Grid2 alignContent="center" size={{ xs: 12, md: 6 }}>
         <Button
           className="py-4 "
           fullWidth
