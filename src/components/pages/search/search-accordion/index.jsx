@@ -12,6 +12,10 @@ export const SearchAccordion = () => {
 
   const onChange = (_, isExpanded) => setExpanded(isExpanded);
 
+  const toggleAccordion = () => {
+    onChange(null, !expanded);
+  };
+
   return (
     <Accordion
       headerId="search-accordion"
@@ -19,7 +23,9 @@ export const SearchAccordion = () => {
       detailsId="search-accordion-content"
       onChange={onChange}
       expanded={expanded}
-      actionsContent={<SearchOrResetButtons />}
+      actionsContent={
+        <SearchOrResetButtons toggleAccordion={toggleAccordion} />
+      }
     >
       <Grid2 container spacing={2}>
         <Grid2 size={12}>

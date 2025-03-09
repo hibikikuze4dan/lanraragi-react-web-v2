@@ -77,3 +77,9 @@ export const DATE_ADDED_NAMESPACE = "date_added";
 export const TAGS = "tags";
 export const TITLE = "title";
 export const SUMMARY = "summary";
+
+export const BUTTON_INHERIT_BACKGROUND = {
+  "button:not(:hover)": {
+    backgroundColor: "inherit",
+  },
+};

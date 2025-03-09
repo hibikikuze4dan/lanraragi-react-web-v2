@@ -8,7 +8,7 @@ import {
   updateCurrentPage,
   updateImagesScrollTarget,
 } from "../../../redux/slices/appSlice";
-import { IMAGES } from "../../../constants";
+import { BUTTON_INHERIT_BACKGROUND, IMAGES } from "../../../constants";
 import { useRef, useState } from "react";
 import { ArchiveCardMenu } from "./archive-card-menu";
 
@@ -46,6 +46,7 @@ export const ArchiveCardLowerButtons = ({
       className="w-full"
       container
       spacing={1}
+      sx={BUTTON_INHERIT_BACKGROUND}
     >
       <Grid2 size={6}>
         <Button

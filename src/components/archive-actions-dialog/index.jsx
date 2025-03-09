@@ -3,6 +3,7 @@ import { useArchiveActionsDialogLogic } from "../../hooks/useArchiveActionsDialo
 import { Dialog } from "../dialog";
 import Close from "@mui/icons-material/Close";
 import {
+  BUTTON_INHERIT_BACKGROUND,
   DELETE_ARCHIVE,
   UPDATE_ARCHIVE_CATEGORY,
   UPDATE_ARCHIVE_METADATA,
@@ -35,7 +36,7 @@ export const ArchiveActionsDialog = ({ actionType }) => {
           {actionType?.replace(/_/g, " ")}
         </Typography>
       </Grid2>
-      <Grid2 size="auto">
+      <Grid2 size="auto" sx={BUTTON_INHERIT_BACKGROUND}>
         <Button startIcon={<Close />} onClick={onClose} variant="text">
           Close
         </Button>

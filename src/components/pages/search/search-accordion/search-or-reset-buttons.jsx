@@ -5,18 +5,20 @@ import { useSearchParameters } from "../../../../hooks/useSearchParameters";
 import RestartAlt from "@mui/icons-material/RestartAlt";
 import { SEARCH_PARAMETER_DEFAULTS } from "../../../../constants";
 
-export const SearchOrResetButtons = () => {
+export const SearchOrResetButtons = ({ toggleAccordion = () => null }) => {
   const { handleNewSearch } = useSearchPageLogic();
   const { searchParameters, handleUpdateSearchParameters } =
     useSearchParameters();
 
   const onSearchClick = () => {
     handleNewSearch(searchParameters);
+    toggleAccordion();
   };
 
   const onResetClick = () => {
     handleUpdateSearchParameters(SEARCH_PARAMETER_DEFAULTS);
     handleNewSearch();
+    toggleAccordion();
   };
 
   return (
