@@ -38,7 +38,12 @@ export const Pages = () => {
   }, [currentPage]);
 
   return (
-    <Grid2 id="pages-container" container justifyContent="center">
+    <Grid2
+      id="pages-container"
+      className="pt-4"
+      container
+      justifyContent="center"
+    >
       <UrlPage>
         <Grid2 ref={ref} id={TOP_OF_PAGE_ID} />
         <PageComponent />

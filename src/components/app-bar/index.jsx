@@ -13,7 +13,7 @@ export const AppBar = ({ children }) => {
       {displayAppBar ? (
         <>
           {!isSvp && (
-            <Box className="min-w-fit max-h-svh overflow-scroll">
+            <Box className="min-w-fit max-h-svh overflow-hidden">
               <AppBarComponent />
             </Box>
           )}
@@ -35,32 +35,4 @@ export const AppBar = ({ children }) => {
       )}
     </Box>
   );
-
-  // return (
-  //   <Grid2 id="app-bar-wrapper" className="max-w-svw" container columns={100}>
-  //     {displayAppBar ? (
-  //       <>
-  //         {!isSvp && (
-  //           <Grid2 className="" flexDirection="row" size="grow">
-  //             <AppBarComponent />
-  //           </Grid2>
-  //         )}
-  //         <Grid2
-  //           className={clsx(!isSvp && "max-h-svh overflow-scroll")}
-  //           flexDirection="row"
-  //           size={isSvp ? 100 : 94}
-  //         >
-  //           <Grid2 className="p-2" container>
-  //             <Grid2 id="app-bar-children-wrapper" size={12}>
-  //               {children}
-  //             </Grid2>
-  //           </Grid2>
-  //         </Grid2>
-  //         {isSvp && <AppBarComponent />}
-  //       </>
-  //     ) : (
-  //       <>{children}</>
-  //     )}
-  //   </Grid2>
-  // );
 };
