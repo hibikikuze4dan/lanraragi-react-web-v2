@@ -45,12 +45,14 @@ export const ArchiveCardLowerButtons = ({
       id={`archive-card-${archiveId}-lower-buttons`}
       className="w-full"
       container
+      spacing={1}
     >
       <Grid2 size={6}>
         <Button
           fullWidth
           startIcon={<AutoStories />}
           onClick={onReadButtonClick}
+          variant="text"
         >
           Read
         </Button>
@@ -62,6 +64,7 @@ export const ArchiveCardLowerButtons = ({
           fullWidth
           ref={moreButtonRef}
           onClick={onMoreButtonClick}
+          variant="text"
         >
           <MoreHoriz />
         </Button>

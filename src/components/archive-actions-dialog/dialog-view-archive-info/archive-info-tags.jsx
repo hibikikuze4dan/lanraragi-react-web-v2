@@ -20,7 +20,7 @@ export const ArchiveInfoTags = ({ tags }) => {
             <Grid2 container spacing={1}>
               <Grid2 size={12}>{namespace}:</Grid2>
               <Grid2 size={12}>
-                <Grid2 container>
+                <Grid2 container spacing={1}>
                   {tagsObject?.[namespace]?.map((tag) => {
                     const isTagAUrl = isValidUrl(tag);
                     const dateTag =
@@ -31,8 +31,9 @@ export const ArchiveInfoTags = ({ tags }) => {
                     return (
                       <Grid2 key={tag} size={{ xs: 6, md: 3 }}>
                         <Button
-                          className="normal-case block overflow-ellipsis w-full overflow-hidden"
+                          className="normal-case block overflow-ellipsis w-full h-full overflow-hidden"
                           fullWidth
+                          variant="outlined"
                           {...(isTagAUrl
                             ? {
                                 href: tag,

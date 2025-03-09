@@ -27,7 +27,6 @@ export const RandomPage = () => {
         size={100}
         loading={loadingRandomArchives}
         helperText="Loading Random Archives"
-        wrapperClassname="mt-30"
       >
         {randomArchives.map((archive) => {
           return (

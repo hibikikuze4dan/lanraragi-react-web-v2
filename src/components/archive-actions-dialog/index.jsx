@@ -36,7 +36,7 @@ export const ArchiveActionsDialog = ({ actionType }) => {
         </Typography>
       </Grid2>
       <Grid2 size="auto">
-        <Button startIcon={<Close />} onClick={onClose}>
+        <Button startIcon={<Close />} onClick={onClose} variant="text">
           Close
         </Button>
       </Grid2>

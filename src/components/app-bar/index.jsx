@@ -17,7 +17,12 @@ export const AppBar = ({ children }) => {
               <AppBarComponent />
             </Box>
           )}
-          <Box className={clsx(!isSvp && "max-h-svh overflow-scroll grow")}>
+          <Box
+            className={clsx(
+              !isSvp && "max-h-svh overflow-scroll grow",
+              isSvp && "grow"
+            )}
+          >
             <Grid2 className="p-2 w-full max-w-svw" container>
               <Grid2
                 id="app-bar-children-wrapper"

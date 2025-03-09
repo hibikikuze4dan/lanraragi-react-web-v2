@@ -5,7 +5,7 @@ export const TagsTextField = ({
   onChange,
   textFieldId = "",
   label = "",
-  multiline = false,
+  multiline = true,
   rows,
 }) => {
   const handleChange = (event) => {

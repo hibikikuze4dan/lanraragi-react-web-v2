@@ -13,16 +13,16 @@ export const SearchPage = () => {
       container
       columns={columnsDisplayed}
       justifyContent="center"
-      spacing={2}
+      spacing={1}
     >
       <Grid2 size={columnsDisplayed}>
         <SearchAccordion />
       </Grid2>
-      <Grid2 size={columnsDisplayed}>
+      <Grid2 className="my-5" size={columnsDisplayed}>
         <SearchPageButtons />
       </Grid2>
       <SearchArchiveCardList />
-      <Grid2 size={columnsDisplayed}>
+      <Grid2 className="mt-5 mb-100" size={columnsDisplayed}>
         <SearchPageButtons />
       </Grid2>
     </Grid2>

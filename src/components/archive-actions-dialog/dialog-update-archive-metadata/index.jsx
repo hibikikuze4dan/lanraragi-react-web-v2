@@ -31,6 +31,7 @@ export const DialogUpdateArchiveMetadata = ({ closeDialog }) => {
             textFieldId="update-metadata-title"
             onChange={updateTitle}
             value={title}
+            rows={3}
           />
         </Grid2>
         <Grid2 size={12}>
@@ -49,6 +50,7 @@ export const DialogUpdateArchiveMetadata = ({ closeDialog }) => {
             textFieldId="update-metadata-summary"
             onChange={updateSummary}
             value={summary}
+            rows={8}
           />
         </Grid2>
         <Grid2 size={12}>
