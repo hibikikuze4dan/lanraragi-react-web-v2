@@ -4,6 +4,6 @@ import tailwindcss from "@tailwindcss/vite";
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: "/lanrargi-react-web-v2/",
+  base: "./",
   plugins: [react(), tailwindcss()],
 });
