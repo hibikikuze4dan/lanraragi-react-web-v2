@@ -9,7 +9,10 @@ import { useRef } from "react";
 import { ImageButton } from "./image-button";
 import { LoadingSpinner } from "../../loading-spinner";
 import { CategoriesSelect } from "../../categories-select";
-import { updateCurrentPage } from "../../../redux/slices/appSlice";
+import {
+  updateCurrentPage,
+  updateDisplayAppBar,
+} from "../../../redux/slices/appSlice";
 import { ImagePageRating } from "./image-page-rating";
 import clsx from "clsx";
 
@@ -22,6 +25,7 @@ export const ImagesPage = () => {
   const ref = useRef();
 
   const onClick = () => {
+    dispatch(updateDisplayAppBar(true));
     dispatch(updateCurrentPage(archiveOpenedFrom));
   };
 
