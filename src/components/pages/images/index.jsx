@@ -5,7 +5,7 @@ import {
   getCurrentArchiveId,
 } from "../../../redux/selectors";
 import { useArchivePages } from "../../../hooks/useArchivePages";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { ImageButton } from "./image-button";
 import { LoadingSpinner } from "../../loading-spinner";
 import { CategoriesSelect } from "../../categories-select";
@@ -22,6 +22,7 @@ export const ImagesPage = () => {
   const archiveId = useSelector(getCurrentArchiveId);
   const archiveOpenedFrom = useSelector(getArchiveOpenedFrom);
   const { archivePagesAsLinks } = useArchivePages();
+  const hasImages = !!archivePagesAsLinks.length;
   const ref = useRef();
 
   const onClick = () => {
@@ -29,12 +30,18 @@ export const ImagesPage = () => {
     dispatch(updateCurrentPage(archiveOpenedFrom));
   };
 
+  useEffect(() => {
+    if (hasImages) {
+      ref.current?.scrollIntoView({ behavior: "instant", block: "start" });
+    }
+  }, [hasImages]);
+
   return (
     <Grid2 id="images-page" container spacing={2} justifyContent="center">
       <Grid2 size={12} id="images-start" ref={ref} />
       <LoadingSpinner
         helperText="Loading Archive Images"
-        loading={!archivePagesAsLinks.length}
+        loading={!hasImages}
         size={200}
       >
         {archivePagesAsLinks.map((page, index) => {

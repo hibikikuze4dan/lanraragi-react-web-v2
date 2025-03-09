@@ -6,11 +6,13 @@ import {
 import { useCallback, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getDisplayAppBar } from "../../../redux/selectors";
+import clsx from "clsx";
 
 export const ImageButton = ({ topOfImagesSectionRef, imageUrl, imageId }) => {
   const dispatch = useDispatch();
   const displayAppBar = useSelector(getDisplayAppBar);
   const [maxWidth, setMaxWidth] = useState("100%");
+  const hasImageLoaded = maxWidth === "100%";
   const imageRef = useRef();
 
   const scrollToTargetImage = useCallback(
@@ -59,7 +61,10 @@ export const ImageButton = ({ topOfImagesSectionRef, imageUrl, imageId }) => {
     <Grid2 container justifyContent="center">
       <Button
         id={`${imageId}-button-id`}
-        className="px-0"
+        className={clsx(
+          "px-0",
+          hasImageLoaded && "min-h-400 flex content-start items-start"
+        )}
         onClick={onImageClick}
         variant="text"
       >
