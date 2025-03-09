@@ -1,12 +1,15 @@
 import { Box, Grid2, useMediaQuery } from "@mui/material";
 import { AppBarComponent } from "./app-bar.jsx";
 import { useSelector } from "react-redux";
-import { getDisplayAppBar } from "../../redux/selectors.js";
+import { getCurrentPage, getDisplayAppBar } from "../../redux/selectors.js";
 import clsx from "clsx";
+import { IMAGES } from "../../constants.js";
 
 export const AppBar = ({ children }) => {
   const isSvp = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+  const currentPage = useSelector(getCurrentPage);
   const displayAppBar = useSelector(getDisplayAppBar);
+  const isImagesPage = currentPage === IMAGES;
 
   return (
     <Box id="app-bar-wrapper" className="max-w-svw max-h-svh flex">
@@ -22,7 +25,14 @@ export const AppBar = ({ children }) => {
             isSvp && "grow"
           )}
         >
-          <Grid2 className="p-2 w-full max-w-svw" container>
+          <Grid2
+            className={clsx(
+              "w-full max-w-svw",
+              isImagesPage && "py-2",
+              !isImagesPage && "p-2"
+            )}
+            container
+          >
             <Grid2
               id="app-bar-children-wrapper"
               className="min-h-svh content-center"
