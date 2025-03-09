@@ -51,7 +51,12 @@ export const ImageButton = ({ topOfImagesSectionRef, imageUrl, imageId }) => {
 
   return (
     <Grid2 container justifyContent="center">
-      <Button id={`${imageId}-button-id`} onClick={onImageClick} variant="text">
+      <Button
+        id={`${imageId}-button-id`}
+        className="px-0"
+        onClick={onImageClick}
+        variant="text"
+      >
         <img
           alt={`image ${imageId}`}
           ref={imageRef}
