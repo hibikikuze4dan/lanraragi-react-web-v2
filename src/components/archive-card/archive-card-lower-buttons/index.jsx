@@ -8,9 +8,10 @@ import {
   updateCurrentPage,
   updateImagesScrollTarget,
 } from "../../../redux/slices/appSlice";
-import { BUTTON_INHERIT_BACKGROUND, IMAGES } from "../../../constants";
+import { BUTTON_INHERIT_BACKGROUND, HISTORY, IMAGES } from "../../../constants";
 import { useRef, useState } from "react";
 import { ArchiveCardMenu } from "./archive-card-menu";
+import { useArchiveHistory } from "../../../hooks/useArchiveHistory";
 
 export const ArchiveCardLowerButtons = ({
   archive,
@@ -19,11 +20,16 @@ export const ArchiveCardLowerButtons = ({
 }) => {
   const archiveId = archive?.arcid ?? "";
   const dispatch = useDispatch();
+  const { addArchiveToHistory } = useArchiveHistory();
   const [menuOpen, setMenuOpen] = useState(false);
   const moreButtonRef = useRef();
   const moreButtonId = `archive-more-button-${archiveId}`;
 
   const onReadButtonClick = async () => {
+    if (currentPage !== HISTORY) {
+      addArchiveToHistory(archive);
+    }
+
     dispatch(updateArchiveOpenedFrom(currentPage));
     dispatch(updateCurrentArchiveId(archiveId));
     dispatch(updateImagesScrollTarget(""));

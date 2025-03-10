@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { getCurrentPage } from "../../redux/selectors";
 import { UrlPage } from "./url";
 import {
+  HISTORY,
   IMAGES,
   RANDOM,
   SEARCH,
@@ -17,12 +18,14 @@ import { useEffect, useRef } from "react";
 import { ArchiveActionsDialog } from "../archive-actions-dialog";
 import { useArchiveActionsDialogLogic } from "../../hooks/useArchiveActionsDialogLogic";
 import { Snackbar } from "../snackbar";
+import { HistoryPage } from "./history";
 
 const PAGE_COMPONENTS = {
   [RANDOM]: RandomPage,
   [SEARCH]: SearchPage,
   [SETTINGS]: SettingsPage,
   [IMAGES]: ImagesPage,
+  [HISTORY]: HistoryPage,
 };
 
 export const Pages = () => {
