@@ -3,6 +3,8 @@ import {
   SEARCH_PARAMETER_DEFAULTS,
   SNACKBAR_DEFAULT_STATUS,
 } from "../../constants";
+import { createLocalStorageInstance } from "../../local-storage";
+import { LAST_SEARCH } from "../../local-storage/constants";
 
 const initialState = {
   apiCategories: [],
@@ -16,6 +18,7 @@ const initialState = {
   imagesScrollTarget: "",
   initialLoadRandom: true,
   initialLoadSearch: true,
+  lastSearch: JSON.stringify(SEARCH_PARAMETER_DEFAULTS),
   loadingRandomArchives: false,
   loadingSearchArchives: false,
   randomArchives: null,
@@ -24,9 +27,22 @@ const initialState = {
   snackbarStatus: SNACKBAR_DEFAULT_STATUS,
 };
 
+const { get: getLastSearch } = createLocalStorageInstance(LAST_SEARCH);
+
+const getInitialState = () => {
+  const lastSearch = getLastSearch() ?? initialState.lastSearch;
+  const searchParameters = JSON.parse(lastSearch);
+
+  return {
+    ...initialState,
+    lastSearch,
+    searchParameters,
+  };
+};
+
 const mainSlice = createSlice({
   name: "main",
-  initialState,
+  initialState: getInitialState,
   reducers: {
     updateCurrentPage: (state, { payload }) => {
       state.currentPage = payload;
@@ -82,6 +98,9 @@ const mainSlice = createSlice({
     updateSnackbarStatus: (state, { payload = {} }) => {
       state.snackbarStatus = { ...SNACKBAR_DEFAULT_STATUS, ...payload };
     },
+    updateLastSearch: (state, { payload }) => {
+      state.lastSearch = payload;
+    },
   },
 });
 
@@ -104,5 +123,6 @@ export const {
   updateDialogActionType,
   updateSearchArchives,
   updateSnackbarStatus,
+  updateLastSearch,
 } = mainSlice.actions;
 export default mainSlice.reducer;

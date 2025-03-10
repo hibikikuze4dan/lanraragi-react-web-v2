@@ -11,7 +11,7 @@ export const SearchOrResetButtons = ({ toggleAccordion = () => null }) => {
     useSearchParameters();
 
   const onSearchClick = () => {
-    handleNewSearch(searchParameters);
+    handleNewSearch({ ...searchParameters, start: "0" });
     toggleAccordion();
   };
 

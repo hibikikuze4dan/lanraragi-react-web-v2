@@ -114,3 +114,7 @@ export const getCurrentArchiveFromSearchArchives = createSelector(
 export const getSnackbarStatus = createSelector(getReduxState, (state) => {
   return state?.snackbarStatus;
 });
+
+export const getLastSearch = createSelector(getReduxState, (state) => {
+  return state?.lastSearch ?? SEARCH_PARAMETER_DEFAULTS;
+});

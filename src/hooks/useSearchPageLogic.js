@@ -10,12 +10,14 @@ import { getCurrentSearchParameters, getSearchData } from "../redux/selectors";
 import { ARCHIVES_RENDERED } from "../local-storage/constants";
 import { createLocalStorageInstance } from "../local-storage";
 import { useState } from "react";
+import useLastSearch from "./useLastSearch";
 
 const { get: getArchivesRendered } =
   createLocalStorageInstance(ARCHIVES_RENDERED);
 
 export const useSearchPageLogic = () => {
   const dispatch = useDispatch();
+  const { updateLastSearch } = useLastSearch();
   const searchData = useSelector(getSearchData);
   const [archivesRendered] = useState(Number(getArchivesRendered() ?? 10));
   const currentSearchParameters = useSelector(getCurrentSearchParameters);
@@ -33,6 +35,7 @@ export const useSearchPageLogic = () => {
     dispatch(updateCurrentSearchParameters({ ...newSearchParameters }));
     dispatch(updateLoadingSearchArchives(true));
     requestSearchForArchives(newSearchParameters).then((response) => {
+      updateLastSearch({ ...newSearchParameters, start: "0" });
       dispatch(updateSearchData(response));
       dispatch(updateLoadingSearchArchives(false));
     });

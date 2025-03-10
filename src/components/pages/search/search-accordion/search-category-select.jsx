@@ -14,14 +14,20 @@ export const SearchCategorySelect = () => {
     handleUpdateSearchParameters({ category: value });
   };
 
+  console.log(selectedCategory, categories);
   return (
     <Grid2 container>
       <TextField
+        id="search-accordion-select-category-parameter"
         className="search-category-select-text-field h-full"
         fullWidth
         label="Search Category"
         select
         slotProps={{
+          inputLabel: {
+            for: "search-accordion-select-category-parameter",
+            shrink: !!selectedCategory,
+          },
           select: { native: true },
           input: { className: "h-full" },
         }}
