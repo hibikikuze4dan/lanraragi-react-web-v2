@@ -22,7 +22,13 @@ export const RandomPage = () => {
   useSearchResults({ initLoad: true });
 
   return (
-    <Grid2 id="random-page" container columns={columnsDisplayed} spacing={2}>
+    <Grid2
+      id="random-page"
+      className="min-h-svh"
+      container
+      columns={columnsDisplayed}
+      spacing={2}
+    >
       <LoadingSpinner
         size={100}
         loading={loadingRandomArchives}

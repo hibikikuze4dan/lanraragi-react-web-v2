@@ -5,7 +5,7 @@ import { useMemo } from "react";
 import { useCategories } from "../../../hooks/useCategories";
 import { ArchiveInfoTags } from "./archive-info-tags";
 
-export const DialogViewArchiveInfo = () => {
+export const DialogViewArchiveInfo = ({ closeDialog }) => {
   const { archive } = useCurrentArchive();
   const { getCategoriesByArchvie } = useCategories({ initLoad: true });
   const { title, filename, arcid, tags } = archive ?? {};
@@ -55,7 +55,7 @@ export const DialogViewArchiveInfo = () => {
           </Grid2>
         )}
         <Grid2 size={12}>
-          <ArchiveInfoTags tags={tags} />
+          <ArchiveInfoTags closeDialog={closeDialog} tags={tags} />
         </Grid2>
       </Grid2>
     </Box>

@@ -1,33 +1,28 @@
 import { Button, Grid2, useMediaQuery } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getArchiveOpenedFrom,
-  getCurrentArchiveId,
-} from "../../../redux/selectors";
+import { getCurrentArchiveId } from "../../../redux/selectors";
 import { useArchivePages } from "../../../hooks/useArchivePages";
 import { useEffect, useRef } from "react";
 import { ImageButton } from "./image-button";
 import { LoadingSpinner } from "../../loading-spinner";
 import { CategoriesSelect } from "../../categories-select";
-import {
-  updateCurrentPage,
-  updateDisplayAppBar,
-} from "../../../redux/slices/appSlice";
+import { updateDisplayAppBar } from "../../../redux/slices/appSlice";
 import { ImagePageRating } from "./image-page-rating";
 import clsx from "clsx";
+import { useAppPages } from "../../../hooks/useAppPages";
 
 export const ImagesPage = () => {
   const isSvp = useMediaQuery((theme) => theme.breakpoints.down("sm"));
   const dispatch = useDispatch();
+  const { updateAppPage, archiveOpenedFrom } = useAppPages();
   const archiveId = useSelector(getCurrentArchiveId);
-  const archiveOpenedFrom = useSelector(getArchiveOpenedFrom);
   const { archivePagesAsLinks } = useArchivePages();
   const hasImages = !!archivePagesAsLinks.length;
   const ref = useRef();
 
   const onClick = () => {
     dispatch(updateDisplayAppBar(true));
-    dispatch(updateCurrentPage(archiveOpenedFrom));
+    updateAppPage(archiveOpenedFrom);
   };
 
   useEffect(() => {
@@ -57,7 +52,7 @@ export const ImagesPage = () => {
           );
         })}
       </LoadingSpinner>
-      <Grid2 size={12}>
+      <Grid2 className={clsx(isSvp && "px-2")} size={12}>
         <Grid2 className={clsx(!isSvp && "px-20")} container spacing={8}>
           <Grid2 alignContent="center" size={{ xs: 12, md: 6 }}>
             <ImagePageRating />

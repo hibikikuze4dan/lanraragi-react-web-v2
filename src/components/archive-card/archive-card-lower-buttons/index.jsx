@@ -3,15 +3,14 @@ import AutoStories from "@mui/icons-material/AutoStories";
 import { Button, Grid2 } from "@mui/material";
 import { useDispatch } from "react-redux";
 import {
-  updateArchiveOpenedFrom,
   updateCurrentArchiveId,
-  updateCurrentPage,
   updateImagesScrollTarget,
 } from "../../../redux/slices/appSlice";
 import { BUTTON_INHERIT_BACKGROUND, HISTORY, IMAGES } from "../../../constants";
 import { useRef, useState } from "react";
 import { ArchiveCardMenu } from "./archive-card-menu";
 import { useArchiveHistory } from "../../../hooks/useArchiveHistory";
+import useAppPages from "../../../hooks/useAppPages";
 
 export const ArchiveCardLowerButtons = ({
   archive,
@@ -20,6 +19,7 @@ export const ArchiveCardLowerButtons = ({
 }) => {
   const archiveId = archive?.arcid ?? "";
   const dispatch = useDispatch();
+  const { updateAppPage } = useAppPages();
   const { addArchiveToHistory } = useArchiveHistory();
   const [menuOpen, setMenuOpen] = useState(false);
   const moreButtonRef = useRef();
@@ -30,10 +30,9 @@ export const ArchiveCardLowerButtons = ({
       addArchiveToHistory(archive);
     }
 
-    dispatch(updateArchiveOpenedFrom(currentPage));
     dispatch(updateCurrentArchiveId(archiveId));
     dispatch(updateImagesScrollTarget(""));
-    dispatch(updateCurrentPage(IMAGES));
+    updateAppPage(IMAGES);
     await getNewArchivePages(archiveId);
   };
 

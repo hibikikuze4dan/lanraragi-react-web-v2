@@ -1,15 +1,16 @@
 import { Box, Grid2, useMediaQuery } from "@mui/material";
 import { AppBarComponent } from "./app-bar.jsx";
 import { useSelector } from "react-redux";
-import { getCurrentPage, getDisplayAppBar } from "../../redux/selectors.js";
+import { getDisplayAppBar } from "../../redux/selectors.js";
 import clsx from "clsx";
 import { IMAGES } from "../../constants.js";
+import useAppPages from "../../hooks/useAppPages.js";
 
 export const AppBar = ({ children }) => {
   const isSvp = useMediaQuery((theme) => theme.breakpoints.down("sm"));
-  const currentPage = useSelector(getCurrentPage);
+  const { appPage } = useAppPages();
   const displayAppBar = useSelector(getDisplayAppBar);
-  const isImagesPage = currentPage === IMAGES;
+  const isImagesPage = appPage === IMAGES;
 
   return (
     <Box id="app-bar-wrapper" className="max-w-svw max-h-svh flex">

@@ -24,7 +24,6 @@ export const SearchCategorySelect = () => {
         select
         slotProps={{
           inputLabel: {
-            for: "search-accordion-select-category-parameter",
             shrink: !!selectedCategory,
           },
           select: { native: true },

@@ -9,12 +9,19 @@ export const LoadingSpinner = ({
   wrapperClassname = "",
 }) => {
   return loading ? (
-    <Grid2 className={clsx("loading-spinner", wrapperClassname)} container>
-      <Grid2 size={12}>
-        <CircularProgress size={size} />
-      </Grid2>
-      <Grid2 size={12}>
-        <Typography>{helperText}</Typography>
+    <Grid2
+      className={clsx("loading-spinner w-full", wrapperClassname)}
+      container
+    >
+      <Grid2 alignContent="center" size={12}>
+        <Grid2 container>
+          <Grid2 size={12}>
+            <CircularProgress size={size} />
+          </Grid2>
+          <Grid2 size={12}>
+            <Typography>{helperText}</Typography>
+          </Grid2>
+        </Grid2>
       </Grid2>
     </Grid2>
   ) : (

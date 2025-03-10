@@ -1,14 +1,13 @@
 import { Button, Grid2, Typography } from "@mui/material";
-import { useDispatch } from "react-redux";
 import { useCallback } from "react";
-import { updateCurrentPage } from "../../redux/slices/appSlice.js";
+import useAppPages from "../../hooks/useAppPages.js";
 
 export const AppBarButton = ({ Icon, page }) => {
-  const dispatch = useDispatch();
+  const { updateAppPage } = useAppPages();
 
   const onClick = useCallback(() => {
-    dispatch(updateCurrentPage(page));
-  }, [dispatch, page]);
+    updateAppPage(page);
+  }, [updateAppPage, page]);
 
   return (
     <Button

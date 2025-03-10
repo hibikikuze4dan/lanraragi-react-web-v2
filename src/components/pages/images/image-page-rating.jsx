@@ -1,16 +1,10 @@
-import {
-  Alert,
-  Grid2,
-  Rating,
-  TextField,
-  Typography,
-  useMediaQuery,
-} from "@mui/material";
+import { Alert, Grid2, Rating, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { useArchiveRating } from "../../../hooks/useArchiveRating";
+import { isMobile } from "react-device-detect";
 
 export const ImagePageRating = () => {
-  const isSvp = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+  const isDesktopDevice = !isMobile;
   const [selectValue, setSelectValue] = useState(0);
   const { updateArchiveRating, updateRatingResponse } = useArchiveRating();
 
@@ -19,7 +13,7 @@ export const ImagePageRating = () => {
     updateArchiveRating(value);
   };
 
-  const onStarChange = (event, value) => {
+  const onStarChange = (_event, value) => {
     handleRatingValueUpdate(value);
   };
 
@@ -44,14 +38,14 @@ export const ImagePageRating = () => {
           size="large"
           value={Number(selectValue)}
           onChange={onStarChange}
-          readOnly={isSvp}
+          readOnly={!isDesktopDevice}
         />
       </Grid2>
-      {isSvp && (
+      {!isDesktopDevice && (
         <Grid2 size={12}>
           <TextField
             id="rate-archive-select-text-field"
-            className="h-full"
+            className="h-full w-7/10"
             label="Rate Archive"
             fullWidth
             select

@@ -4,7 +4,7 @@ import { RANDOM, SEARCH_PARAMETER_DEFAULTS } from "../constants";
 export const getReduxState = (state) => state.main;
 
 export const getCurrentPage = createSelector(getReduxState, (state) => {
-  return state?.currentPage ?? "";
+  return state?.currentPage ?? RANDOM;
 });
 
 export const getRandomArchives = createSelector(getReduxState, (state) => {
