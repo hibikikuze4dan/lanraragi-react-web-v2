@@ -1,4 +1,4 @@
-import { Grid2 } from "@mui/material";
+import { Box, Grid2 } from "@mui/material";
 import { useSelector } from "react-redux";
 import { getCurrentPage } from "../../redux/selectors";
 import { UrlPage } from "./url";
@@ -43,13 +43,15 @@ export const Pages = () => {
   return (
     <Grid2
       id="pages-container"
-      className="pt-4"
+      className="pt-4 min-h-svh"
       container
       justifyContent="center"
     >
       <UrlPage>
         <Grid2 ref={ref} id={TOP_OF_PAGE_ID} />
-        <PageComponent />
+        <Box className="w-full">
+          <PageComponent />
+        </Box>
         <ArchiveActionsDialog actionType={dialogActionType} />
         <Snackbar />
       </UrlPage>
