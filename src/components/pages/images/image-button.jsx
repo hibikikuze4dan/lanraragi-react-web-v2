@@ -17,7 +17,6 @@ export const ImageButton = ({ topOfImagesSectionRef, imageUrl, imageId }) => {
 
   const scrollToTargetImage = useCallback(
     ({ imagesScrollTarget, topOfImagesSectionRef }) => {
-      console.log(imagesScrollTarget);
       try {
         if (!imagesScrollTarget) {
           topOfImagesSectionRef?.current?.scrollIntoView({

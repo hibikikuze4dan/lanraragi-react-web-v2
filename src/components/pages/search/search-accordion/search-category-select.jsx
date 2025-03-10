@@ -14,7 +14,6 @@ export const SearchCategorySelect = () => {
     handleUpdateSearchParameters({ category: value });
   };
 
-  console.log(selectedCategory, categories);
   return (
     <Grid2 container>
       <TextField

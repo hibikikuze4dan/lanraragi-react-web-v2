@@ -20,8 +20,6 @@ export const useArchiveHistory = () => {
       const historyString = getArchiveHistory() ?? defaultHistory;
       const history = JSON.parse(historyString);
 
-      console.log(history);
-
       if (!Array.isArray(history)) {
         return null;
       }

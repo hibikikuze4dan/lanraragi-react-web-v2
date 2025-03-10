@@ -12,7 +12,6 @@ export const BearerTokenSetting = () => {
   );
 
   const onChange = (event) => {
-    console.log(event, setBearerToken);
     const value = event?.target?.value ?? "";
 
     setBearerTokenState(value);

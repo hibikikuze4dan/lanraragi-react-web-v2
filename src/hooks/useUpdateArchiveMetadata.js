@@ -28,7 +28,6 @@ export const useUpdateArchiveMetadata = () => {
   const [summary, updateSummary] = useState(archiveSummary ?? "");
 
   const updateMetadata = () => {
-    console.log(tags, title, summary, archiveId, putUpdateToArchiveMetadata);
     putUpdateToArchiveMetadata({ archiveId, title, tags, summary }).then(
       (resposne) => {
         if (resposne.error || resposne.success === 0) {
