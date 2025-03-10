@@ -2,6 +2,7 @@ import axios from "axios";
 import { createLocalStorageInstance } from "../local-storage";
 import { BASE_URL, HTTP_OR_HTTPS } from "../local-storage/constants";
 import { METADATA_URL } from "./constants";
+import { getAuthorizationHeader } from "../utils/getAuthorizationHeader";
 
 const { get: getBaseUrl } = createLocalStorageInstance(BASE_URL);
 const { get: getHttpOrHttps } = createLocalStorageInstance(HTTP_OR_HTTPS);
@@ -27,6 +28,7 @@ export const putUpdateToArchiveMetadata = async ({
       data: formData,
       headers: {
         "Content-Type": "multipart/form-data",
+        ...getAuthorizationHeader(),
       },
     });
 

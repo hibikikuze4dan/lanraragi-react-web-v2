@@ -2,6 +2,7 @@ import axios from "axios";
 import { createLocalStorageInstance } from "../local-storage";
 import { BASE_URL, HTTP_OR_HTTPS } from "../local-storage/constants";
 import { DELETE_ARCHIVE_URL } from "./constants";
+import { getAuthorizationHeader } from "../utils/getAuthorizationHeader";
 
 const { get: getBaseUrl } = createLocalStorageInstance(BASE_URL);
 const { get: getHttpOrHttps } = createLocalStorageInstance(HTTP_OR_HTTPS);
@@ -13,6 +14,9 @@ export const deleteArchive = async (archiveId) => {
     const response = await axios({
       method: "delete",
       url: `${getHttpOrHttps()}://${getBaseUrl()}${endpoint}`,
+      headers: {
+        ...getAuthorizationHeader(),
+      },
     });
 
     const { operation, success, id, filename } = response?.data ?? {};

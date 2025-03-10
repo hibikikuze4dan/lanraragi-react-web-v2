@@ -2,6 +2,7 @@ import axios from "axios";
 import { BASE_URL, HTTP_OR_HTTPS } from "../local-storage/constants";
 import { createLocalStorageInstance } from "../local-storage";
 import { UPDATE_CATEGORY_URL } from "./constants";
+import { getAuthorizationHeader } from "../utils/getAuthorizationHeader";
 
 const { get: getBaseUrl } = createLocalStorageInstance(BASE_URL);
 const { get: getHttpOrHttps } = createLocalStorageInstance(HTTP_OR_HTTPS);
@@ -19,6 +20,9 @@ export const putUpdateToArchiveCategory = async ({
     const response = await axios({
       method: "put",
       url: `${getHttpOrHttps()}://${getBaseUrl()}${endpoint}`,
+      headers: {
+        ...getAuthorizationHeader(),
+      },
     });
 
     const { success, successMessage, operation } = response?.data ?? {};

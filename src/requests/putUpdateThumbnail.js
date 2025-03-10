@@ -2,6 +2,7 @@ import axios from "axios";
 import { createLocalStorageInstance } from "../local-storage";
 import { BASE_URL, HTTP_OR_HTTPS } from "../local-storage/constants";
 import { UPDATE_ARCHIVE_THUMBNAIL_URL } from "./constants";
+import { getAuthorizationHeader } from "../utils/getAuthorizationHeader";
 
 const { get: getBaseUrl } = createLocalStorageInstance(BASE_URL);
 const { get: getHttpOrHttps } = createLocalStorageInstance(HTTP_OR_HTTPS);
@@ -20,6 +21,7 @@ export const putUpdateThumbnail = async ({ archiveId, page = 1 }) => {
       data: formData,
       headers: {
         "Content-Type": "multipart/form-data",
+        ...getAuthorizationHeader(),
       },
     });
 

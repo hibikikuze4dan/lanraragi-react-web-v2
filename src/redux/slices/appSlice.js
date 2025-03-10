@@ -125,4 +125,5 @@ export const {
   updateSnackbarStatus,
   updateLastSearch,
 } = mainSlice.actions;
+
 export default mainSlice.reducer;
