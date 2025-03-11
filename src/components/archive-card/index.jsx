@@ -5,25 +5,25 @@ import {
   CardMedia,
   Rating,
 } from "@mui/material";
-import { memo, useRef, useState } from "react";
-import { THUMBNAIL_URL } from "../../requests/constants";
+import { memo, useEffect, useRef, useState } from "react";
 import { ArchiveCardLowerButtons } from "./archive-card-lower-buttons";
 import { TitleButton } from "./title-button";
 import { makeTagsObject } from "../../utils/makeTagsObject";
+import { useArchiveThumbnail } from "../../hooks/useArchiveThumbnail";
 
 export const ArchiveCard = memo(function ArchiveCard({
   archive,
-  baseUrl,
   currentPage,
   getNewArchivePages,
   ratingNamespace,
 }) {
+  const [thumbnailUrl, setThumbnailUrl] = useState("");
+  const [triedToGetThumbnail, setTriedToGetThumbnail] = useState(false);
+  const { getThumbnailUrl } = useArchiveThumbnail();
   const imageRef = useRef();
   const [maxWidth, setMaxWidth] = useState("100%");
   const [height, setHeight] = useState("100%");
   const archiveId = archive?.arcid ?? "";
-  const thumbnailEndpoint = THUMBNAIL_URL.replace(":id", archiveId);
-  const thumbnailUrl = `${baseUrl}${thumbnailEndpoint}`;
 
   const onImageLoad = () => {
     if (imageRef?.current) {
@@ -31,6 +31,15 @@ export const ArchiveCard = memo(function ArchiveCard({
       setHeight(`${imageRef.current?.naturalHeight}px`);
     }
   };
+
+  useEffect(() => {
+    if (!thumbnailUrl && !triedToGetThumbnail) {
+      setTriedToGetThumbnail(true);
+      getThumbnailUrl(archiveId).then((url) => {
+        setThumbnailUrl(url);
+      });
+    }
+  }, [archiveId, getThumbnailUrl, thumbnailUrl, triedToGetThumbnail]);
 
   const tags = makeTagsObject(archive?.tags ?? "");
 

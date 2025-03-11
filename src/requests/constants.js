@@ -29,3 +29,5 @@ export const DELETE_ARCHIVE_URL = "/api/archives/:id";
 export const TAGS_URL = "/api/database/stats?minweight=1";
 
 export const UPDATE_ARCHIVE_THUMBNAIL_URL = "/api/archives/:id/thumbnail";
+
+export const SERVER_INFO_URL = "/api/info";

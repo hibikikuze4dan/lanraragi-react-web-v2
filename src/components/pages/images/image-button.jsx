@@ -3,17 +3,33 @@ import {
   updateDisplayAppBar,
   updateImagesScrollTarget,
 } from "../../../redux/slices/appSlice";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getDisplayAppBar } from "../../../redux/selectors";
 import clsx from "clsx";
 
-export const ImageButton = ({ topOfImagesSectionRef, imageUrl, imageId }) => {
+export const ImageButton = ({
+  topOfImagesSectionRef,
+  imageUrl,
+  imageId,
+  getPageLink,
+}) => {
   const dispatch = useDispatch();
   const displayAppBar = useSelector(getDisplayAppBar);
+  const [url, setUrl] = useState("");
+  const [triedToGetUrl, setTriedToGetUrl] = useState(false);
   const [maxWidth, setMaxWidth] = useState("100%");
   const hasImageLoaded = maxWidth === "100%";
   const imageRef = useRef();
+
+  useEffect(() => {
+    if (!url && !triedToGetUrl) {
+      setTriedToGetUrl(true);
+      getPageLink(imageUrl).then((url) => {
+        setUrl(url);
+      });
+    }
+  }, [getPageLink, imageUrl, triedToGetUrl, url]);
 
   const scrollToTargetImage = useCallback(
     ({ imagesScrollTarget, topOfImagesSectionRef }) => {
@@ -73,7 +89,7 @@ export const ImageButton = ({ topOfImagesSectionRef, imageUrl, imageId }) => {
           id={`${imageId}-img-id`}
           className="w-full"
           loading="lazy"
-          src={imageUrl}
+          src={url}
           width={1200}
           height={1600}
           onLoad={onImageLoad}

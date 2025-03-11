@@ -19,6 +19,7 @@ import { ArchiveActionsDialog } from "../archive-actions-dialog";
 import { useArchiveActionsDialogLogic } from "../../hooks/useArchiveActionsDialogLogic";
 import { Snackbar } from "../snackbar";
 import { HistoryPage } from "./history";
+import { useServerInfo } from "../../hooks/useServerInfo";
 
 const PAGE_COMPONENTS = {
   [RANDOM]: RandomPage,
@@ -30,6 +31,7 @@ const PAGE_COMPONENTS = {
 
 export const Pages = () => {
   const { dialogActionType } = useArchiveActionsDialogLogic();
+  useServerInfo(true);
   const currentPage = useSelector(getCurrentPage);
   const PageComponent = PAGE_COMPONENTS?.[currentPage] ?? Grid2;
   const ref = useRef();

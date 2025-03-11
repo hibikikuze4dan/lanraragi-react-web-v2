@@ -118,3 +118,7 @@ export const getSnackbarStatus = createSelector(getReduxState, (state) => {
 export const getLastSearch = createSelector(getReduxState, (state) => {
   return state?.lastSearch ?? SEARCH_PARAMETER_DEFAULTS;
 });
+
+export const getServerInfo = createSelector(getReduxState, (state) => {
+  return state?.serverInfo ?? {};
+});

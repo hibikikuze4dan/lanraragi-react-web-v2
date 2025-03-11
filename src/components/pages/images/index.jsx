@@ -16,7 +16,7 @@ export const ImagesPage = () => {
   const dispatch = useDispatch();
   const { updateAppPage, archiveOpenedFrom } = useAppPages();
   const archiveId = useSelector(getCurrentArchiveId);
-  const { archivePagesAsLinks } = useArchivePages();
+  const { archivePagesAsLinks, getPageLink } = useArchivePages();
   const hasImages = !!archivePagesAsLinks.length;
   const ref = useRef();
 
@@ -47,6 +47,7 @@ export const ImagesPage = () => {
                 topOfImagesSectionRef={ref}
                 imageId={key}
                 imageUrl={page}
+                getPageLink={getPageLink}
               />
             </Grid2>
           );

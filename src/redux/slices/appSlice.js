@@ -24,6 +24,7 @@ const initialState = {
   randomArchives: null,
   searchData: { data: [] },
   searchParameters: SEARCH_PARAMETER_DEFAULTS,
+  serverInfo: {},
   snackbarStatus: SNACKBAR_DEFAULT_STATUS,
 };
 
@@ -101,6 +102,9 @@ const mainSlice = createSlice({
     updateLastSearch: (state, { payload }) => {
       state.lastSearch = payload;
     },
+    updateServerInfo: (state, { payload }) => {
+      state.serverInfo = { ...(payload ?? {}) };
+    },
   },
 });
 
@@ -124,6 +128,7 @@ export const {
   updateSearchArchives,
   updateSnackbarStatus,
   updateLastSearch,
+  updateServerInfo,
 } = mainSlice.actions;
 
 export default mainSlice.reducer;
