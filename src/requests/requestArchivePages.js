@@ -2,6 +2,7 @@ import axios from "axios";
 import { FILES_URL } from "./constants";
 import { createLocalStorageInstance } from "../local-storage";
 import { BASE_URL, HTTP_OR_HTTPS } from "../local-storage/constants";
+import { getAuthorizationHeader } from "../utils/getAuthorizationHeader";
 
 const { get: getBaseUrl } = createLocalStorageInstance(BASE_URL);
 const { get: getHttpOrHttps } = createLocalStorageInstance(HTTP_OR_HTTPS);
@@ -13,6 +14,9 @@ export const requestArchivePages = async (archiveId) => {
     const response = await axios({
       method: "get",
       url: `${getHttpOrHttps()}://${getBaseUrl()}${filesEndpoint}`,
+      headers: {
+        ...getAuthorizationHeader(),
+      },
     });
 
     const { job, pages } = response?.data ?? {};

@@ -2,6 +2,7 @@ import axios from "axios";
 import { RANDOM_URL } from "./constants";
 import { createLocalStorageInstance } from "../local-storage";
 import { BASE_URL, HTTP_OR_HTTPS } from "../local-storage/constants";
+import { getAuthorizationHeader } from "../utils/getAuthorizationHeader";
 
 const { get: getBaseUrl } = createLocalStorageInstance(BASE_URL);
 const { get: getHttpOrHttps } = createLocalStorageInstance(HTTP_OR_HTTPS);
@@ -11,6 +12,9 @@ export const requestRandomArchives = async (count = 10) => {
     const response = await axios({
       method: "get",
       url: `${getHttpOrHttps()}://${getBaseUrl()}${RANDOM_URL}?count=${count}`,
+      headers: {
+        ...getAuthorizationHeader(),
+      },
     });
 
     return [...(response?.data?.data ?? [])];

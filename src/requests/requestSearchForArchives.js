@@ -3,6 +3,7 @@ import { createLocalStorageInstance } from "../local-storage";
 import { BASE_URL, HTTP_OR_HTTPS } from "../local-storage/constants";
 import { SEARCH_URL } from "./constants";
 import { SEARCH_PARAMETER_DEFAULTS } from "../constants";
+import { getAuthorizationHeader } from "../utils/getAuthorizationHeader";
 
 const { get: getBaseUrl } = createLocalStorageInstance(BASE_URL);
 const { get: getHttpOrHttps } = createLocalStorageInstance(HTTP_OR_HTTPS);
@@ -31,6 +32,9 @@ export const requestSearchForArchives = async ({
         ...(untaggedonly !== undefined ? { untaggedonly } : {}),
         ...(newonly !== undefined ? { newonly } : {}),
         ...(category ? { category } : {}),
+      },
+      headers: {
+        ...getAuthorizationHeader(),
       },
     });
 
