@@ -13,6 +13,7 @@ export const ImageButton = ({
   imageUrl,
   imageId,
   getPageLink,
+  index = 0,
 }) => {
   const dispatch = useDispatch();
   const displayAppBar = useSelector(getDisplayAppBar);
@@ -84,7 +85,7 @@ export const ImageButton = ({
         variant="text"
       >
         <img
-          alt={`image ${imageId}`}
+          alt={`image ${index + 1}`}
           ref={imageRef}
           id={`${imageId}-img-id`}
           className="w-full"

@@ -46,6 +46,7 @@ export const ImagesPage = () => {
               <ImageButton
                 topOfImagesSectionRef={ref}
                 imageId={key}
+                index={index}
                 imageUrl={page}
                 getPageLink={getPageLink}
               />

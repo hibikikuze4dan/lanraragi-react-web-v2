@@ -16,6 +16,7 @@ export const ArchiveCard = memo(function ArchiveCard({
   currentPage,
   getNewArchivePages,
   ratingNamespace,
+  index = 0,
 }) {
   const [thumbnailUrl, setThumbnailUrl] = useState("");
   const [triedToGetThumbnail, setTriedToGetThumbnail] = useState(false);
@@ -51,7 +52,7 @@ export const ArchiveCard = memo(function ArchiveCard({
         <CardMedia
           ref={imageRef}
           id={`archive-card-image-${archiveId}`}
-          alt={`archive card image ${archiveId}`}
+          alt={`thumb ${index + 1}`}
           className="w-full h-auto object-contain"
           component="img"
           image={thumbnailUrl}

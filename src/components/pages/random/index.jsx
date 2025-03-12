@@ -34,7 +34,7 @@ export const RandomPage = () => {
         loading={loadingRandomArchives}
         helperText="Loading Random Archives"
       >
-        {randomArchives.map((archive) => {
+        {randomArchives.map((archive, index) => {
           return (
             <Grid2 key={archive?.arcid} size={1}>
               <ArchiveCard
@@ -42,6 +42,7 @@ export const RandomPage = () => {
                 baseUrl={baseUrlWithHttpOrHttps}
                 currentPage={currentPage}
                 getNewArchivePages={getNewArchivePages}
+                index={index}
                 ratingNamespace={ratingNamespace}
               />
             </Grid2>

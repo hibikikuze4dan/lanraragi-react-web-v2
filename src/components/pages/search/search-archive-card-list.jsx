@@ -26,7 +26,7 @@ export const SearchArchiveCardList = memo(function SearchArchiveCardList() {
         helperText="Searching for Archives"
         wrapperClassname="my-30"
       >
-        {archives?.map((archive) => {
+        {archives?.map((archive, index) => {
           return (
             <Grid2 key={archive?.arcid} size={1}>
               <ArchiveCard
@@ -34,6 +34,7 @@ export const SearchArchiveCardList = memo(function SearchArchiveCardList() {
                 baseUrl={baseUrlWithHttpOrHttps}
                 currentPage={currentPage}
                 getNewArchivePages={getNewArchivePages}
+                index={index}
                 ratingNamespace={ratingNamespace}
               />
             </Grid2>

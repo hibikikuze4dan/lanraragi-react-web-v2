@@ -21,7 +21,7 @@ export const HistoryPage = () => {
 
   return (
     <Grid2 id="random-page" container columns={columnsDisplayed} spacing={2}>
-      {history.map((archive) => {
+      {history.map((archive, index) => {
         return (
           <Grid2 key={archive?.arcid} size={1}>
             <ArchiveCard
@@ -29,6 +29,7 @@ export const HistoryPage = () => {
               baseUrl={baseUrlWithHttpOrHttps}
               currentPage={currentPage}
               getNewArchivePages={getNewArchivePages}
+              index={index}
               ratingNamespace={ratingNamespace}
             />
           </Grid2>
