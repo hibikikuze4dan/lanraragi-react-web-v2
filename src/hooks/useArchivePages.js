@@ -3,9 +3,9 @@ import { getArchivePages } from "../redux/selectors";
 import requestArchivePages from "../requests/requestArchivePages";
 import { updateArchivePages } from "../redux/slices/appSlice";
 import { useUrls } from "./useUrls";
-import { requestMinionJobStatus } from "../requests/requestMinionJobStatus";
 import { useServerInfo } from "./useServerInfo";
 import { requestArchivePageBlob } from "../requests/requestArchivePageBlob";
+import { requestMinionUntilFinished } from "../utils/requestMinionUntilFinished";
 
 export const useArchivePages = () => {
   const dispatch = useDispatch();
@@ -17,13 +17,14 @@ export const useArchivePages = () => {
   const getNewArchivePages = async (archiveId) => {
     dispatch(updateArchivePages([]));
     const { pages, job } = await requestArchivePages(archiveId);
-    const { state } = await requestMinionJobStatus({ jobId: job });
 
-    if (state === "finished") {
-      dispatch(updateArchivePages(pages));
-    } else {
-      setTimeout(() => dispatch(updateArchivePages(pages)), 1500);
-    }
+    await requestMinionUntilFinished({
+      jobId: job,
+      callback: () => {
+        dispatch(updateArchivePages(pages));
+      },
+    });
+
     return pages;
   };
 
