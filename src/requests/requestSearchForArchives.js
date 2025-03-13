@@ -4,6 +4,7 @@ import { BASE_URL, HTTP_OR_HTTPS } from "../local-storage/constants";
 import { SEARCH_URL } from "./constants";
 import { SEARCH_PARAMETER_DEFAULTS } from "../constants";
 import { getAuthorizationHeader } from "../utils/getAuthorizationHeader";
+import { trimEnd } from "es-toolkit";
 
 const { get: getBaseUrl } = createLocalStorageInstance(BASE_URL);
 const { get: getHttpOrHttps } = createLocalStorageInstance(HTTP_OR_HTTPS);
@@ -20,11 +21,13 @@ export const requestSearchForArchives = async ({
 } = SEARCH_PARAMETER_DEFAULTS) => {
   const endpoint = SEARCH_URL;
   try {
+    const trimmedFilter = trimEnd(filter).replace(/,$/, "");
+
     const response = await axios({
       method: "get",
       url: `${getHttpOrHttps()}://${getBaseUrl()}${endpoint}`,
       params: {
-        filter,
+        filter: trimmedFilter,
         start,
         sortby,
         order,

@@ -26,7 +26,7 @@ export const MINION_URL = "/api/minion/:jobid";
 
 export const DELETE_ARCHIVE_URL = "/api/archives/:id";
 
-export const TAGS_URL = "/api/database/stats?minweight=1";
+export const DATABASE_STATS = "/api/database/stats";
 
 export const UPDATE_ARCHIVE_THUMBNAIL_URL = "/api/archives/:id/thumbnail";
 

@@ -13,6 +13,7 @@ const initialState = {
   currentArchiveId: "",
   currentSearchParameters: SEARCH_PARAMETER_DEFAULTS,
   currentPage: "random",
+  databaseStats: [],
   dialogActionType: "",
   displayAppBar: true,
   imagesScrollTarget: "",
@@ -105,6 +106,9 @@ const mainSlice = createSlice({
     updateServerInfo: (state, { payload }) => {
       state.serverInfo = { ...(payload ?? {}) };
     },
+    updateDatabaseStats: (state, { payload }) => {
+      state.databaseStats = [...(payload ?? [])];
+    },
   },
 });
 
@@ -129,6 +133,7 @@ export const {
   updateSnackbarStatus,
   updateLastSearch,
   updateServerInfo,
+  updateDatabaseStats,
 } = mainSlice.actions;
 
 export default mainSlice.reducer;

@@ -122,3 +122,7 @@ export const getLastSearch = createSelector(getReduxState, (state) => {
 export const getServerInfo = createSelector(getReduxState, (state) => {
   return state?.serverInfo ?? {};
 });
+
+export const getDatabseStats = createSelector(getReduxState, (state) => {
+  return state?.databaseStats ?? [];
+});

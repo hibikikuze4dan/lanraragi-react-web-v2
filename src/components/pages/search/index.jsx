@@ -3,8 +3,10 @@ import { useColumnsDisplayed } from "../../../hooks/useColumnsDisplayed";
 import { SearchPageButtons } from "./search-page-buttons";
 import { SearchAccordion } from "./search-accordion";
 import { SearchArchiveCardList } from "./search-archive-card-list";
+import { useDatabaseStats } from "../../../hooks/useDatabaseStats";
 
 export const SearchPage = () => {
+  useDatabaseStats(true);
   const { columnsDisplayed } = useColumnsDisplayed();
 
   return (

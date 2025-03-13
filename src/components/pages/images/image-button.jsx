@@ -7,14 +7,15 @@ import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getDisplayAppBar } from "../../../redux/selectors";
 import clsx from "clsx";
+import { IMAGE_BUTTON_CLASSNAME } from "../../../classnames";
 
 export const ImageButton = ({
   imageUrl,
   imageId,
   getPageLink,
   index = 0,
-  setImagesToDisplay,
-  imagesToDisplay,
+  setIntersectingImageRef,
+  imagesToDisplay = 0,
 }) => {
   const dispatch = useDispatch();
   const displayAppBar = useSelector(getDisplayAppBar);
@@ -23,7 +24,6 @@ export const ImageButton = ({
   const [maxWidth, setMaxWidth] = useState("100%");
   const hasImageLoaded = maxWidth === "100%";
   const imageRef = useRef();
-  const isLastImageOfGroup = index === imagesToDisplay - 1;
 
   useEffect(() => {
     if (!url && !triedToGetUrl) {
@@ -40,12 +40,13 @@ export const ImageButton = ({
     dispatch(updateImagesScrollTarget(`#${eventTargetId}`));
   };
 
-  const onImageLoad = () => {
+  const onImageLoad = (event) => {
     if (imageRef?.current) {
       setMaxWidth(`${imageRef.current?.naturalWidth}px`);
     }
-    if (isLastImageOfGroup) {
-      setImagesToDisplay(imagesToDisplay + 5);
+
+    if ([imagesToDisplay - 5, imagesToDisplay].includes(index)) {
+      setIntersectingImageRef(event?.target);
     }
   };
 
@@ -55,6 +56,7 @@ export const ImageButton = ({
         id={`${imageId}-button-id`}
         className={clsx(
           "px-0",
+          IMAGE_BUTTON_CLASSNAME,
           hasImageLoaded && "min-h-400 flex content-start items-start"
         )}
         onClick={onImageClick}
@@ -62,10 +64,11 @@ export const ImageButton = ({
       >
         <img
           alt={`image ${index + 1}`}
-          ref={imageRef}
+          ref={(ref) => {
+            imageRef.current = ref;
+          }}
           id={`${imageId}-img-id`}
           className="w-full"
-          loading={isLastImageOfGroup ? "lazy" : "eager"}
           src={url}
           width={1200}
           height={1600}

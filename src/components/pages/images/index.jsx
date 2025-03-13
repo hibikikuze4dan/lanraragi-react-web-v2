@@ -2,7 +2,7 @@ import { Button, Grid2, useMediaQuery } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentArchiveId } from "../../../redux/selectors";
 import { useArchivePages } from "../../../hooks/useArchivePages";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { ImageButton } from "./image-button";
 import { LoadingSpinner } from "../../loading-spinner";
 import { CategoriesSelect } from "../../categories-select";
@@ -10,6 +10,7 @@ import { updateDisplayAppBar } from "../../../redux/slices/appSlice";
 import { ImagePageRating } from "./image-page-rating";
 import clsx from "clsx";
 import { useAppPages } from "../../../hooks/useAppPages";
+import { useImageObserverRef } from "../../../hooks/useImageObserverRef";
 
 export const ImagesPage = () => {
   const isSvp = useMediaQuery((theme) => theme.breakpoints.down("sm"));
@@ -17,9 +18,11 @@ export const ImagesPage = () => {
   const { updateAppPage, archiveOpenedFrom } = useAppPages();
   const archiveId = useSelector(getCurrentArchiveId);
   const { archivePagesAsLinks, getPageLink } = useArchivePages();
-  const [imagesToDisplay, setImagesToDisplay] = useState(5);
   const hasImages = !!archivePagesAsLinks.length;
-  const ref = useRef();
+  const ref = useRef(null);
+  const containerRef = useRef(null);
+  const { imagesToDisplay, setIntersectingImageRef } =
+    useImageObserverRef(containerRef);
   const archiveImagesToDisplay = archivePagesAsLinks.slice(0, imagesToDisplay);
 
   const onClick = () => {
@@ -34,7 +37,13 @@ export const ImagesPage = () => {
   }, [hasImages]);
 
   return (
-    <Grid2 id="images-page" container spacing={2} justifyContent="center">
+    <Grid2
+      ref={containerRef}
+      id="images-page"
+      container
+      spacing={2}
+      justifyContent="center"
+    >
       <Grid2 size={12} id="images-start" ref={ref} />
       <LoadingSpinner
         helperText="Loading Archive Images"
@@ -51,7 +60,7 @@ export const ImagesPage = () => {
                 imageUrl={page}
                 getPageLink={getPageLink}
                 imagesToDisplay={imagesToDisplay}
-                setImagesToDisplay={setImagesToDisplay}
+                setIntersectingImageRef={setIntersectingImageRef}
               />
             </Grid2>
           );
