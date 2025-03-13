@@ -1,20 +1,11 @@
 import { Button } from "@mui/material";
-import { createLocalStorageInstance } from "../../local-storage";
-import { HTTP_OR_HTTPS } from "../../local-storage/constants";
-import { useState } from "react";
-
-const { get, set } = createLocalStorageInstance(HTTP_OR_HTTPS);
+import { useUrls } from "../../hooks/useUrls";
 
 export const HTTPToggleButton = () => {
-  const [httpOrHttps, setHttpOrHttps] = useState(get() ?? "");
-
-  const isHttp = httpOrHttps === "http";
-  const copy = isHttp ? "http" : "https";
+  const { httpOrHttps, updateHttpOrHttps } = useUrls();
 
   const onClick = () => {
-    const value = isHttp ? "https" : "http";
-    set(value);
-    setHttpOrHttps(value);
+    updateHttpOrHttps(httpOrHttps);
   };
 
   return (
@@ -25,7 +16,7 @@ export const HTTPToggleButton = () => {
       onClick={onClick}
       variant="outlined"
     >
-      {copy}
+      {httpOrHttps}
     </Button>
   );
 };

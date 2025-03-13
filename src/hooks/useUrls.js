@@ -4,16 +4,30 @@ import { BASE_URL, HTTP_OR_HTTPS } from "../local-storage/constants";
 
 const { get: getBaseUrl, set: setBaseUrl } =
   createLocalStorageInstance(BASE_URL);
-const { get: getHttpOrHttps } = createLocalStorageInstance(HTTP_OR_HTTPS);
+const { get: getHttpOrHttps, set: setHttpOrHttps } =
+  createLocalStorageInstance(HTTP_OR_HTTPS);
 
 export const useUrls = () => {
   const [baseUrl, setBaseUrlState] = useState(getBaseUrl());
-  const [httpOrHttps] = useState(getHttpOrHttps());
+  const [httpOrHttps, setHttpOrHttpsState] = useState(
+    getHttpOrHttps() ?? "http"
+  );
   const baseUrlWithHttpOrHttps = `${httpOrHttps}://${baseUrl}`;
 
   const updateBaseUrl = (newBaseUrl = "") => {
-    setBaseUrl(newBaseUrl ?? "");
-    setBaseUrlState(newBaseUrl ?? "");
+    if (newBaseUrl) {
+      setBaseUrl(newBaseUrl ?? "");
+      setBaseUrlState(newBaseUrl ?? "");
+    }
+  };
+
+  const updateHttpOrHttps = (currentValue) => {
+    if (!currentValue) {
+      return;
+    }
+    const newHttpOrHttpsValue = currentValue === "http" ? "https" : "http";
+    setHttpOrHttps(newHttpOrHttpsValue);
+    setHttpOrHttpsState(newHttpOrHttpsValue);
   };
 
   return {
@@ -21,5 +35,6 @@ export const useUrls = () => {
     baseUrlWithHttpOrHttps,
     httpOrHttps,
     updateBaseUrl,
+    updateHttpOrHttps,
   };
 };

@@ -3,25 +3,27 @@ import {
   updateDisplayAppBar,
   updateImagesScrollTarget,
 } from "../../../redux/slices/appSlice";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getDisplayAppBar } from "../../../redux/selectors";
 import clsx from "clsx";
 
 export const ImageButton = ({
-  topOfImagesSectionRef,
   imageUrl,
   imageId,
   getPageLink,
   index = 0,
+  setImagesToDisplay,
+  imagesToDisplay,
 }) => {
   const dispatch = useDispatch();
   const displayAppBar = useSelector(getDisplayAppBar);
-  const [url, setUrl] = useState("");
+  const [url, setUrl] = useState(null);
   const [triedToGetUrl, setTriedToGetUrl] = useState(false);
   const [maxWidth, setMaxWidth] = useState("100%");
   const hasImageLoaded = maxWidth === "100%";
   const imageRef = useRef();
+  const isLastImageOfGroup = index === imagesToDisplay - 1;
 
   useEffect(() => {
     if (!url && !triedToGetUrl) {
@@ -32,44 +34,18 @@ export const ImageButton = ({
     }
   }, [getPageLink, imageUrl, triedToGetUrl, url]);
 
-  const scrollToTargetImage = useCallback(
-    ({ imagesScrollTarget, topOfImagesSectionRef }) => {
-      try {
-        if (!imagesScrollTarget) {
-          topOfImagesSectionRef?.current?.scrollIntoView({
-            behavior: "instant",
-            block: "start",
-          });
-        } else {
-          document
-            .querySelector(imagesScrollTarget)
-            ?.scrollIntoView({ behavior: "instant", block: "start" });
-        }
-      } catch (err) {
-        console.log(
-          `Something went wrong while trying to scroll to image page element: ${err}`
-        );
-        return;
-      }
-    },
-    []
-  );
-
   const onImageClick = (event) => {
     const eventTargetId = event?.target?.id;
     dispatch(updateDisplayAppBar(!displayAppBar));
     dispatch(updateImagesScrollTarget(`#${eventTargetId}`));
-    setTimeout(() => {
-      scrollToTargetImage({
-        imagesScrollTarget: `#${eventTargetId}`,
-        topOfImagesSectionRef,
-      });
-    }, 250);
   };
 
   const onImageLoad = () => {
     if (imageRef?.current) {
       setMaxWidth(`${imageRef.current?.naturalWidth}px`);
+    }
+    if (isLastImageOfGroup) {
+      setImagesToDisplay(imagesToDisplay + 5);
     }
   };
 
@@ -89,7 +65,7 @@ export const ImageButton = ({
           ref={imageRef}
           id={`${imageId}-img-id`}
           className="w-full"
-          loading="lazy"
+          loading={isLastImageOfGroup ? "lazy" : "eager"}
           src={url}
           width={1200}
           height={1600}

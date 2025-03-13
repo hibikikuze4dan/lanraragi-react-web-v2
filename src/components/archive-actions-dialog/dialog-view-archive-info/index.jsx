@@ -8,7 +8,7 @@ import { ArchiveInfoTags } from "./archive-info-tags";
 export const DialogViewArchiveInfo = ({ closeDialog }) => {
   const { archive } = useCurrentArchive();
   const { getCategoriesByArchvie } = useCategories({ initLoad: true });
-  const { title, filename, arcid, tags } = archive ?? {};
+  const { title, filename, arcid, tags, pagecount } = archive ?? {};
 
   const categories = useMemo(
     () => getCategoriesByArchvie({ archiveId: arcid }),
@@ -37,6 +37,14 @@ export const DialogViewArchiveInfo = ({ closeDialog }) => {
             </Grid2>
             <Grid2 size={{ xs: 12, md: 9 }}>
               <Typography className="break-all">{arcid ?? ""}</Typography>
+            </Grid2>
+            <Grid2 size={{ xs: 12, md: 3 }}>
+              <Typography>Pages:</Typography>
+            </Grid2>
+            <Grid2 size={{ xs: 12, md: 9 }}>
+              <Typography className="break-all">
+                {pagecount ?? "Unknown"}
+              </Typography>
             </Grid2>
           </Grid2>
         </Grid2>

@@ -2,7 +2,7 @@ import { Button, Grid2, useMediaQuery } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentArchiveId } from "../../../redux/selectors";
 import { useArchivePages } from "../../../hooks/useArchivePages";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ImageButton } from "./image-button";
 import { LoadingSpinner } from "../../loading-spinner";
 import { CategoriesSelect } from "../../categories-select";
@@ -17,8 +17,10 @@ export const ImagesPage = () => {
   const { updateAppPage, archiveOpenedFrom } = useAppPages();
   const archiveId = useSelector(getCurrentArchiveId);
   const { archivePagesAsLinks, getPageLink } = useArchivePages();
+  const [imagesToDisplay, setImagesToDisplay] = useState(5);
   const hasImages = !!archivePagesAsLinks.length;
   const ref = useRef();
+  const archiveImagesToDisplay = archivePagesAsLinks.slice(0, imagesToDisplay);
 
   const onClick = () => {
     dispatch(updateDisplayAppBar(true));
@@ -39,16 +41,17 @@ export const ImagesPage = () => {
         loading={!hasImages}
         size={200}
       >
-        {archivePagesAsLinks.map((page, index) => {
+        {archiveImagesToDisplay.map((page, index) => {
           const key = `img-${archiveId}-${index + 1}`;
           return (
             <Grid2 size={12} key={key}>
               <ImageButton
-                topOfImagesSectionRef={ref}
                 imageId={key}
                 index={index}
                 imageUrl={page}
                 getPageLink={getPageLink}
+                imagesToDisplay={imagesToDisplay}
+                setImagesToDisplay={setImagesToDisplay}
               />
             </Grid2>
           );
