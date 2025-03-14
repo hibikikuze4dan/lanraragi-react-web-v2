@@ -18,11 +18,13 @@ export const ImagesPage = () => {
   const { updateAppPage, archiveOpenedFrom } = useAppPages();
   const archiveId = useSelector(getCurrentArchiveId);
   const { archivePagesAsLinks, getPageLink } = useArchivePages();
-  const hasImages = !!archivePagesAsLinks.length;
+  const numOfImages = archivePagesAsLinks?.length ?? 0;
+  const hasImages = !!numOfImages;
   const ref = useRef(null);
   const containerRef = useRef(null);
-  const { imagesToDisplay, setIntersectingImageRef } =
-    useImageObserverRef(containerRef);
+  const { imagesToDisplay, setIntersectingImageRef } = useImageObserverRef(
+    numOfImages ?? 0
+  );
   const archiveImagesToDisplay = archivePagesAsLinks.slice(0, imagesToDisplay);
 
   const onClick = () => {
@@ -76,6 +78,7 @@ export const ImagesPage = () => {
           </Grid2>
           <Grid2 size={12}>
             <Button
+              id="image-page-previous-page-button"
               fullWidth
               variant="outlined"
               className="py-4 mt-25 mb-75"
@@ -86,6 +89,7 @@ export const ImagesPage = () => {
           </Grid2>
         </Grid2>
       </Grid2>
+      <Grid2 size={12} id="images-end" />
     </Grid2>
   );
 };
