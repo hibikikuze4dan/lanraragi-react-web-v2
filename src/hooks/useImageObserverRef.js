@@ -25,9 +25,7 @@ export const useImageObserverRef = (pages = 0) => {
   useEffect(() => {
     const images = document.querySelectorAll(`.${IMAGE_BUTTON_CLASSNAME}`);
 
-    const previousPageButton = document.getElementById(
-      "image-page-previous-page-button"
-    );
+    const previousPageButton = document.getElementById("images-end");
 
     if (images.length > 5) {
       imagesObserverRef.current?.observe(images[images.length - 5]);

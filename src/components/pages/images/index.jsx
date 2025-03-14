@@ -5,7 +5,6 @@ import { useArchivePages } from "../../../hooks/useArchivePages";
 import { useEffect, useRef } from "react";
 import { ImageButton } from "./image-button";
 import { LoadingSpinner } from "../../loading-spinner";
-import { CategoriesSelect } from "../../categories-select";
 import { updateDisplayAppBar } from "../../../redux/slices/appSlice";
 import { ImagePageRating } from "./image-page-rating";
 import clsx from "clsx";
@@ -70,18 +69,15 @@ export const ImagesPage = () => {
       </LoadingSpinner>
       <Grid2 className={clsx(isSvp && "px-2")} size={12}>
         <Grid2 className={clsx(!isSvp && "px-20")} container spacing={8}>
-          <Grid2 alignContent="center" size={{ xs: 12, md: 6 }}>
+          <Grid2 alignContent="center" size={{ xs: 12, md: 12 }}>
             <ImagePageRating />
-          </Grid2>
-          <Grid2 size={{ xs: 12, md: 6 }}>
-            <CategoriesSelect archiveId={archiveId} />
           </Grid2>
           <Grid2 size={12}>
             <Button
               id="image-page-previous-page-button"
               fullWidth
               variant="outlined"
-              className="py-4 mt-25 mb-75"
+              className="py-4 mt-5 mb-50"
               onClick={onClick}
             >
               Return to Previous Page
