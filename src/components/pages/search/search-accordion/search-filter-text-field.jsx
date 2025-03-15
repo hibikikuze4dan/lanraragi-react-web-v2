@@ -17,8 +17,12 @@ export const SearchFilterTextField = () => {
 
   const onAutocompleteChange = (event, value) => {
     const filters = filter.split(", ");
-    filters[filters.length - 1] = value;
-    const newValue = `${filters.join(", ")}, `;
+
+    if (value) {
+      filters[filters.length - 1] = value;
+    }
+
+    const newValue = `${filters.join(", ")}${value ? ", " : ""}`;
     handleUpdateSearchParameters({ filter: newValue });
   };
 
