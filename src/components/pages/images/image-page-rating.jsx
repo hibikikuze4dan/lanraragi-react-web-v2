@@ -1,4 +1,4 @@
-import { Alert, Grid2, Rating, TextField, Typography } from "@mui/material";
+import { Grid2, Rating, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { useArchiveRating } from "../../../hooks/useArchiveRating";
 import { isMobile } from "react-device-detect";
@@ -6,7 +6,7 @@ import { isMobile } from "react-device-detect";
 export const ImagePageRating = () => {
   const isDesktopDevice = !isMobile;
   const [selectValue, setSelectValue] = useState(0);
-  const { updateArchiveRating, updateRatingResponse } = useArchiveRating();
+  const { updateArchiveRating } = useArchiveRating();
 
   const handleRatingValueUpdate = (value) => {
     setSelectValue(Number(value));
@@ -21,10 +21,6 @@ export const ImagePageRating = () => {
     const value = event?.target?.value;
     handleRatingValueUpdate(value);
   };
-
-  const { success, successMessage } = updateRatingResponse;
-
-  const responseHasValues = ![success, successMessage].includes(undefined);
 
   return (
     <Grid2 id="rating-component" container spacing={1}>
@@ -66,15 +62,6 @@ export const ImagePageRating = () => {
               );
             })}
           </TextField>
-        </Grid2>
-      )}
-      {responseHasValues && (
-        <Grid2 size={12}>
-          <Alert severity={success ? "success" : "error"} variant="filled">
-            <Typography>
-              {successMessage.replace(/&quot;/g, '"').replace(/&#39;/g, "'")}
-            </Typography>
-          </Alert>
         </Grid2>
       )}
     </Grid2>
