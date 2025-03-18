@@ -28,7 +28,7 @@ export const requestSearchForArchives = async ({
       url: `${getHttpOrHttps()}://${getBaseUrl()}${endpoint}`,
       params: {
         filter: trimmedFilter,
-        start,
+        start: `${start}`,
         sortby,
         order,
         groupby_tanks,

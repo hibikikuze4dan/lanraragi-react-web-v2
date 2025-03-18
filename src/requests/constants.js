@@ -31,3 +31,5 @@ export const DATABASE_STATS = "/api/database/stats";
 export const UPDATE_ARCHIVE_THUMBNAIL_URL = "/api/archives/:id/thumbnail";
 
 export const SERVER_INFO_URL = "/api/info";
+
+export const SEARCH_CACHE_URL = "/api/search/cache";

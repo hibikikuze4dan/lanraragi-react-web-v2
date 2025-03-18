@@ -2,6 +2,7 @@ import { BaseUrlSetter } from "../../base-url-setter";
 import { ArchivesRenderedSetting } from "./archives-rendered-setting";
 import { BearerTokenSetting } from "./bearer-token-setting";
 import { ColumnsDisplayedSetting } from "./columns-displayed-setting";
+import { DeleteSearchCacheButton } from "./delete-search-cache-button";
 import { RatingNamespaceSetting } from "./rating-namespace-setting";
 
 export const SETTINGS_TO_DISPLAY = [
@@ -32,5 +33,11 @@ export const SETTINGS_TO_DISPLAY = [
     description:
       "The namsespace that archive ratings are saved with (Ex: Rating:4.5)",
     component: RatingNamespaceSetting,
+  },
+  {
+    title: "Reset Search Cache",
+    component: DeleteSearchCacheButton,
+    description:
+      "Delete the search cache for LANraragi. Potentially helpful if you are having trouble with search data.",
   },
 ];
