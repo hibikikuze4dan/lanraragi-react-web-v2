@@ -22,11 +22,14 @@ export const DELETE_ARCHIVE = "delete_archive";
 
 export const REGENERATE_ARCHIVE_THUMBNAIL = "regenerate_archive_thumbnail";
 
+export const USE_PLUGIN_ON_ARCHIVE = "use_plugin_on_archive";
+
 export const MORE_ARCHIVE_ACTIONS = [
   VIEW_ARCHIVE_INFO,
   UPDATE_ARCHIVE_METADATA,
   UPDATE_ARCHIVE_CATEGORY,
   REGENERATE_ARCHIVE_THUMBNAIL,
+  USE_PLUGIN_ON_ARCHIVE,
   DELETE_ARCHIVE,
 ];
 
