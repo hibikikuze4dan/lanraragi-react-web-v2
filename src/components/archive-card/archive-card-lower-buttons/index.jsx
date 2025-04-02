@@ -28,9 +28,9 @@ export const ArchiveCardLowerButtons = ({
   const moreButtonRef = useRef();
   const moreButtonId = `archive-more-button-${archiveId}`;
   const isDesktopDevice = isDesktop;
-
+  const isHistoryPage = currentPage === HISTORY;
   const onReadButtonClick = async () => {
-    if (currentPage !== HISTORY) {
+    if (!isHistoryPage) {
       addArchiveToHistory(archive);
     }
 
@@ -61,7 +61,7 @@ export const ArchiveCardLowerButtons = ({
       spacing={1}
       sx={BUTTON_INHERIT_BACKGROUND}
     >
-      <Grid2 size={6}>
+      <Grid2 size={isHistoryPage ? 12 : 6}>
         <Button
           fullWidth
           startIcon={<AutoStories />}
@@ -71,25 +71,27 @@ export const ArchiveCardLowerButtons = ({
           Read
         </Button>
       </Grid2>
-      <Grid2 size={6}>
-        <Button
-          aria-label={`More options for archive ${archive?.title ?? ""}`}
-          id={moreButtonId}
-          fullWidth
-          ref={moreButtonRef}
-          onClick={onMoreButtonClick}
-          variant="text"
-        >
-          <MoreHoriz />
-        </Button>
-        <ArchiveCardMenu
-          archive={archive}
-          menuOpen={menuOpen}
-          moreButtonId={moreButtonId}
-          anchorEl={moreButtonRef?.current}
-          handleMenuClose={handleMenuClose}
-        />
-      </Grid2>
+      {!isHistoryPage && (
+        <Grid2 size={6}>
+          <Button
+            aria-label={`More options for archive ${archive?.title ?? ""}`}
+            id={moreButtonId}
+            fullWidth
+            ref={moreButtonRef}
+            onClick={onMoreButtonClick}
+            variant="text"
+          >
+            <MoreHoriz />
+          </Button>
+          <ArchiveCardMenu
+            archive={archive}
+            menuOpen={menuOpen}
+            moreButtonId={moreButtonId}
+            anchorEl={moreButtonRef?.current}
+            handleMenuClose={handleMenuClose}
+          />
+        </Grid2>
+      )}
     </Grid2>
   );
 };
