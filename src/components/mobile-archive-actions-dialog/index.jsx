@@ -62,15 +62,16 @@ export const MobileArchiveActionsDialog = () => {
           const IconComponent = ARCHIVE_ACTION_ICONS?.[action] ?? Error;
 
           return (
-            <Grid2 key={action} size={6}>
+            <Grid2 key={action} size={{ xs: 12, sm: 6 }}>
               <Button
                 id={`mobile-archive-dialog-item-${action}`}
-                className="capitalize"
+                className="capitalize min-h-[44px]"
                 fullWidth
                 onClick={onClick}
+                variant="outlined"
               >
                 <Grid2 container spacing={2}>
-                  <Grid2 size="auto">
+                  <Grid2 alignContent="center" size="auto">
                     <IconComponent />
                   </Grid2>
                   <Grid2 size="grow">
