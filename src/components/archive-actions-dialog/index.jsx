@@ -5,6 +5,7 @@ import Close from "@mui/icons-material/Close";
 import {
   BUTTON_INHERIT_BACKGROUND,
   DELETE_ARCHIVE,
+  UNDERSCORE_REGEX,
   UPDATE_ARCHIVE_CATEGORY,
   UPDATE_ARCHIVE_METADATA,
   VIEW_ARCHIVE_INFO,
@@ -33,7 +34,7 @@ export const ArchiveActionsDialog = ({ actionType }) => {
     <Grid2 container>
       <Grid2 className="content-center" size="grow">
         <Typography className="capitalize">
-          {actionType?.replace(/_/g, " ")}
+          {actionType?.replace(UNDERSCORE_REGEX, " ")}
         </Typography>
       </Grid2>
       <Grid2 size="auto" sx={BUTTON_INHERIT_BACKGROUND}>

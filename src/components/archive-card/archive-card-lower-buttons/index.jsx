@@ -11,6 +11,8 @@ import { useRef, useState } from "react";
 import { ArchiveCardMenu } from "./archive-card-menu";
 import { useArchiveHistory } from "../../../hooks/useArchiveHistory";
 import useAppPages from "../../../hooks/useAppPages";
+import { isDesktop } from "react-device-detect";
+import useOpenDialogs from "../../../hooks/useOpenDialogs";
 
 export const ArchiveCardLowerButtons = ({
   archive,
@@ -21,9 +23,11 @@ export const ArchiveCardLowerButtons = ({
   const dispatch = useDispatch();
   const { updateAppPage } = useAppPages();
   const { addArchiveToHistory } = useArchiveHistory();
+  const { changeDialogState } = useOpenDialogs();
   const [menuOpen, setMenuOpen] = useState(false);
   const moreButtonRef = useRef();
   const moreButtonId = `archive-more-button-${archiveId}`;
+  const isDesktopDevice = isDesktop;
 
   const onReadButtonClick = async () => {
     if (currentPage !== HISTORY) {
@@ -37,8 +41,12 @@ export const ArchiveCardLowerButtons = ({
   };
 
   const onMoreButtonClick = () => {
-    setMenuOpen(true);
     dispatch(updateCurrentArchiveId(archiveId));
+    if (isDesktopDevice) {
+      setMenuOpen(true);
+    } else {
+      changeDialogState({ dialogKey: "mobileActions", isOpen: true });
+    }
   };
 
   const handleMenuClose = () => {

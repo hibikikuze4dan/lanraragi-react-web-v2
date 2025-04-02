@@ -1,27 +1,13 @@
 import { Grid2, Menu, MenuItem } from "@mui/material";
 import {
-  DELETE_ARCHIVE,
   MORE_ARCHIVE_ACTIONS,
   REGENERATE_ARCHIVE_THUMBNAIL,
-  UPDATE_ARCHIVE_CATEGORY,
-  UPDATE_ARCHIVE_METADATA,
-  VIEW_ARCHIVE_INFO,
+  UNDERSCORE_REGEX,
 } from "../../../constants";
 import { useArchiveActionsDialogLogic } from "../../../hooks/useArchiveActionsDialogLogic";
-import Info from "@mui/icons-material/Info";
-import Tag from "@mui/icons-material/Tag";
-import Label from "@mui/icons-material/Label";
-import Image from "@mui/icons-material/Image";
-import Delete from "@mui/icons-material/Delete";
 import { useRegenerateThumbnail } from "../../../hooks/useRegenerateThumbnail";
-
-const MENU_ITEM_ICONS = {
-  [VIEW_ARCHIVE_INFO]: Info,
-  [UPDATE_ARCHIVE_METADATA]: Tag,
-  [UPDATE_ARCHIVE_CATEGORY]: Label,
-  [REGENERATE_ARCHIVE_THUMBNAIL]: Image,
-  [DELETE_ARCHIVE]: Delete,
-};
+import { ARCHIVE_ACTION_ICONS } from "../../constants";
+import Error from "@mui/icons-material/Error";
 
 export const ArchiveCardMenu = ({
   archive,
@@ -55,7 +41,7 @@ export const ArchiveCardMenu = ({
     >
       {MORE_ARCHIVE_ACTIONS.map((action) => {
         const onMenuItemClick = onMenuItemClickFactory(action);
-        const IconComponent = MENU_ITEM_ICONS[action];
+        const IconComponent = ARCHIVE_ACTION_ICONS?.[action] ?? Error;
 
         return (
           <MenuItem
@@ -68,7 +54,9 @@ export const ArchiveCardMenu = ({
               <Grid2 size="auto">
                 <IconComponent />
               </Grid2>
-              <Grid2 size="grow">{action?.replace(/_/g, " ")}</Grid2>
+              <Grid2 size="grow">
+                {action?.replace(UNDERSCORE_REGEX, " ")}
+              </Grid2>
             </Grid2>
           </MenuItem>
         );

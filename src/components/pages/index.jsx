@@ -20,6 +20,7 @@ import { useArchiveActionsDialogLogic } from "../../hooks/useArchiveActionsDialo
 import { Snackbar } from "../snackbar";
 import { HistoryPage } from "./history";
 import { useServerInfo } from "../../hooks/useServerInfo";
+import { MobileArchiveActionsDialog } from "../mobile-archive-actions-dialog";
 
 const PAGE_COMPONENTS = {
   [RANDOM]: RandomPage,
@@ -55,6 +56,7 @@ export const Pages = () => {
           <PageComponent />
         </Box>
         <ArchiveActionsDialog actionType={dialogActionType} />
+        <MobileArchiveActionsDialog />
         <Snackbar />
       </UrlPage>
     </Grid2>

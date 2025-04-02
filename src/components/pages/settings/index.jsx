@@ -15,7 +15,7 @@ export const SettingsPage = () => {
     >
       {SETTINGS_TO_DISPLAY.map((setting) => {
         const settingTitle = setting?.title ?? "";
-        const Component = setting?.component;
+        const Component = setting?.component ?? Grid2;
         return (
           <Grid2 className="pb-4 border-b" key={settingTitle} size={12}>
             <SettingWrapper

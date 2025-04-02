@@ -126,3 +126,7 @@ export const getServerInfo = createSelector(getReduxState, (state) => {
 export const getDatabseStats = createSelector(getReduxState, (state) => {
   return state?.databaseStats ?? [];
 });
+
+export const getOpenDialogs = createSelector(getReduxState, (state) => {
+  return state?.openDialogs ?? {};
+});

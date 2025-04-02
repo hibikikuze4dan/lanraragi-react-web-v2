@@ -22,6 +22,9 @@ const initialState = {
   lastSearch: JSON.stringify(SEARCH_PARAMETER_DEFAULTS),
   loadingRandomArchives: false,
   loadingSearchArchives: false,
+  openDialogs: {
+    mobileActions: false,
+  },
   randomArchives: null,
   searchData: { data: [] },
   searchParameters: SEARCH_PARAMETER_DEFAULTS,
@@ -109,6 +112,9 @@ const mainSlice = createSlice({
     updateDatabaseStats: (state, { payload }) => {
       state.databaseStats = [...(payload ?? [])];
     },
+    updateOpenDialogs: (state, { payload }) => {
+      state.openDialogs = { ...state.openDialogs, ...(payload ?? {}) };
+    },
   },
 });
 
@@ -134,6 +140,7 @@ export const {
   updateLastSearch,
   updateServerInfo,
   updateDatabaseStats,
+  updateOpenDialogs,
 } = mainSlice.actions;
 
 export default mainSlice.reducer;

@@ -29,7 +29,6 @@ export const MORE_ARCHIVE_ACTIONS = [
   UPDATE_ARCHIVE_METADATA,
   UPDATE_ARCHIVE_CATEGORY,
   REGENERATE_ARCHIVE_THUMBNAIL,
-  USE_PLUGIN_ON_ARCHIVE,
   DELETE_ARCHIVE,
 ];
 
@@ -86,3 +85,5 @@ export const BUTTON_INHERIT_BACKGROUND = {
     backgroundColor: "inherit",
   },
 };
+
+export const UNDERSCORE_REGEX = /_/g;
