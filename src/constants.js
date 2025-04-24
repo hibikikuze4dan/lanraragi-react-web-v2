@@ -87,3 +87,12 @@ export const BUTTON_INHERIT_BACKGROUND = {
 };
 
 export const UNDERSCORE_REGEX = /_/g;
+
+export const SINGLE_PAGE_VIEW_MODE = "single_page";
+
+export const SCROLLING_PAGE_VIEW_MODE = "infinite_scroll";
+
+export const VIEW_MODES_FOR_ARCHIVE_IMAGES = [
+  SINGLE_PAGE_VIEW_MODE,
+  SCROLLING_PAGE_VIEW_MODE,
+];

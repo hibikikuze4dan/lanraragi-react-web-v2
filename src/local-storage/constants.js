@@ -13,3 +13,5 @@ export const LAST_SEARCH = "LAST_SEARCH";
 export const BEARER_TOKEN = "BEARER_TOKEN";
 
 export const ARCHIVE_HISTORY = "ARCHIVE_HISTORY";
+
+export const IMAGES_VIEW_MODE = "IMAGES_VIEW_MODE";

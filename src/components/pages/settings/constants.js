@@ -3,6 +3,7 @@ import { ArchivesRenderedSetting } from "./archives-rendered-setting";
 import { BearerTokenSetting } from "./bearer-token-setting";
 import { ColumnsDisplayedSetting } from "./columns-displayed-setting";
 import { DeleteSearchCacheButton } from "./delete-search-cache-button";
+import { ImagesViewMode } from "./images-view-mode";
 import { RatingNamespaceSetting } from "./rating-namespace-setting";
 
 export const SETTINGS_TO_DISPLAY = [
@@ -27,6 +28,12 @@ export const SETTINGS_TO_DISPLAY = [
     description:
       "The amount of archives displayed on the random and search results page.",
     component: ArchivesRenderedSetting,
+  },
+  {
+    title: "Images View Mode",
+    description:
+      "Determines the way archive images are displayed when reading an archive.",
+    component: ImagesViewMode,
   },
   {
     title: "Rating Namespace",
