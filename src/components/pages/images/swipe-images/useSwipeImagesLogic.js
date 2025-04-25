@@ -10,8 +10,9 @@ export const useSwipeImagesLogic = () => {
   const dispatch = useDispatch();
   const displayAppBar = useSelector(getDisplayAppBar);
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
+  const [loadedImage, setLoadedIamge] = useState(false);
   const { archivePagesAsLinks, getPageLink } = useArchivePages();
-  const loadedImagesSet = useRef(new Set());
+  const loadedImagesSet = useRef(new Map());
   const hasImages = archivePagesAsLinks?.length ?? false;
   const doneWithImages =
     currentPageIndex >= (archivePagesAsLinks?.length ?? 0) && hasImages;
@@ -19,12 +20,13 @@ export const useSwipeImagesLogic = () => {
 
   const preloadNext = async () => {
     for (let i = 1; i <= 3; i++) {
+      const preloadPageUrl = archivePagesAsLinks?.[preloadIndex] ?? "";
       const preloadIndex = currentPageIndex + i;
-      const src = await getPageLink(archivePagesAsLinks?.[preloadIndex] ?? "");
-      if (src && !loadedImagesSet?.current?.has?.(src)) {
+      const src = await getPageLink(preloadPageUrl);
+      if (src && !loadedImagesSet?.current?.has?.(preloadPageUrl)) {
         try {
           await preloadImage(src);
-          loadedImagesSet?.current?.add?.(src);
+          loadedImagesSet?.current?.set?.(preloadPageUrl, src);
         } catch (err) {
           console.warn(`Failed to preload: ${src}\nError: ${err}`);
         }
@@ -37,11 +39,13 @@ export const useSwipeImagesLogic = () => {
     if (!doneWithImages) {
       setCurrentPageIndex((index) => index + 1);
     }
+    setLoadedIamge(false);
   };
   const previousImage = () => {
     if (currentPageIndex !== 0) {
       setCurrentPageIndex((index) => index - 1);
     }
+    setLoadedIamge(false);
   };
 
   const handlers = useSwipeable({
@@ -68,6 +72,8 @@ export const useSwipeImagesLogic = () => {
     hasImages,
     previousImage,
     nextImage,
+    loadedImage,
+    setLoadedIamge,
   };
 };
 

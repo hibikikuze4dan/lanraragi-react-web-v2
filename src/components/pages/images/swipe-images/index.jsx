@@ -18,14 +18,28 @@ export const SwipeImages = () => {
     previousImage,
     onCenterClick,
     nextImage,
+    loadedImage,
+    setLoadedIamge,
   } = useSwipeImagesLogic();
 
   useEffect(() => {
     const updateCurrentPage = async () => {
-      setCurrentPage(await getPageLink(archivePagesAsLinks[currentPageIndex]));
+      const newPage = await getPageLink(archivePagesAsLinks[currentPageIndex]);
+      setCurrentPage(newPage);
+      setLoadedIamge(true);
     };
-    updateCurrentPage();
-  }, [archivePagesAsLinks, currentPageIndex, getPageLink, setCurrentPage]);
+    if (!loadedImage && hasImages) {
+      updateCurrentPage();
+    }
+  }, [
+    archivePagesAsLinks,
+    currentPageIndex,
+    getPageLink,
+    setCurrentPage,
+    setLoadedIamge,
+    loadedImage,
+    hasImages,
+  ]);
 
   return (
     <>
