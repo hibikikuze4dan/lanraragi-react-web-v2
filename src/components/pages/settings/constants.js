@@ -5,6 +5,7 @@ import { ColumnsDisplayedSetting } from "./columns-displayed-setting";
 import { DeleteSearchCacheButton } from "./delete-search-cache-button";
 import { ImagesViewMode } from "./images-view-mode";
 import { RatingNamespaceSetting } from "./rating-namespace-setting";
+import { ForceNoFunMode } from "./force-no-fun-mode";
 
 export const SETTINGS_TO_DISPLAY = [
   {
@@ -40,6 +41,12 @@ export const SETTINGS_TO_DISPLAY = [
     description:
       "The namsespace that archive ratings are saved with (Ex: Rating:4.5)",
     component: RatingNamespaceSetting,
+  },
+  {
+    title: "Force No Fun Mode",
+    description:
+      "Force No Fun Mode behavior for the application. Determines how images are accessed from the Lanraragi API.",
+    component: ForceNoFunMode,
   },
   {
     title: "Reset Search Cache",

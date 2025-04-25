@@ -1,11 +1,17 @@
 import axios from "axios";
 import { createLocalStorageInstance } from "../local-storage";
-import { BASE_URL, HTTP_OR_HTTPS } from "../local-storage/constants";
+import {
+  BASE_URL,
+  FORCE_NO_FUN_MODE,
+  HTTP_OR_HTTPS,
+} from "../local-storage/constants";
 import { getAuthorizationHeader } from "../utils/getAuthorizationHeader";
 import { SERVER_INFO_URL } from "./constants";
 
 const { get: getBaseUrl } = createLocalStorageInstance(BASE_URL);
 const { get: getHttpOrHttps } = createLocalStorageInstance(HTTP_OR_HTTPS);
+const { get: getForceNoFunMode } =
+  createLocalStorageInstance(FORCE_NO_FUN_MODE);
 
 export const requestServerInformation = async () => {
   const endpoint = SERVER_INFO_URL;
@@ -43,7 +49,7 @@ export const requestServerInformation = async () => {
       has_password,
       motd,
       name,
-      nofun_mode,
+      nofun_mode: nofun_mode || getForceNoFunMode() === "true",
       server_resizes_images,
       server_tracks_progress,
       total_archives,
