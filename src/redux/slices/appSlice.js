@@ -16,6 +16,7 @@ const initialState = {
   databaseStats: [],
   dialogActionType: "",
   displayAppBar: true,
+  history: [],
   imagesScrollTarget: "",
   initialLoadRandom: true,
   initialLoadSearch: true,
@@ -115,6 +116,9 @@ const mainSlice = createSlice({
     updateOpenDialogs: (state, { payload }) => {
       state.openDialogs = { ...state.openDialogs, ...(payload ?? {}) };
     },
+    updateHistory: (state, { payload }) => {
+      state.history = [...(payload ?? [])];
+    },
   },
 });
 
@@ -141,6 +145,7 @@ export const {
   updateServerInfo,
   updateDatabaseStats,
   updateOpenDialogs,
+  updateHistory,
 } = mainSlice.actions;
 
 export default mainSlice.reducer;

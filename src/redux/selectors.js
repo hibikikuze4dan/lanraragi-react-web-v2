@@ -130,3 +130,7 @@ export const getDatabseStats = createSelector(getReduxState, (state) => {
 export const getOpenDialogs = createSelector(getReduxState, (state) => {
   return state?.openDialogs ?? {};
 });
+
+export const getHistory = createSelector(getReduxState, (state) => {
+  return state?.history ?? [];
+});

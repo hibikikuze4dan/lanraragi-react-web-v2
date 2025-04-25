@@ -27,11 +27,7 @@ export const AppBar = ({ children }) => {
           )}
         >
           <Grid2
-            className={clsx(
-              "w-full max-w-svw",
-              isImagesPage && "py-2",
-              !isImagesPage && "p-2"
-            )}
+            className={clsx("w-full max-w-svw", !isImagesPage && "p-2")}
             container
           >
             <Grid2

@@ -6,6 +6,7 @@ import { DeleteSearchCacheButton } from "./delete-search-cache-button";
 import { ImagesViewMode } from "./images-view-mode";
 import { RatingNamespaceSetting } from "./rating-namespace-setting";
 import { ForceNoFunMode } from "./force-no-fun-mode";
+import { ClientVsApiHistory } from "./client-vs-api-history";
 
 export const SETTINGS_TO_DISPLAY = [
   {
@@ -44,9 +45,13 @@ export const SETTINGS_TO_DISPLAY = [
   },
   {
     title: "Force No Fun Mode",
-    description:
-      "Force No Fun Mode behavior for the application. Determines how images are accessed from the Lanraragi API.",
+    description: `Force No Fun Mode behavior for the application. Determines how images are accessed from the Lanraragi API. (Refresh the page for changes to take effect)`,
     component: ForceNoFunMode,
+  },
+  {
+    title: "Use API for History",
+    description: `Have the history page display archives sorted by last read time from the Lanraragi API. Note: This will only work if the "Clientside Progress Tracking" setting for the Lanraragi API is turned OFF.`,
+    component: ClientVsApiHistory,
   },
   {
     title: "Reset Search Cache",

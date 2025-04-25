@@ -21,6 +21,8 @@ import { Snackbar } from "../snackbar";
 import { HistoryPage } from "./history";
 import { useServerInfo } from "../../hooks/useServerInfo";
 import { MobileArchiveActionsDialog } from "../mobile-archive-actions-dialog";
+import useAppPages from "../../hooks/useAppPages";
+import clsx from "clsx";
 
 const PAGE_COMPONENTS = {
   [RANDOM]: RandomPage,
@@ -32,6 +34,7 @@ const PAGE_COMPONENTS = {
 
 export const Pages = () => {
   const { dialogActionType } = useArchiveActionsDialogLogic();
+  const { currentPageIsImagesPage } = useAppPages();
   useServerInfo(true);
   const currentPage = useSelector(getCurrentPage);
   const PageComponent = PAGE_COMPONENTS?.[currentPage] ?? Grid2;
@@ -46,7 +49,7 @@ export const Pages = () => {
   return (
     <Grid2
       id="pages-container"
-      className="pt-4 min-h-svh"
+      className={clsx("min-h-svh", !currentPageIsImagesPage && "pt-4")}
       container
       justifyContent="center"
     >

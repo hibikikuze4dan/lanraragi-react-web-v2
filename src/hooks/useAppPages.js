@@ -11,6 +11,7 @@ export const useAppPages = () => {
   const dispatch = useDispatch();
   const appPage = useSelector(getCurrentPage);
   const archiveOpenedFrom = useSelector(getArchiveOpenedFrom);
+  const currentPageIsImagesPage = appPage === IMAGES;
 
   const updateAppPage = useCallback(
     (page = "") => {
@@ -30,6 +31,7 @@ export const useAppPages = () => {
   return {
     appPage,
     archiveOpenedFrom,
+    currentPageIsImagesPage,
     updateAppPage,
   };
 };

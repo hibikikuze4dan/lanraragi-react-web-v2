@@ -3,10 +3,10 @@ import {
   MORE_ARCHIVE_ACTIONS,
   REGENERATE_ARCHIVE_THUMBNAIL,
   UNDERSCORE_REGEX,
-} from "../../../constants";
-import { useArchiveActionsDialogLogic } from "../../../hooks/useArchiveActionsDialogLogic";
-import { useRegenerateThumbnail } from "../../../hooks/useRegenerateThumbnail";
-import { ARCHIVE_ACTION_ICONS } from "../../constants";
+} from "../../../../constants";
+import { useArchiveActionsDialogLogic } from "../../../../hooks/useArchiveActionsDialogLogic";
+import { useRegenerateThumbnail } from "../../../../hooks/useRegenerateThumbnail";
+import { ARCHIVE_ACTION_ICONS } from "../../../constants";
 import Error from "@mui/icons-material/Error";
 
 export const ArchiveCardMenu = ({
