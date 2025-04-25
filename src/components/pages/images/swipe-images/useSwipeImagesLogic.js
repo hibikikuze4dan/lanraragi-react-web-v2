@@ -12,7 +12,7 @@ export const useSwipeImagesLogic = () => {
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
   const [loadedImage, setLoadedIamge] = useState(false);
   const { archivePagesAsLinks, getPageLink } = useArchivePages();
-  const loadedImagesSet = useRef(new Map());
+  const loadedImagesMap = useRef(new Map());
   const hasImages = archivePagesAsLinks?.length ?? false;
   const doneWithImages =
     currentPageIndex >= (archivePagesAsLinks?.length ?? 0) && hasImages;
@@ -20,13 +20,13 @@ export const useSwipeImagesLogic = () => {
 
   const preloadNext = async () => {
     for (let i = 1; i <= 3; i++) {
-      const preloadPageUrl = archivePagesAsLinks?.[preloadIndex] ?? "";
       const preloadIndex = currentPageIndex + i;
+      const preloadPageUrl = archivePagesAsLinks?.[preloadIndex] ?? "";
       const src = await getPageLink(preloadPageUrl);
-      if (src && !loadedImagesSet?.current?.has?.(preloadPageUrl)) {
+      if (src && !loadedImagesMap?.current?.has?.(preloadPageUrl)) {
         try {
           await preloadImage(src);
-          loadedImagesSet?.current?.set?.(preloadPageUrl, src);
+          loadedImagesMap?.current?.set?.(preloadPageUrl, src);
         } catch (err) {
           console.warn(`Failed to preload: ${src}\nError: ${err}`);
         }
