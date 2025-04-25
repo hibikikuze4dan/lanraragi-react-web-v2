@@ -19,7 +19,8 @@ export const useSwipeImagesLogic = () => {
   const [currentPage, setCurrentPage] = useState(null);
 
   const preloadNext = async () => {
-    for (let i = 1; i <= 3; i++) {
+    // Make the number of preloaded images a setting in the future
+    for (let i = 1; i <= 10; i++) {
       const preloadIndex = currentPageIndex + i;
       const preloadPageUrl = archivePagesAsLinks?.[preloadIndex] ?? "";
       const src = await getPageLink(preloadPageUrl);
