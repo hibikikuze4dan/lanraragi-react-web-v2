@@ -1,9 +1,7 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { createLocalStorageInstance } from "../local-storage";
 import { ARCHIVE_HISTORY, USE_API_HISTORY } from "../local-storage/constants";
 import requestSearchForArchives from "../requests/requestSearchForArchives";
-import useAppPages from "./useAppPages";
-import { HISTORY } from "../constants";
 import { useDispatch, useSelector } from "react-redux";
 import { getHistory } from "../redux/selectors";
 import { updateHistory } from "../redux/slices/appSlice";
@@ -17,96 +15,72 @@ const defaultHistory = JSON.stringify([]);
 export const useArchiveHistory = () => {
   const dispatch = useDispatch();
   const history = useSelector(getHistory);
-  const { appPage } = useAppPages();
-  const [archiveHistory, setArchiveHistoryState] = useState(
-    getArchiveHistory() ?? defaultHistory
-  );
   const [performedHistorySearch, setPerformedHistorySearch] = useState(false);
   const useApiHistory = getUseApiHistory() === "true";
-  const currentlyOnHistoryPage = appPage === HISTORY;
 
   const clearHistoryState = useCallback(() => {
     dispatch(updateHistory([]));
   }, [dispatch]);
 
-  const makeHistorySearch = useCallback(() => {
-    setPerformedHistorySearch(true);
-    requestSearchForArchives({ sortby: "lastread", order: "asc" }).then(
-      (response) => {
-        console.log(response, response?.data?.slice?.(0, 20));
-        dispatch(updateHistory(response?.data?.slice?.(0, 20) ?? []));
-      }
-    );
-  }, [dispatch]);
-
-  const addArchiveToHistory = (archive) => {
+  const addArchiveToHistory = useCallback((archive) => {
     try {
       if (!archive || Object.keys(archive).length < 1) {
         return;
       }
-      const historyString = getArchiveHistory() ?? defaultHistory;
-      const history = JSON.parse(historyString);
+      const localStorageArchiveHistory = getArchiveHistory();
+      const historyString = localStorageArchiveHistory ?? defaultHistory;
+      const parsedHistory = JSON.parse(historyString);
 
-      if (!Array.isArray(history)) {
+      if (!Array.isArray(parsedHistory)) {
         return null;
       }
 
       const newHistory =
-        history.length === 20
-          ? [...history.slice(1, 20), archive]
-          : [...history, archive];
+        parsedHistory?.length === 20
+          ? [...parsedHistory.slice(1, 20), archive]
+          : [...parsedHistory, archive];
 
       const newHistoryStringified = JSON.stringify(newHistory);
 
       setArchiveHistory(newHistoryStringified);
-      setArchiveHistoryState(newHistoryStringified);
+      updateHistory(newHistory);
 
       return null;
     } catch {
       return null;
     }
-  };
+  }, []);
 
-  const archiveHistoryAsString = `${archiveHistory}`;
-  const archiveHistoryAsJSON = useMemo(
-    () => JSON.parse(archiveHistoryAsString),
-    [archiveHistoryAsString]
+  const archiveHistoryAsString = useMemo(
+    () => JSON.stringify(history),
+    [history]
   );
 
-  useEffect(() => {
-    if (
-      !performedHistorySearch &&
-      currentlyOnHistoryPage &&
-      useApiHistory &&
-      !history.length
-    ) {
-      makeHistorySearch();
-    } else if (
-      !useApiHistory &&
-      currentlyOnHistoryPage &&
-      !performedHistorySearch
-    ) {
+  const refreshHistory = useCallback(() => {
+    if (useApiHistory) {
       setPerformedHistorySearch(true);
-      dispatch(updateHistory(archiveHistoryAsJSON));
+      requestSearchForArchives({ sortby: "lastread", order: "asc" }).then(
+        (response) => {
+          dispatch(updateHistory(response?.data?.slice?.(0, 20) ?? []));
+        }
+      );
+    } else if (!useApiHistory) {
+      const localStorageArchiveHistory = JSON.parse(
+        getArchiveHistory() ?? defaultHistory
+      );
+      setPerformedHistorySearch(true);
+      dispatch(updateHistory(localStorageArchiveHistory));
     }
-  }, [
-    makeHistorySearch,
-    performedHistorySearch,
-    useApiHistory,
-    archiveHistoryAsJSON,
-    currentlyOnHistoryPage,
-    history,
-    dispatch,
-  ]);
+  }, [dispatch, useApiHistory]);
 
   return {
     addArchiveToHistory,
     clearHistoryState,
-    archiveHistoryAsJSON,
     archiveHistoryAsString,
     getArchiveHistory,
     history,
     performedHistorySearch,
+    refreshHistory,
     useApiHistory,
   };
 };

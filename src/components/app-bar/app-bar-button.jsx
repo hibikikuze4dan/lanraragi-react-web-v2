@@ -6,14 +6,15 @@ import { useArchiveHistory } from "../../hooks/useArchiveHistory.js";
 
 export const AppBarButton = ({ Icon, page }) => {
   const { updateAppPage } = useAppPages();
-  const { clearHistoryState } = useArchiveHistory();
+  const { clearHistoryState, refreshHistory } = useArchiveHistory();
 
   const onClick = useCallback(() => {
     if (page === HISTORY) {
       clearHistoryState();
+      refreshHistory();
     }
     updateAppPage(page);
-  }, [updateAppPage, page, clearHistoryState]);
+  }, [updateAppPage, page, clearHistoryState, refreshHistory]);
 
   return (
     <Button
