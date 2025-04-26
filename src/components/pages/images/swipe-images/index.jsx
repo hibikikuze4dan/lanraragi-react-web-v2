@@ -6,6 +6,7 @@ import useSwipeImagesLogic from "./useSwipeImagesLogic";
 
 export const SwipeImages = () => {
   const {
+    centerFloatingButtonId,
     setCurrentPage,
     getPageLink,
     archivePagesAsLinks,
@@ -20,6 +21,7 @@ export const SwipeImages = () => {
     nextImage,
     loadedImage,
     setLoadedIamge,
+    onFloatingButtonKeyDown,
   } = useSwipeImagesLogic();
 
   useEffect(() => {
@@ -41,6 +43,12 @@ export const SwipeImages = () => {
     hasImages,
   ]);
 
+  useEffect(() => {
+    if (hasImages && !doneWithImages) {
+      document.getElementById(centerFloatingButtonId)?.focus?.();
+    }
+  }, [hasImages, doneWithImages, centerFloatingButtonId]);
+
   return (
     <>
       <LoadingSpinner
@@ -50,6 +58,7 @@ export const SwipeImages = () => {
       >
         {!doneWithImages ? (
           <Grid2
+            id="swipe-images"
             container
             justifyContent="center"
             className="min-h-full min-w-full relative cursor-pointer"
@@ -60,20 +69,23 @@ export const SwipeImages = () => {
               src={currentPage}
               onLoad={preloadNext}
             />
-            <div
-              role="button"
+            <button
               onClick={previousImage}
-              className="absolute left-0 top-0 h-full w-1/3 cursor-pointer z-10"
+              className="absolute left-0 top-0 h-full w-1/3 cursor-pointer z-10 bg-transparent border-none"
+              onKeyDown={onFloatingButtonKeyDown}
+              tabIndex={-1}
             />
-            <div
-              role="button"
+            <button
+              id={centerFloatingButtonId}
               onClick={onCenterClick}
-              className="absolute top-0 left-1/3 h-full w-1/3 cursor-pointer z-10"
+              className="absolute top-0 left-1/3 h-full w-1/3 cursor-pointer z-10 bg-transparent border-none outline-none"
+              onKeyDown={onFloatingButtonKeyDown}
             />
-            <div
-              role="button"
+            <button
               onClick={nextImage}
-              className="absolute right-0 top-0 h-full w-1/3 cursor-pointer z-10"
+              className="absolute right-0 top-0 h-full w-1/3 cursor-pointer z-10 bg-transparent border-none"
+              onKeyDown={onFloatingButtonKeyDown}
+              tabIndex={-1}
             />
           </Grid2>
         ) : (

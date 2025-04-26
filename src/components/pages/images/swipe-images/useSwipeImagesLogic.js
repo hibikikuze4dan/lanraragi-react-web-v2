@@ -7,6 +7,7 @@ import { updateDisplayAppBar } from "../../../../redux/slices/appSlice";
 import { useSwipeable } from "react-swipeable";
 
 export const useSwipeImagesLogic = () => {
+  const centerFloatingButtonId = "swipe-images-center-floating-button";
   const dispatch = useDispatch();
   const displayAppBar = useSelector(getDisplayAppBar);
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
@@ -60,7 +61,19 @@ export const useSwipeImagesLogic = () => {
     trackMouse: true,
   });
 
+  const onFloatingButtonKeyDown = (event) => {
+    const eventCode = event?.code;
+    const isLeft = eventCode === "ArrowLeft";
+    const isRight = eventCode === "ArrowRight";
+    if (isLeft) {
+      previousImage();
+    } else if (isRight) {
+      nextImage();
+    }
+  };
+
   return {
+    centerFloatingButtonId,
     handlers,
     onCenterClick,
     preloadNext,
@@ -75,6 +88,7 @@ export const useSwipeImagesLogic = () => {
     nextImage,
     loadedImage,
     setLoadedIamge,
+    onFloatingButtonKeyDown,
   };
 };
 
