@@ -44,7 +44,7 @@ export const ArchiveCard = memo(function ArchiveCard({
 
   const tags = makeTagsObject(archive?.tags ?? "");
 
-  const rating = tags?.[ratingNamespace];
+  const rating = tags?.[ratingNamespace]?.[0]?.length ?? 0;
 
   return (
     <Card className="h-full flex flex-col">
@@ -72,7 +72,7 @@ export const ArchiveCard = memo(function ArchiveCard({
             className="pb-4 w-full justify-center"
             readOnly
             value={rating}
-            precision={0.5}
+            precision={1}
             size="small"
           />
         ) : null}

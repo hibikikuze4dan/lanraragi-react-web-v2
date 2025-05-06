@@ -2,6 +2,7 @@ export const addArchiveToCategory = ({
   categories = [],
   archiveId = "",
   categoryId = "",
+  onlyCategory = false,
 }) => {
   if (!categories.length || !archiveId || !categoryId) {
     return null;
@@ -19,6 +20,11 @@ export const addArchiveToCategory = ({
       ...categoryWithCategoryId,
       archives: [...(categoryWithCategoryId?.archives ?? []), archiveId],
     };
+
+    if (onlyCategory) {
+      return updatedCategory;
+    }
+
     const updatedArchives = [...filteredCategories, { ...updatedCategory }];
     return updatedArchives;
   }

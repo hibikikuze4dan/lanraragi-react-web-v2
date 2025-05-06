@@ -2,19 +2,20 @@ import { Grid2, Rating, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { useArchiveRating } from "../../../hooks/useArchiveRating";
 import { isMobile } from "react-device-detect";
+import { LANRARAGI_STARS_ARRAY } from "../../../constants";
 
 export const ImagePageRating = () => {
   const isDesktopDevice = !isMobile;
-  const [selectValue, setSelectValue] = useState(0);
+  const [selectValue, setSelectValue] = useState("");
   const { updateArchiveRating } = useArchiveRating();
 
   const handleRatingValueUpdate = (value) => {
-    setSelectValue(Number(value));
+    setSelectValue(value);
     updateArchiveRating(value);
   };
 
   const onStarChange = (_event, value) => {
-    handleRatingValueUpdate(value);
+    handleRatingValueUpdate(LANRARAGI_STARS_ARRAY[value]);
   };
 
   const onSelectChange = (event) => {
@@ -30,9 +31,9 @@ export const ImagePageRating = () => {
       <Grid2 size={12}>
         <Rating
           name="image-page-archive-rating"
-          precision={0.5}
+          precision={1}
           size="large"
-          value={Number(selectValue)}
+          value={Number(selectValue?.length)}
           onChange={onStarChange}
           readOnly={!isDesktopDevice}
         />
@@ -52,9 +53,9 @@ export const ImagePageRating = () => {
             value={selectValue}
             onChange={onSelectChange}
           >
-            <option value={0}>0</option>
-            {Array.from(Array(10)).map((_, index) => {
-              const value = (index + 1) / 2;
+            <option value={""}></option>
+            {Array.from(Array(5)).map((_, index) => {
+              const value = LANRARAGI_STARS_ARRAY[index + 1];
               return (
                 <option key={value} value={value}>
                   {value}

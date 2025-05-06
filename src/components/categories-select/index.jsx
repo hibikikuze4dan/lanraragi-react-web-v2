@@ -1,6 +1,9 @@
-import { Alert, Button, Grid2, TextField, Typography } from "@mui/material";
+import { Button, Grid2 } from "@mui/material";
 import { useState } from "react";
 import { useCategories } from "../../hooks/useCategories";
+import { Select } from "../select";
+import { useSnackbar } from "../../hooks/useSnackbar";
+import useCurrentArchive from "../../hooks/useCurrentArchive";
 
 export const CategoriesSelect = ({ archiveId = "" }) => {
   const { handleArchiveCategoryUpdate, getCategoriesByArchvie } = useCategories(
@@ -8,30 +11,47 @@ export const CategoriesSelect = ({ archiveId = "" }) => {
       initLoad: true,
     }
   );
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [apiResponse, setApiResponse] = useState({});
+  const { archive } = useCurrentArchive();
+  const { setNewSnackbarStatus } = useSnackbar();
+  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [selectedCategories, setSelectedCategories] = useState([]);
   const categoriesWithoutArchive = getCategoriesByArchvie({
     archiveId,
     getCategoriesIncludingArchiveId: false,
   });
 
-  const onChange = (event) => {
-    const value = event?.target?.value ?? "";
-    setSelectedCategory(value);
+  const onMultiSelectChange = (selectedCategories) => {
+    setSelectedCategories(selectedCategories);
   };
 
   const onClick = async () => {
-    const response = await handleArchiveCategoryUpdate({
-      archiveId,
-      categoryId: selectedCategory,
-    });
-    setApiResponse(response);
-    setSelectedCategory("");
+    const successfulResponses = [];
+    setSelectedOptions([]);
+
+    for (const category of selectedCategories) {
+      const response = await handleArchiveCategoryUpdate({
+        archiveId,
+        categoryId: category?.value,
+      });
+
+      console.log(response);
+      if (response) {
+        successfulResponses.push(category);
+      }
+    }
+
+    if (successfulResponses.length) {
+      setNewSnackbarStatus({
+        severity: "success",
+        message: `Successfully added archive ${
+          archive?.title ?? ""
+        } to the following categories: ${successfulResponses
+          .map((response) => response?.label)
+          .join(", ")}`,
+      });
+    }
+    setSelectedCategories([]);
   };
-
-  const { success, successMessage } = apiResponse;
-
-  const responseHasValues = ![success, successMessage].includes(undefined);
 
   const helperText = categoriesWithoutArchive.length
     ? ""
@@ -40,29 +60,18 @@ export const CategoriesSelect = ({ archiveId = "" }) => {
   return (
     <Grid2 className="h-full" container spacing={3}>
       <Grid2 alignContent="center" size={{ xs: 12, md: 6 }}>
-        <TextField
-          className="categories-select-text-field"
-          fullWidth
+        <Select
+          selectId="categories-select-select"
           label="Categories"
-          select
-          slotProps={{
-            select: { native: true },
-            input: { className: "" },
-          }}
-          value={selectedCategory}
-          onChange={onChange}
+          options={categoriesWithoutArchive.map((cat) => ({
+            label: cat.name,
+            value: cat.id,
+          }))}
+          selectedOptions={selectedOptions}
+          setSelectedOptions={setSelectedOptions}
+          onChange={onMultiSelectChange}
           helperText={helperText}
-        >
-          <option value={""} />
-          {categoriesWithoutArchive.map((category) => {
-            const value = category?.id;
-            return (
-              <option key={value} value={value}>
-                {category?.name}
-              </option>
-            );
-          })}
-        </TextField>
+        />
       </Grid2>
       <Grid2 alignContent="center" size={{ xs: 12, md: 6 }}>
         <Button
@@ -74,15 +83,6 @@ export const CategoriesSelect = ({ archiveId = "" }) => {
           Add Archive to Category
         </Button>
       </Grid2>
-      {responseHasValues && (
-        <Grid2 size={12}>
-          <Alert severity={success ? "success" : "error"} variant="filled">
-            <Typography>
-              {successMessage.replace(/&quot;/g, '"').replace(/&#39;/g, "'")}
-            </Typography>
-          </Alert>
-        </Grid2>
-      )}
     </Grid2>
   );
 };

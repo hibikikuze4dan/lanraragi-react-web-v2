@@ -5,6 +5,7 @@ import {
 } from "../../constants";
 import { createLocalStorageInstance } from "../../local-storage";
 import { LAST_SEARCH } from "../../local-storage/constants";
+import updateCategory from "../../utils/updateCategory";
 
 const initialState = {
   apiCategories: [],
@@ -80,6 +81,12 @@ const mainSlice = createSlice({
     updateApiCategories: (state, { payload }) => {
       state.apiCategories = [...(payload ?? [])];
     },
+    updateApiCategory: (state, { payload }) => {
+      state.apiCategories = updateCategory({
+        category: payload,
+        categories: state.apiCategories,
+      });
+    },
     updateSearchData: (state, { payload }) => {
       state.searchData = { ...(state.searchData ?? {}), ...(payload ?? {}) };
     },
@@ -145,6 +152,7 @@ export const {
   updateServerInfo,
   updateDatabaseStats,
   updateOpenDialogs,
+  updateApiCategory,
   updateHistory,
 } = mainSlice.actions;
 

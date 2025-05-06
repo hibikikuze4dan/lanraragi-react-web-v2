@@ -2,7 +2,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { getApiCategories, getStaticApiCategories } from "../redux/selectors";
 import { useEffect } from "react";
 import requestAllCategories from "../requests/requestAllCategories";
-import { updateApiCategories } from "../redux/slices/appSlice";
+import {
+  updateApiCategories,
+  updateApiCategory,
+} from "../redux/slices/appSlice";
 import putUpdateToArchiveCategory from "../requests/putUpdateToArchiveCategory";
 import { addArchiveToCategory } from "../utils/addArchiveToCategory";
 
@@ -44,16 +47,21 @@ export const useCategories = ({ initLoad = false } = {}) => {
       categoryId,
     });
     const { success } = apiResponse;
-    const updatedArchives = success
+    const updatedArchive = success
       ? addArchiveToCategory({
           categories,
           archiveId,
           categoryId,
+          onlyCategory: true,
         })
       : null;
 
-    if (updatedArchives) {
-      dispatch(updateApiCategories(updatedArchives));
+    if (updatedArchive) {
+      dispatch(updateApiCategory(updatedArchive));
+    }
+
+    if (!success) {
+      return null;
     }
 
     return apiResponse;

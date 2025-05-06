@@ -32,26 +32,35 @@ export const MORE_ARCHIVE_ACTIONS = [
   DELETE_ARCHIVE,
 ];
 
-export const RATING = "Rating";
+export const RATING = "rating";
 
-export const SCORE = "Score";
+export const SCORE = "score";
 
-export const STARS = "Stars";
+export const STARS = "stars";
+
+export const LANRARAGI_STARS_ARRAY = [
+  "Remove Rating",
+  "⭐",
+  "⭐⭐",
+  "⭐⭐⭐",
+  "⭐⭐⭐⭐",
+  "⭐⭐⭐⭐⭐",
+];
 
 export const RATING_NAMESPACES = [RATING, SCORE, STARS];
 
 export const COLON_FOLLOWED_BY_NUMBER_REGEX = /:\s*\d*\.?\d+/g;
 
 export const NAMESPACE_REGEX = {
-  [RATING]: /[Rr]ating:\s*\d*\.?\d+/g,
-  [SCORE]: /[Ss]core:\s*\d*\.?\d+/g,
-  [STARS]: /[Ss]tars:\s*\d*\.?\d+/g,
+  [RATING]: /[Rr]ating:\s*⭐+/g,
+  [SCORE]: /[Ss]core:\s*⭐+/g,
+  [STARS]: /[Ss]tars:\s*⭐+/g,
 };
 
 export const NAMESPACE_REGEX_WITH_COMMA = {
-  [RATING]: /[Rr]ating:\s*\d*\.?\d+,?/g,
-  [SCORE]: /[Ss]core:\s*\d*\.?\d+,?/g,
-  [STARS]: /[Ss]tars:\s*\d*\.?\d+,?/g,
+  [RATING]: /[Rr]ating:\s*⭐+,?/g,
+  [SCORE]: /[Ss]core:\s*⭐+,?/g,
+  [STARS]: /[Ss]tars:\s*⭐+,?/g,
 };
 
 export const SEARCH_PARAMETER_DEFAULTS = {

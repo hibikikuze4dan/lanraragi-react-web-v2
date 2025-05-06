@@ -7,8 +7,10 @@ const { get: getRatingNamespace } =
 
 export const replaceRating = ({ tags, newRating = 0 } = {}) => {
   const ratingNamespace = getRatingNamespace() ?? RATING;
-  const isNewRatingANumber = typeof newRating === "number";
-  const noNewRating = !newRating && !isNewRatingANumber;
+  const isNewRatingANumberOrString = ["number", "string"].includes(
+    typeof newRating
+  );
+  const noNewRating = !isNewRatingANumberOrString;
 
   const passesPrecheck = !tags || !noNewRating || !ratingNamespace;
   if (!passesPrecheck) {
@@ -22,6 +24,10 @@ export const replaceRating = ({ tags, newRating = 0 } = {}) => {
 
   if (!tagsWithRatingRemoved) {
     return null;
+  }
+
+  if ([0, "0", ""].includes(newRating)) {
+    return tagsWithRatingRemoved;
   }
 
   const newTags = `${tagsWithRatingRemoved},${ratingNamespace}:${newRating}`;
