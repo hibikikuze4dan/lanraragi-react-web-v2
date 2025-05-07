@@ -4,6 +4,7 @@ import { useCategories } from "../../hooks/useCategories";
 import { Select } from "../select";
 import { useSnackbar } from "../../hooks/useSnackbar";
 import useCurrentArchive from "../../hooks/useCurrentArchive";
+import { useArchiveActionsDialogLogic } from "../../hooks/useArchiveActionsDialogLogic";
 
 export const CategoriesSelect = ({ archiveId = "" }) => {
   const { handleArchiveCategoryUpdate, getCategoriesByArchvie } = useCategories(
@@ -13,6 +14,7 @@ export const CategoriesSelect = ({ archiveId = "" }) => {
   );
   const { archive } = useCurrentArchive();
   const { setNewSnackbarStatus } = useSnackbar();
+  const { setActionType } = useArchiveActionsDialogLogic();
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const categoriesWithoutArchive = getCategoriesByArchvie({
@@ -25,6 +27,7 @@ export const CategoriesSelect = ({ archiveId = "" }) => {
   };
 
   const onClick = async () => {
+    setActionType("");
     const successfulResponses = [];
     setSelectedOptions([]);
 
@@ -34,7 +37,6 @@ export const CategoriesSelect = ({ archiveId = "" }) => {
         categoryId: category?.value,
       });
 
-      console.log(response);
       if (response) {
         successfulResponses.push(category);
       }
