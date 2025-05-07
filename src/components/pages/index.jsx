@@ -49,12 +49,13 @@ export const Pages = () => {
   return (
     <Grid2
       id="pages-container"
-      className={clsx("min-h-svh", !currentPageIsImagesPage && "pt-4")}
+      className={clsx("min-h-svh", !currentPageIsImagesPage && "py-2")}
       container
       justifyContent="center"
+      ref={ref}
     >
       <UrlPage>
-        <Grid2 ref={ref} id={TOP_OF_PAGE_ID} />
+        <Grid2 id={TOP_OF_PAGE_ID} />
         <Box className="w-full">
           <PageComponent />
         </Box>
