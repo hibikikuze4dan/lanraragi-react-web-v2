@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { getDisplayAppBar } from "../../../../redux/selectors";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useArchivePages } from "../../../../hooks/useArchivePages";
 import { preloadImage } from "../../../../utils/prelaodImage";
 import { updateDisplayAppBar } from "../../../../redux/slices/appSlice";
@@ -11,7 +11,7 @@ export const useSwipeImagesLogic = () => {
   const dispatch = useDispatch();
   const displayAppBar = useSelector(getDisplayAppBar);
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
-  const [loadedImage, setLoadedIamge] = useState(false);
+  const [loadedImage, setLoadedImage] = useState(false);
   const { archivePagesAsLinks, getPageLink } = useArchivePages();
   const loadedImagesMap = useRef(new Map());
   const hasImages = archivePagesAsLinks?.length ?? false;
@@ -41,13 +41,13 @@ export const useSwipeImagesLogic = () => {
     if (!doneWithImages) {
       setCurrentPageIndex((index) => index + 1);
     }
-    setLoadedIamge(false);
+    setLoadedImage(false);
   };
   const previousImage = () => {
     if (currentPageIndex !== 0) {
       setCurrentPageIndex((index) => index - 1);
     }
-    setLoadedIamge(false);
+    setLoadedImage(false);
   };
 
   const handlers = useSwipeable({
@@ -72,12 +72,38 @@ export const useSwipeImagesLogic = () => {
     }
   };
 
+  useEffect(() => {
+    const updateCurrentPage = async () => {
+      const newPage = await getPageLink(archivePagesAsLinks[currentPageIndex]);
+      setCurrentPage(newPage);
+      setLoadedImage(true);
+    };
+    if (!loadedImage && hasImages) {
+      updateCurrentPage();
+    }
+  }, [
+    archivePagesAsLinks,
+    currentPageIndex,
+    getPageLink,
+    setCurrentPage,
+    setLoadedImage,
+    loadedImage,
+    hasImages,
+  ]);
+
+  useEffect(() => {
+    if (hasImages && !doneWithImages) {
+      document.getElementById(centerFloatingButtonId)?.focus?.();
+    }
+  }, [hasImages, doneWithImages, centerFloatingButtonId]);
+
   return {
     centerFloatingButtonId,
     handlers,
     onCenterClick,
     preloadNext,
     setCurrentPage,
+    setCurrentPageIndex,
     currentPage,
     getPageLink,
     archivePagesAsLinks,
@@ -87,7 +113,7 @@ export const useSwipeImagesLogic = () => {
     previousImage,
     nextImage,
     loadedImage,
-    setLoadedIamge,
+    setLoadedImage,
     onFloatingButtonKeyDown,
   };
 };

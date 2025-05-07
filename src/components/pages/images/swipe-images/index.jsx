@@ -1,14 +1,13 @@
 import { Grid2 } from "@mui/material";
-import { useEffect } from "react";
 import { ArchiveEnd } from "./archive-end";
 import { LoadingSpinner } from "../../../loading-spinner";
 import useSwipeImagesLogic from "./useSwipeImagesLogic";
+import ImageOverlayButtons from "./image-overlay-buttons";
+import JumpToPage from "./jump-to-page";
 
 export const SwipeImages = () => {
   const {
     centerFloatingButtonId,
-    setCurrentPage,
-    getPageLink,
     archivePagesAsLinks,
     currentPageIndex,
     doneWithImages,
@@ -19,35 +18,10 @@ export const SwipeImages = () => {
     previousImage,
     onCenterClick,
     nextImage,
-    loadedImage,
-    setLoadedIamge,
     onFloatingButtonKeyDown,
+    setCurrentPageIndex,
+    setLoadedImage,
   } = useSwipeImagesLogic();
-
-  useEffect(() => {
-    const updateCurrentPage = async () => {
-      const newPage = await getPageLink(archivePagesAsLinks[currentPageIndex]);
-      setCurrentPage(newPage);
-      setLoadedIamge(true);
-    };
-    if (!loadedImage && hasImages) {
-      updateCurrentPage();
-    }
-  }, [
-    archivePagesAsLinks,
-    currentPageIndex,
-    getPageLink,
-    setCurrentPage,
-    setLoadedIamge,
-    loadedImage,
-    hasImages,
-  ]);
-
-  useEffect(() => {
-    if (hasImages && !doneWithImages) {
-      document.getElementById(centerFloatingButtonId)?.focus?.();
-    }
-  }, [hasImages, doneWithImages, centerFloatingButtonId]);
 
   return (
     <>
@@ -57,37 +31,36 @@ export const SwipeImages = () => {
         size={200}
       >
         {!doneWithImages ? (
-          <Grid2
-            id="swipe-images"
-            container
-            justifyContent="center"
-            className="min-h-full min-w-full relative cursor-pointer"
-            {...handlers}
-          >
-            <img
-              className="object-contain pointer-events-none max-h-svh"
-              src={currentPage}
-              onLoad={preloadNext}
-            />
-            <button
-              onClick={previousImage}
-              className="absolute left-0 top-0 h-full w-1/3 cursor-pointer z-10 bg-transparent border-none"
-              onKeyDown={onFloatingButtonKeyDown}
-              tabIndex={-1}
-            />
-            <button
-              id={centerFloatingButtonId}
-              onClick={onCenterClick}
-              className="absolute top-0 left-1/3 h-full w-1/3 cursor-pointer z-10 bg-transparent border-none outline-none"
-              onKeyDown={onFloatingButtonKeyDown}
-            />
-            <button
-              onClick={nextImage}
-              className="absolute right-0 top-0 h-full w-1/3 cursor-pointer z-10 bg-transparent border-none"
-              onKeyDown={onFloatingButtonKeyDown}
-              tabIndex={-1}
-            />
-          </Grid2>
+          <>
+            <Grid2
+              id="swipe-images"
+              container
+              justifyContent="center"
+              className="min-h-full min-w-full relative cursor-pointer"
+              {...handlers}
+            >
+              <img
+                className="object-contain pointer-events-none max-h-svh"
+                src={currentPage}
+                onLoad={preloadNext}
+              />
+              <ImageOverlayButtons
+                previousImage={previousImage}
+                nextImage={nextImage}
+                onFloatingButtonKeyDown={onFloatingButtonKeyDown}
+                centerFloatingButtonId={centerFloatingButtonId}
+                onCenterClick={onCenterClick}
+              />
+            </Grid2>
+            <Grid2 container>
+              <JumpToPage
+                numOfPages={archivePagesAsLinks?.length ?? 0}
+                currentPage={currentPageIndex + 1}
+                setCurrentPageIndex={setCurrentPageIndex}
+                setLoadedImage={setLoadedImage}
+              />
+            </Grid2>
+          </>
         ) : (
           <Grid2 size={12}>
             <ArchiveEnd previousImage={previousImage} />
