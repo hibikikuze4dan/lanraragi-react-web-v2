@@ -18,12 +18,16 @@ export const useArchivePages = () => {
     dispatch(updateArchivePages([]));
     const { pages, job } = await requestArchivePages(archiveId);
 
-    await requestMinionUntilFinished({
-      jobId: job,
-      callback: () => {
-        dispatch(updateArchivePages(pages));
-      },
-    });
+    if (job) {
+      await requestMinionUntilFinished({
+        jobId: job,
+        callback: () => {
+          dispatch(updateArchivePages(pages));
+        },
+      });
+    } else if (!job && pages?.length) {
+      dispatch(updateArchivePages(pages));
+    }
 
     return pages;
   };
