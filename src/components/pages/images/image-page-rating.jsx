@@ -4,7 +4,7 @@ import { useArchiveRating } from "../../../hooks/useArchiveRating";
 import { isMobile } from "react-device-detect";
 import { LANRARAGI_STARS_ARRAY } from "../../../constants";
 
-export const ImagePageRating = () => {
+export const ImagePageRating = ({ postRating = () => null }) => {
   const isDesktopDevice = !isMobile;
   const [selectValue, setSelectValue] = useState("");
   const { updateArchiveRating } = useArchiveRating();
@@ -12,6 +12,7 @@ export const ImagePageRating = () => {
   const handleRatingValueUpdate = (value) => {
     setSelectValue(value);
     updateArchiveRating(value);
+    postRating();
   };
 
   const onStarChange = (_event, value) => {
@@ -26,9 +27,11 @@ export const ImagePageRating = () => {
   return (
     <Grid2 id="rating-component" container spacing={1}>
       <Grid2 size={12}>
-        <Typography component="legend">Rate Archive</Typography>
+        <Typography component="legend" textAlign="center">
+          Rate Archive
+        </Typography>
       </Grid2>
-      <Grid2 size={12}>
+      <Grid2 className="flex justify-center" size={12}>
         <Rating
           name="image-page-archive-rating"
           precision={1}
@@ -39,7 +42,7 @@ export const ImagePageRating = () => {
         />
       </Grid2>
       {!isDesktopDevice && (
-        <Grid2 size={12}>
+        <Grid2 className="flex justify-center" size={12}>
           <TextField
             id="rate-archive-select-text-field"
             className="h-full w-7/10"

@@ -8,18 +8,21 @@ import {
   UNDERSCORE_REGEX,
   UPDATE_ARCHIVE_CATEGORY,
   UPDATE_ARCHIVE_METADATA,
+  UPDATE_ARCHIVE_RATING,
   VIEW_ARCHIVE_INFO,
 } from "../../constants";
 import { DialogCategoriesContent } from "./dialog-categories-content";
 import { DialogDeleteArchiveContent } from "./dialog-delete-archive-content";
 import { DialogViewArchiveInfo } from "./dialog-view-archive-info";
 import { DialogUpdateArchiveMetadata } from "./dialog-update-archive-metadata";
+import DialogUpdateRating from "./dialog-update-rating";
 
 const DIALOG_CONTENT = {
   [UPDATE_ARCHIVE_CATEGORY]: DialogCategoriesContent,
   [DELETE_ARCHIVE]: DialogDeleteArchiveContent,
   [VIEW_ARCHIVE_INFO]: DialogViewArchiveInfo,
   [UPDATE_ARCHIVE_METADATA]: DialogUpdateArchiveMetadata,
+  [UPDATE_ARCHIVE_RATING]: DialogUpdateRating,
 };
 
 export const ArchiveActionsDialog = ({ actionType }) => {
