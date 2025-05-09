@@ -10,7 +10,7 @@ Version 2.0 of Lanraragi React Web, a react based front-end application for maki
 
 ## Installation
 
-Same as before for the most part. [Check out the wiki](https://github.com/hibikikuze4dan/lanraragi-react-web/wiki/Installation-and-Startup) but use [this Docker image instead.](https://hub.docker.com/r/persona4dan/lrr-react-v2)
+Same as before for the most part. [Check out the old wiki](https://github.com/hibikikuze4dan/lanraragi-react-web/wiki/Installation-and-Startup) but use [this Docker image instead.](https://hub.docker.com/r/persona4dan/lrr-react-v2)
 
 ## Demo
 
