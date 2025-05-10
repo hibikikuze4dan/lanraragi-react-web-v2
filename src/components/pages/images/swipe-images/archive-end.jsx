@@ -3,7 +3,12 @@ import clsx from "clsx";
 import useCurrentArchive from "../../../../hooks/useCurrentArchive";
 import EndOfArchiveActionButtons from "../../../end-of-archive-action-buttons";
 
-export const ArchiveEnd = ({ previousImage = () => null }) => {
+const returnNull = () => null;
+
+export const ArchiveEnd = ({
+  previousImage = returnNull,
+  setCurrentPageIndex = returnNull,
+}) => {
   const isSvp = useMediaQuery((theme) => theme.breakpoints.down("sm"));
   const { archive } = useCurrentArchive();
 
@@ -24,7 +29,10 @@ export const ArchiveEnd = ({ previousImage = () => null }) => {
           </Typography>
         </Grid2>
         <Grid2 container>
-          <EndOfArchiveActionButtons previousImage={previousImage} />
+          <EndOfArchiveActionButtons
+            setCurrentPageIndex={setCurrentPageIndex}
+            previousImage={previousImage}
+          />
         </Grid2>
       </Grid2>
     </>

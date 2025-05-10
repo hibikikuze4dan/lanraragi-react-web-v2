@@ -63,7 +63,10 @@ export const SwipeImages = () => {
           </>
         ) : (
           <Grid2 size={12}>
-            <ArchiveEnd previousImage={previousImage} />
+            <ArchiveEnd
+              setCurrentPageIndex={setCurrentPageIndex}
+              previousImage={previousImage}
+            />
           </Grid2>
         )}
       </LoadingSpinner>

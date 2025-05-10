@@ -10,7 +10,7 @@ export const useSwipeImagesLogic = () => {
   const centerFloatingButtonId = "swipe-images-center-floating-button";
   const dispatch = useDispatch();
   const displayAppBar = useSelector(getDisplayAppBar);
-  const [currentPageIndex, setCurrentPageIndex] = useState(0);
+  const [currentPageIndex, updateCurrentPageIndex] = useState(0);
   const [loadedImage, setLoadedImage] = useState(false);
   const { archivePagesAsLinks, getPageLink } = useArchivePages();
   const loadedImagesMap = useRef(new Map());
@@ -19,6 +19,10 @@ export const useSwipeImagesLogic = () => {
     currentPageIndex >= (archivePagesAsLinks?.length ?? 0) && hasImages;
   const [currentPage, setCurrentPage] = useState(null);
 
+  const setCurrentPageIndex = (index) => {
+    updateCurrentPageIndex(index);
+    setLoadedImage(false);
+  };
   const preloadNext = async () => {
     // Make the number of preloaded images a setting in the future
     for (let i = 1; i <= 10; i++) {

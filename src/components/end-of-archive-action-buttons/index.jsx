@@ -15,10 +15,15 @@ import { updateDisplayAppBar } from "../../redux/slices/appSlice";
 import Image from "@mui/icons-material/Image";
 import { IMAGES_VIEW_MODE } from "../../local-storage/constants";
 import { createLocalStorageInstance } from "../../local-storage";
+import TransitionButtons from "./transition-buttons";
 
+const returnNull = () => null;
 const { get: getImagesViewMode } = createLocalStorageInstance(IMAGES_VIEW_MODE);
 
-export const EndOfArchiveActionButtons = ({ previousImage = () => null }) => {
+export const EndOfArchiveActionButtons = ({
+  previousImage = returnNull,
+  setCurrentPageIndex = returnNull,
+}) => {
   const dispatch = useDispatch();
   const { setActionType } = useArchiveActionsDialogLogic();
   const { updateAppPage, archiveOpenedFrom } = useAppPages();
@@ -88,6 +93,10 @@ export const EndOfArchiveActionButtons = ({ previousImage = () => null }) => {
           Return to {archiveOpenedFrom}
         </Button>
       </Grid2>
+      <TransitionButtons
+        setCurrentPageIndex={setCurrentPageIndex}
+        gridSize={gridSize}
+      />
     </Grid2>
   );
 };
