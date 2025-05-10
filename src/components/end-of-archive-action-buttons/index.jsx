@@ -1,4 +1,4 @@
-import { Button, Grid2, useMediaQuery } from "@mui/material";
+import { Button, Grid2 } from "@mui/material";
 import clsx from "clsx";
 import {
   PAGE_ICONS,
@@ -19,7 +19,6 @@ import { createLocalStorageInstance } from "../../local-storage";
 const { get: getImagesViewMode } = createLocalStorageInstance(IMAGES_VIEW_MODE);
 
 export const EndOfArchiveActionButtons = ({ previousImage = () => null }) => {
-  const isSvp = useMediaQuery((theme) => theme.breakpoints.down("sm"));
   const dispatch = useDispatch();
   const { setActionType } = useArchiveActionsDialogLogic();
   const { updateAppPage, archiveOpenedFrom } = useAppPages();
@@ -35,8 +34,8 @@ export const EndOfArchiveActionButtons = ({ previousImage = () => null }) => {
 
   return (
     <Grid2
-      id="scroll-images-end-buttons"
-      className={clsx(!isSvp && "px-20", "pt-20 pb-100")}
+      id="end-of-archive-buttons"
+      className={clsx("pt-20 pb-100")}
       justifyContent="center"
       container
       spacing={4}
