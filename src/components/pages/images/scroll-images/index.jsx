@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { useImageObserverRef } from "../../../../hooks/useImageObserverRef";
 import clsx from "clsx";
 import EndOfArchiveActionButtons from "../../../end-of-archive-action-buttons";
+import { SCROLL_IMAGES_START_ID } from "../../../../constants";
 
 export const ScrollImages = () => {
   const isSvp = useMediaQuery((theme) => theme.breakpoints.down("sm"));
@@ -23,7 +24,7 @@ export const ScrollImages = () => {
 
   return (
     <>
-      <Grid2 size={12} id="images-start" ref={ref} />
+      <Grid2 size={12} id={SCROLL_IMAGES_START_ID} ref={ref} />
       <LoadingSpinner
         helperText="Loading Archive Images"
         loading={!hasImages}

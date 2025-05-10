@@ -119,3 +119,5 @@ export const VIEW_MODES_FOR_ARCHIVE_IMAGES = [
   SINGLE_PAGE_VIEW_MODE,
   SCROLLING_PAGE_VIEW_MODE,
 ];
+
+export const SCROLL_IMAGES_START_ID = "images-start";

@@ -4,7 +4,12 @@ import { Button, Grid2 } from "@mui/material";
 import useAppPages from "../../hooks/useAppPages";
 import { useRandomArchives } from "../../hooks/useRandomArchives";
 import { useSearchResults } from "../../hooks/useSearchResults";
-import { HISTORY, RANDOM, SEARCH } from "../../constants";
+import {
+  HISTORY,
+  RANDOM,
+  SCROLL_IMAGES_START_ID,
+  SEARCH,
+} from "../../constants";
 import useCurrentArchive from "../../hooks/useCurrentArchive";
 import { useArchiveHistory } from "../../hooks/useArchiveHistory";
 import {
@@ -70,6 +75,7 @@ export const TransitionButtons = ({
 
       const archiveId = archiveToUse?.arcid;
 
+      document.getElementById(SCROLL_IMAGES_START_ID).scrollIntoView();
       dispatch(updateCurrentArchiveId(archiveId));
       setCurrentPageIndex(0);
       dispatch(updateImagesScrollTarget(""));
