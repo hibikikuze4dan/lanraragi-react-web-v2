@@ -1,24 +1,7 @@
 import { Grid2, AppBar as MUIAppBar, useMediaQuery } from "@mui/material";
 import clsx from "clsx";
-import Casino from "@mui/icons-material/Casino";
-import Search from "@mui/icons-material/Search";
-import History from "@mui/icons-material/History";
-import Settings from "@mui/icons-material/Settings";
-import {
-  SEARCH,
-  RANDOM,
-  HISTORY,
-  SETTINGS,
-  BASIC_PAGES,
-} from "../../constants.js";
+import { BASIC_PAGES, PAGE_ICONS } from "../../constants.js";
 import { AppBarButton } from "./app-bar-button.jsx";
-
-const ICONS = {
-  [RANDOM]: Casino,
-  [SEARCH]: Search,
-  [HISTORY]: History,
-  [SETTINGS]: Settings,
-};
 
 export const AppBarComponent = () => {
   const isSvp = useMediaQuery((theme) => theme.breakpoints.down("sm"));
@@ -46,7 +29,7 @@ export const AppBarComponent = () => {
             spacing={!isSvp ? 4 : undefined}
           >
             {BASIC_PAGES.map((page) => {
-              const Icon = ICONS[page];
+              const Icon = PAGE_ICONS[page];
               return (
                 <Grid2 key={page} size={isSvp ? 3 : 12}>
                   <AppBarButton Icon={Icon} page={page} />

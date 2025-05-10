@@ -1,3 +1,8 @@
+import Casino from "@mui/icons-material/Casino";
+import Search from "@mui/icons-material/Search";
+import History from "@mui/icons-material/History";
+import Settings from "@mui/icons-material/Settings";
+
 export const RANDOM = "random";
 
 export const SEARCH = "search";
@@ -11,6 +16,13 @@ export const IMAGES = "images";
 export const BASIC_PAGES = [RANDOM, SEARCH, HISTORY, SETTINGS];
 
 export const ALL_PAGES = [RANDOM, SEARCH, HISTORY, SETTINGS, IMAGES];
+
+export const PAGE_ICONS = {
+  [RANDOM]: Casino,
+  [SEARCH]: Search,
+  [HISTORY]: History,
+  [SETTINGS]: Settings,
+};
 
 export const VIEW_ARCHIVE_INFO = "view_archive_info";
 
