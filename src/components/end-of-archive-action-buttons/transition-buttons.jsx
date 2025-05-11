@@ -51,16 +51,6 @@ export const TransitionButtons = ({
   const nextArchive = archivesToBeSearched?.[currentArchiveIndex + 1];
   const previousArchive = archivesToBeSearched?.[currentArchiveIndex - 1];
 
-  console.log(
-    nextArchive,
-    "na",
-    previousArchive,
-    "pa",
-    pathArchives,
-    "patha",
-    currentArchiveIndex,
-    "caa"
-  );
   const onReadButtonClick =
     (isNextArchiveButton = false) =>
     async () => {
