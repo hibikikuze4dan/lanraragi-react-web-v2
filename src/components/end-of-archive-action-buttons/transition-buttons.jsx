@@ -75,7 +75,7 @@ export const TransitionButtons = ({
 
       const archiveId = archiveToUse?.arcid;
 
-      document.getElementById(SCROLL_IMAGES_START_ID).scrollIntoView();
+      document.getElementById(SCROLL_IMAGES_START_ID)?.scrollIntoView?.();
       dispatch(updateCurrentArchiveId(archiveId));
       setCurrentPageIndex(0);
       dispatch(updateImagesScrollTarget(""));
