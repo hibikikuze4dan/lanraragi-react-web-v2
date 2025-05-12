@@ -8,18 +8,20 @@ export const TitleButton = ({ archive }) => {
   const ref = useRef();
   const currentArchiveId = useSelector(getCurrentArchiveId);
   const [shouldTuncate, setShouldTruncate] = useState(true);
+  const [attemptedScroll, setAttemptedScroll] = useState(false);
 
   const archiveId = archive?.arcid ?? "";
 
   useEffect(() => {
-    if (archiveId === currentArchiveId) {
+    if (archiveId === currentArchiveId && !attemptedScroll) {
       setTimeout(
         () =>
           ref.current?.scrollIntoView({ behavior: "smooth", block: "center" }),
         500
       );
     }
-  }, [archiveId, currentArchiveId]);
+    setAttemptedScroll(true);
+  }, [archiveId, currentArchiveId, attemptedScroll]);
 
   const onClick = () => {
     setShouldTruncate(!shouldTuncate);
