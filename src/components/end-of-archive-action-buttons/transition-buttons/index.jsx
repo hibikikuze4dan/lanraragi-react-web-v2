@@ -1,8 +1,8 @@
 import NavigateNext from "@mui/icons-material/NavigateNext";
 import NavigateBefore from "@mui/icons-material/NavigateBefore";
 import { Button, Grid2 } from "@mui/material";
-import useTransitionButtonsLogic from "./transition-buttons/useTransitionButtonsLogic";
-import { RETURN_NULL } from "../../constants";
+import useTransitionButtonsLogic from "./useTransitionButtonsLogic";
+import { RETURN_NULL } from "../../../constants";
 
 export const TransitionButtons = ({
   gridSize = 12,

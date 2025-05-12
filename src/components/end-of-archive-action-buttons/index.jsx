@@ -1,4 +1,4 @@
-import { Button, Grid2 } from "@mui/material";
+import { Grid2 } from "@mui/material";
 import clsx from "clsx";
 import {
   PAGE_ICONS,
@@ -17,6 +17,7 @@ import Image from "@mui/icons-material/Image";
 import { IMAGES_VIEW_MODE } from "../../local-storage/constants";
 import { createLocalStorageInstance } from "../../local-storage";
 import TransitionButtons from "./transition-buttons";
+import EndOfArchiveButtonsFactory from "./button-factory";
 
 const { get: getImagesViewMode } = createLocalStorageInstance(IMAGES_VIEW_MODE);
 
@@ -30,69 +31,46 @@ export const EndOfArchiveActionButtons = ({
   const isSingleImageMode = getImagesViewMode() === SINGLE_PAGE_VIEW_MODE;
   const gridSize = isSingleImageMode ? 6 : 12;
 
-  const onClick = () => {
+  const onReturnClick = () => {
     dispatch(updateDisplayAppBar(true));
     updateAppPage(archiveOpenedFrom);
   };
 
   const ReturnToIcon = PAGE_ICONS[archiveOpenedFrom] ?? Grid2;
 
+  const buttonsData = [
+    {
+      icon: Label,
+      label: "Categorize Archive",
+      onClick: () => setActionType(UPDATE_ARCHIVE_CATEGORY),
+    },
+    {
+      icon: Star,
+      label: "Rate Archive",
+      onClick: () => setActionType(UPDATE_ARCHIVE_RATING),
+    },
+    ...(isSingleImageMode
+      ? [{ icon: Image, label: "Back to Last Image", onClick: previousImage }]
+      : []),
+    {
+      icon: ReturnToIcon,
+      label: `Return to ${archiveOpenedFrom}`,
+      onClick: onReturnClick,
+    },
+  ];
+
   return (
     <Grid2
       id="end-of-archive-buttons"
-      className={clsx("pt-20 pb-100")}
+      className={clsx("pt-20 pb-100", !isSingleImageMode && "px-10")}
       justifyContent="center"
       container
       spacing={4}
     >
-      <Grid2 size={gridSize}>
-        <Button
-          fullWidth
-          variant="outlined"
-          className="py-4 h-full"
-          onClick={() => setActionType(UPDATE_ARCHIVE_CATEGORY)}
-          startIcon={<Label />}
-        >
-          Categorize Archive
-        </Button>
-      </Grid2>
-      <Grid2 size={gridSize}>
-        <Button
-          fullWidth
-          variant="outlined"
-          className="py-4 h-full"
-          onClick={() => setActionType(UPDATE_ARCHIVE_RATING)}
-          startIcon={<Star />}
-        >
-          Rate Archive
-        </Button>
-      </Grid2>
-      {isSingleImageMode && (
-        <Grid2 size={gridSize}>
-          <Button
-            id="image-page-return-to-previous-image"
-            fullWidth
-            variant="outlined"
-            className="py-4 h-full"
-            onClick={previousImage}
-            startIcon={<Image />}
-          >
-            Back to Last Image
-          </Button>
-        </Grid2>
-      )}
-      <Grid2 size={gridSize}>
-        <Button
-          id="image-page-return-to-archives"
-          fullWidth
-          variant="outlined"
-          className="py-4 h-full"
-          onClick={onClick}
-          startIcon={<ReturnToIcon />}
-        >
-          Return to {archiveOpenedFrom}
-        </Button>
-      </Grid2>
+      <EndOfArchiveButtonsFactory
+        gridSize={gridSize}
+        buttonsData={buttonsData}
+      />
       <TransitionButtons
         setCurrentPageIndex={setCurrentPageIndex}
         gridSize={gridSize}
