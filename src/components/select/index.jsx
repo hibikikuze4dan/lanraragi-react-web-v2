@@ -9,15 +9,16 @@ import {
   Typography,
 } from "@mui/material";
 import { useId } from "react";
+import { RETURN_NULL } from "../../constants";
 
 export const Select = ({
   labelId = "",
   selectId = "",
   label = "",
-  onChange = () => null,
+  onChange = RETURN_NULL,
   options = [],
   selectedOptions = [],
-  setSelectedOptions = () => null,
+  setSelectedOptions = RETURN_NULL,
   helperText = "",
 }) => {
   const backupId = useId();

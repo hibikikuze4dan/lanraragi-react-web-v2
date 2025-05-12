@@ -2,8 +2,9 @@ import { Button, Grid2, TextField } from "@mui/material";
 import { HTTPToggleButton } from "../http-toggle-button";
 import { useState } from "react";
 import { useUrls } from "../../hooks/useUrls";
+import { RETURN_NULL } from "../../constants";
 
-export const BaseUrlSetter = ({ onClick = () => null }) => {
+export const BaseUrlSetter = ({ onClick = RETURN_NULL }) => {
   const { baseUrl, updateBaseUrl } = useUrls();
   const [baseUrlState, setBaseUrlToState] = useState(baseUrl ?? "");
 

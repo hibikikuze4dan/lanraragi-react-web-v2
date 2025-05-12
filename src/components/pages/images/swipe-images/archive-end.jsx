@@ -2,12 +2,11 @@ import { Grid2, Typography, useMediaQuery } from "@mui/material";
 import clsx from "clsx";
 import useCurrentArchive from "../../../../hooks/useCurrentArchive";
 import EndOfArchiveActionButtons from "../../../end-of-archive-action-buttons";
-
-const returnNull = () => null;
+import { RETURN_NULL } from "../../../../constants";
 
 export const ArchiveEnd = ({
-  previousImage = returnNull,
-  setCurrentPageIndex = returnNull,
+  previousImage = RETURN_NULL,
+  setCurrentPageIndex = RETURN_NULL,
 }) => {
   const isSvp = useMediaQuery((theme) => theme.breakpoints.down("sm"));
   const { archive } = useCurrentArchive();

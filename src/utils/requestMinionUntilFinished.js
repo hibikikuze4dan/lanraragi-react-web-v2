@@ -1,10 +1,11 @@
+import { RETURN_NULL } from "../constants";
 import { requestMinionJobStatus } from "../requests/requestMinionJobStatus";
 
 const FINISHED_STATUSES = ["failed", "inactive", "finished"];
 
 export const requestMinionUntilFinished = async ({
   jobId,
-  callback = () => null,
+  callback = RETURN_NULL,
 }) => {
   const { state } = await requestMinionJobStatus({ jobId: jobId });
 

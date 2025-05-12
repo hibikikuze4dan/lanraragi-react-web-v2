@@ -1,8 +1,9 @@
 import { Box, useMediaQuery } from "@mui/material";
 import clsx from "clsx";
 import { ImagePageRating } from "../pages/images/image-page-rating";
+import { RETURN_NULL } from "../../constants";
 
-export const DialogUpdateRating = ({ closeDialog = () => null }) => {
+export const DialogUpdateRating = ({ closeDialog = RETURN_NULL }) => {
   const isSvp = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
   return (

@@ -3,9 +3,9 @@ import { Button, Grid2 } from "@mui/material";
 import { useSearchPageLogic } from "../../../../hooks/useSearchPageLogic";
 import { useSearchParameters } from "../../../../hooks/useSearchParameters";
 import RestartAlt from "@mui/icons-material/RestartAlt";
-import { SEARCH_PARAMETER_DEFAULTS } from "../../../../constants";
+import { RETURN_NULL, SEARCH_PARAMETER_DEFAULTS } from "../../../../constants";
 
-export const SearchOrResetButtons = ({ toggleAccordion = () => null }) => {
+export const SearchOrResetButtons = ({ toggleAccordion = RETURN_NULL }) => {
   const { handleNewSearch } = useSearchPageLogic();
   const { searchParameters, handleUpdateSearchParameters } =
     useSearchParameters();

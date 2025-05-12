@@ -8,6 +8,7 @@ import { useSearchResults } from "../../../hooks/useSearchResults";
 import {
   HISTORY,
   RANDOM,
+  RETURN_NULL,
   SCROLL_IMAGES_START_ID,
   SEARCH,
 } from "../../../constants";
@@ -18,7 +19,7 @@ import {
 import { putUpdateReadingProgression } from "../../../requests/putUpdateReadingProgression";
 
 export const useTransitionButtonsLogic = ({
-  setCurrentPageIndex = () => null,
+  setCurrentPageIndex = RETURN_NULL,
 }) => {
   const dispatch = useDispatch();
   const { archiveOpenedFrom, appPage } = useAppPages();

@@ -121,3 +121,5 @@ export const VIEW_MODES_FOR_ARCHIVE_IMAGES = [
 ];
 
 export const SCROLL_IMAGES_START_ID = "images-start";
+
+export const RETURN_NULL = () => null;

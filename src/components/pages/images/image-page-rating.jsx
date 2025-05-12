@@ -2,9 +2,9 @@ import { Grid2, Rating, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { useArchiveRating } from "../../../hooks/useArchiveRating";
 import { isMobile } from "react-device-detect";
-import { LANRARAGI_STARS_ARRAY } from "../../../constants";
+import { LANRARAGI_STARS_ARRAY, RETURN_NULL } from "../../../constants";
 
-export const ImagePageRating = ({ postRating = () => null }) => {
+export const ImagePageRating = ({ postRating = RETURN_NULL }) => {
   const isDesktopDevice = !isMobile;
   const [selectValue, setSelectValue] = useState("");
   const { updateArchiveRating } = useArchiveRating();

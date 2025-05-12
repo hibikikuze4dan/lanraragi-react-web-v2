@@ -2,6 +2,7 @@ import { Button, Grid2 } from "@mui/material";
 import clsx from "clsx";
 import {
   PAGE_ICONS,
+  RETURN_NULL,
   SINGLE_PAGE_VIEW_MODE,
   UPDATE_ARCHIVE_CATEGORY,
   UPDATE_ARCHIVE_RATING,
@@ -17,12 +18,11 @@ import { IMAGES_VIEW_MODE } from "../../local-storage/constants";
 import { createLocalStorageInstance } from "../../local-storage";
 import TransitionButtons from "./transition-buttons";
 
-const returnNull = () => null;
 const { get: getImagesViewMode } = createLocalStorageInstance(IMAGES_VIEW_MODE);
 
 export const EndOfArchiveActionButtons = ({
-  previousImage = returnNull,
-  setCurrentPageIndex = returnNull,
+  previousImage = RETURN_NULL,
+  setCurrentPageIndex = RETURN_NULL,
 }) => {
   const dispatch = useDispatch();
   const { setActionType } = useArchiveActionsDialogLogic();

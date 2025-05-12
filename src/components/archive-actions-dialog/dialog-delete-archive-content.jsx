@@ -2,8 +2,9 @@ import { Box, Button, Grid2, Typography, useMediaQuery } from "@mui/material";
 import clsx from "clsx";
 import useCurrentArchive from "../../hooks/useCurrentArchive";
 import { useDeleteArchive } from "../../hooks/useDeleteArchive";
+import { RETURN_NULL } from "../../constants";
 
-export const DialogDeleteArchiveContent = ({ closeDialog = () => null }) => {
+export const DialogDeleteArchiveContent = ({ closeDialog = RETURN_NULL }) => {
   const isSvp = useMediaQuery((theme) => theme.breakpoints.down("sm"));
   const { archive } = useCurrentArchive();
   const { deleteArchive } = useDeleteArchive();
