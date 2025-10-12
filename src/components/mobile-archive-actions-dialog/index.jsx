@@ -6,6 +6,7 @@ import {
   MORE_ARCHIVE_ACTIONS,
   REGENERATE_ARCHIVE_THUMBNAIL,
   UNDERSCORE_REGEX,
+  UPDATE_ARCHIVE_RATING,
 } from "../../constants";
 import { ARCHIVE_ACTION_ICONS } from "../constants";
 import { useArchiveActionsDialogLogic } from "../../hooks/useArchiveActionsDialogLogic";
@@ -29,6 +30,9 @@ export const MobileArchiveActionsDialog = () => {
   const onClickFactory = (action) => () => {
     if (action === REGENERATE_ARCHIVE_THUMBNAIL) {
       regenerateThumbnail({ archiveId });
+    }
+    if (action === UPDATE_ARCHIVE_RATING) {
+      setActionType(UPDATE_ARCHIVE_RATING);
     } else {
       setActionType(action ?? "");
     }
@@ -54,7 +58,6 @@ export const MobileArchiveActionsDialog = () => {
       titleId="mobile-archive-actions-dialog-title"
       open={!!isMobileActionsDialogOpen}
       onClose={onClose}
-      // fullWidth
     >
       <Grid2 className="pt-5" container spacing={4}>
         {MORE_ARCHIVE_ACTIONS.map((action) => {

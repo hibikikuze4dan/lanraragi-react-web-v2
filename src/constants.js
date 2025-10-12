@@ -30,6 +30,8 @@ export const UPDATE_ARCHIVE_METADATA = "update_archvive_metadata";
 
 export const UPDATE_ARCHIVE_CATEGORY = "update_archive_category";
 
+export const RATE_ARCHIVE = "rate_archive";
+
 export const UPDATE_ARCHIVE_RATING = "update_archive_rating";
 
 export const DELETE_ARCHIVE = "delete_archive";
@@ -42,6 +44,7 @@ export const MORE_ARCHIVE_ACTIONS = [
   VIEW_ARCHIVE_INFO,
   UPDATE_ARCHIVE_METADATA,
   UPDATE_ARCHIVE_CATEGORY,
+  UPDATE_ARCHIVE_RATING,
   REGENERATE_ARCHIVE_THUMBNAIL,
   DELETE_ARCHIVE,
 ];

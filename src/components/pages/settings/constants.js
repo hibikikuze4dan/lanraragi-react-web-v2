@@ -54,7 +54,7 @@ export const SETTINGS_TO_DISPLAY = [
     component: ClientVsApiHistory,
   },
   {
-    title: "Reset Search Cache",
+    title: "Delete Search Cache",
     component: DeleteSearchCacheButton,
     description:
       "Delete the search cache for LANraragi. Potentially helpful if you are having trouble with search data.",
