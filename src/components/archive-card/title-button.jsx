@@ -3,22 +3,23 @@ import { Truncate } from "@re-dev/react-truncate";
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { getCurrentArchiveId } from "../../redux/selectors";
+import { KEYBOARD_KEY_CODES } from "../../constants";
 
 export const TitleButton = ({ archive }) => {
   const ref = useRef();
   const currentArchiveId = useSelector(getCurrentArchiveId);
   const [shouldTuncate, setShouldTruncate] = useState(true);
   const [attemptedScroll, setAttemptedScroll] = useState(false);
+  const { ENTER, SPACE } = KEYBOARD_KEY_CODES;
 
   const archiveId = archive?.arcid ?? "";
 
   useEffect(() => {
     if (archiveId === currentArchiveId && !attemptedScroll) {
-      setTimeout(
-        () =>
-          ref.current?.scrollIntoView({ behavior: "smooth", block: "center" }),
-        500
-      );
+      setTimeout(() => {
+        ref.current?.focus?.({ preventScroll: true });
+        ref.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+      }, 500);
     }
     setAttemptedScroll(true);
   }, [archiveId, currentArchiveId, attemptedScroll]);
@@ -28,8 +29,8 @@ export const TitleButton = ({ archive }) => {
   };
 
   const onKeyUp = (event) => {
-    const isValidKey = ["Enter", "Space"].includes(event?.code);
     event.preventDefault();
+    const isValidKey = [ENTER, SPACE].includes(event?.code);
     if (isValidKey) {
       onClick();
       ref.current?.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -37,7 +38,7 @@ export const TitleButton = ({ archive }) => {
   };
 
   const onKeyDown = (event) => {
-    const isValidKey = ["Space"].includes(event?.code);
+    const isValidKey = [SPACE].includes(event?.code);
     if (isValidKey) {
       event.preventDefault();
     }

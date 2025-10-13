@@ -126,3 +126,24 @@ export const VIEW_MODES_FOR_ARCHIVE_IMAGES = [
 export const SCROLL_IMAGES_START_ID = "images-start";
 
 export const RETURN_NULL = () => null;
+
+export const ARROW_LEFT = "ArrowLeft";
+
+export const ARROW_RIGHT = "ArrowRight";
+
+export const ARROW_UP = "ArrowUp";
+
+export const ARROW_DOWN = "ArrowDown";
+
+export const ENTER = "Enter";
+
+export const SPACE = "Space";
+
+export const KEYBOARD_KEY_CODES = {
+  ARROW_LEFT,
+  ARROW_RIGHT,
+  ARROW_UP,
+  ARROW_DOWN,
+  ENTER,
+  SPACE,
+};

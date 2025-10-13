@@ -1,4 +1,5 @@
 import { Grid2, TextField } from "@mui/material";
+import { KEYBOARD_KEY_CODES } from "../../../../constants";
 
 export const JumpToPage = ({
   numOfPages = 0,
@@ -6,10 +7,25 @@ export const JumpToPage = ({
   setCurrentPageIndex,
   setLoadedImage,
 }) => {
+  const { ARROW_DOWN, ARROW_LEFT, ARROW_RIGHT, ARROW_UP } = KEYBOARD_KEY_CODES;
   const onChange = (event) => {
-    const value = event?.target?.value;
+    const value = event?.target?.value ?? 0;
     setCurrentPageIndex(Number(value) - 1);
     setLoadedImage(false);
+  };
+
+  const onKeyDown = (event) => {
+    const keyCode = event?.code;
+
+    if ([ARROW_DOWN, ARROW_LEFT].includes(keyCode)) {
+      event?.preventDefault?.();
+      const changeEvent = { target: { value: currentPage - 1 } };
+      onChange(changeEvent);
+    } else if ([ARROW_UP, ARROW_RIGHT].includes(keyCode)) {
+      event?.preventDefault?.();
+      const changeEvent = { target: { value: currentPage + 1 } };
+      onChange(changeEvent);
+    }
   };
 
   return (
@@ -26,6 +42,7 @@ export const JumpToPage = ({
         }}
         value={currentPage}
         onChange={onChange}
+        onKeyDown={onKeyDown}
       >
         {Array.from(Array(numOfPages)).map((_, index) => {
           const value = index + 1;
