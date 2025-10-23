@@ -3,22 +3,37 @@ import { Button, Grid2 } from "@mui/material";
 import { useSearchPageLogic } from "../../../../hooks/useSearchPageLogic";
 import { useSearchParameters } from "../../../../hooks/useSearchParameters";
 import RestartAlt from "@mui/icons-material/RestartAlt";
-import { RETURN_NULL, SEARCH_PARAMETER_DEFAULTS } from "../../../../constants";
+import {
+  KEYBOARD_KEY_CODES,
+  RETURN_NULL,
+  SEARCH_PARAMETER_DEFAULTS,
+} from "../../../../constants";
+
+const { ENTER, SPACE } = KEYBOARD_KEY_CODES;
 
 export const SearchOrResetButtons = ({ toggleAccordion = RETURN_NULL }) => {
   const { handleNewSearch } = useSearchPageLogic();
   const { searchParameters, handleUpdateSearchParameters } =
     useSearchParameters();
 
-  const onSearchClick = () => {
+  const onSearchClick = (shouldToggleAccordion = true) => {
     handleNewSearch({ ...searchParameters, start: "0" });
-    toggleAccordion();
+    if (shouldToggleAccordion) {
+      toggleAccordion();
+    }
   };
 
   const onResetClick = () => {
     handleUpdateSearchParameters(SEARCH_PARAMETER_DEFAULTS);
     handleNewSearch();
     toggleAccordion();
+  };
+
+  const onSearchButtonKeyDown = (event) => {
+    if ([ENTER, SPACE].includes(event.code)) {
+      event.preventDefault();
+      onSearchClick(!event.shiftKey);
+    }
   };
 
   return (
@@ -33,6 +48,7 @@ export const SearchOrResetButtons = ({ toggleAccordion = RETURN_NULL }) => {
           className="min-h-[44px]"
           fullWidth
           onClick={onSearchClick}
+          onKeyDown={onSearchButtonKeyDown}
           startIcon={<Search />}
           variant="outlined"
         >
