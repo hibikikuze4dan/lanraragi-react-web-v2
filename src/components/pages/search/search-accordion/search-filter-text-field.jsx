@@ -46,19 +46,21 @@ export const SearchFilterTextField = () => {
     );
   };
 
+  const lastSectionOfValue = last(filter.split(", "));
+  const options = lastSectionOfValue ? statsAsStrings : [];
+
   return (
     <Grid2 container>
       <Autocomplete
         autoComplete
         autoHighlight
         clearOnEscape
-        disablePortal
         freeSolo
         includeInputInList
         onChange={onAutocompleteChange}
         openOnFocus={false}
         value={filter}
-        options={statsAsStrings}
+        options={options}
         filterOptions={getFilterOptions}
         fullWidth
         renderInput={input}
