@@ -17,6 +17,7 @@ export const TagButton = ({
   closeDialog,
 }) => {
   const isTagAUrl = isValidUrl(tag, namespace);
+
   const dateTag =
     namespace === DATE_ADDED_NAMESPACE
       ? dayjs.unix(tag).format("MMMM DD YYYY HH:mm")
