@@ -149,6 +149,7 @@ export const KEYBOARD_KEY_CODES = {
 };
 
 export const COMPONENT_IDS = {
+  ARCHIVE_ACTIONS_DIALOG_CLOSE_BUTTON: "archive-actions-dialog-close-button",
   LOADED_CHILDREN_WRAPPER: "loaded-children-wrapper",
   TITLE_BUTTON: (archiveId = "") => `arcive-card-title-button-${archiveId}`,
   RANDOM_PAGE: "random-page",
