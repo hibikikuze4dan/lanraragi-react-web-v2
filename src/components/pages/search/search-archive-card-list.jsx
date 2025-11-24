@@ -5,7 +5,10 @@ import { Grid2 } from "@mui/material";
 import { useSearchResults } from "../../../hooks/useSearchResults";
 import { useArchivePages } from "../../../hooks/useArchivePages";
 import { useSelector } from "react-redux";
-import { getCurrentPage } from "../../../redux/selectors";
+import {
+  getCurrentPage,
+  getFocusFirstArchiveCard,
+} from "../../../redux/selectors";
 import { useRatingNamespace } from "../../../hooks/useRatingNamespace";
 import { useUrls } from "../../../hooks/useUrls";
 
@@ -13,6 +16,7 @@ export const SearchArchiveCardList = memo(function SearchArchiveCardList() {
   const { ratingNamespace } = useRatingNamespace();
   const { baseUrlWithHttpOrHttps } = useUrls();
   const currentPage = useSelector(getCurrentPage);
+  const focusFirstArchiveCard = useSelector(getFocusFirstArchiveCard);
   const { loadingSearchArchives, archives } = useSearchResults({
     initLoad: true,
   });
@@ -33,6 +37,7 @@ export const SearchArchiveCardList = memo(function SearchArchiveCardList() {
                 archive={archive}
                 baseUrl={baseUrlWithHttpOrHttps}
                 currentPage={currentPage}
+                focusFirstArchiveCard={focusFirstArchiveCard}
                 getNewArchivePages={getNewArchivePages}
                 index={index}
                 ratingNamespace={ratingNamespace}

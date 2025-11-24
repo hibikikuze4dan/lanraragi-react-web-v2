@@ -14,6 +14,7 @@ import { useArchiveThumbnail } from "../../hooks/useArchiveThumbnail";
 export const ArchiveCard = memo(function ArchiveCard({
   archive,
   currentPage,
+  focusFirstArchiveCard = false,
   getNewArchivePages,
   ratingNamespace,
   index = 0,
@@ -65,7 +66,10 @@ export const ArchiveCard = memo(function ArchiveCard({
       </div>
       <div className="flex flex-col h-full">
         <CardContent className="grow px-4 content-center">
-          <TitleButton archive={archive} />
+          <TitleButton
+            archive={archive}
+            focusTitle={focusFirstArchiveCard && index === 0}
+          />
         </CardContent>
         {rating ? (
           <Rating

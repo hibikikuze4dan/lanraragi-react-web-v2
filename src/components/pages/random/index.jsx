@@ -7,7 +7,10 @@ import { useColumnsDisplayed } from "../../../hooks/useColumnsDisplayed";
 import { useSearchResults } from "../../../hooks/useSearchResults";
 import { useArchivePages } from "../../../hooks/useArchivePages";
 import { useSelector } from "react-redux";
-import { getCurrentPage } from "../../../redux/selectors";
+import {
+  getCurrentPage,
+  getFocusFirstArchiveCard,
+} from "../../../redux/selectors";
 import { useRatingNamespace } from "../../../hooks/useRatingNamespace";
 import { useUrls } from "../../../hooks/useUrls";
 import { COMPONENT_IDS } from "../../../constants";
@@ -19,6 +22,7 @@ export const RandomPage = () => {
   const { ratingNamespace } = useRatingNamespace();
   const { baseUrlWithHttpOrHttps } = useUrls();
   const currentPage = useSelector(getCurrentPage);
+  const focusFirstArchiveCard = useSelector(getFocusFirstArchiveCard);
   const { getNewArchivePages } = useArchivePages();
   useSearchResults({ initLoad: true });
 
@@ -43,6 +47,7 @@ export const RandomPage = () => {
                   archive={archive}
                   baseUrl={baseUrlWithHttpOrHttps}
                   currentPage={currentPage}
+                  focusFirstArchiveCard={focusFirstArchiveCard}
                   getNewArchivePages={getNewArchivePages}
                   index={index}
                   ratingNamespace={ratingNamespace}

@@ -1,7 +1,7 @@
 import { Typography } from "@mui/material";
 import { Truncate } from "@re-dev/react-truncate";
 import { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getCurrentArchiveId } from "../../redux/selectors";
 import {
   COMPONENT_CLASSNAMES,
@@ -12,9 +12,11 @@ import {
 import { focusCardTitleOnArrowKeyDown } from "../../utils/focusCardTitleOnArrowKeyDown";
 import moveFocusRelative from "../../utils/moveFocusRelative";
 import getElementsByMultipleClassnames from "../../utils/getElementsByMultipleClassnames";
+import { updateFocusFirstArchiveCard } from "../../redux/slices/appSlice";
 
-export const TitleButton = ({ archive }) => {
+export const TitleButton = ({ archive, focusTitle = false }) => {
   const ref = useRef();
+  const dispatch = useDispatch();
   const currentArchiveId = useSelector(getCurrentArchiveId);
   const [shouldTuncate, setShouldTruncate] = useState(true);
   const [attemptedScroll, setAttemptedScroll] = useState(false);
@@ -24,14 +26,15 @@ export const TitleButton = ({ archive }) => {
   const archiveId = archive?.arcid ?? "";
 
   useEffect(() => {
-    if (archiveId === currentArchiveId && !attemptedScroll) {
+    if ((archiveId === currentArchiveId && !attemptedScroll) || focusTitle) {
       setTimeout(() => {
         ref.current?.focus?.({ preventScroll: true });
         ref.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+        dispatch(updateFocusFirstArchiveCard(false));
       }, 500);
     }
     setAttemptedScroll(true);
-  }, [archiveId, currentArchiveId, attemptedScroll]);
+  }, [archiveId, currentArchiveId, attemptedScroll, focusTitle, dispatch]);
 
   const onClick = () => {
     setShouldTruncate(!shouldTuncate);

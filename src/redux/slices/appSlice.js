@@ -17,6 +17,7 @@ const initialState = {
   databaseStats: [],
   dialogActionType: "",
   displayAppBar: true,
+  focusFirstArchiveCard: false,
   history: [],
   imagesScrollTarget: "",
   initialLoadRandom: true,
@@ -126,6 +127,9 @@ const mainSlice = createSlice({
     updateHistory: (state, { payload }) => {
       state.history = [...(payload ?? [])];
     },
+    updateFocusFirstArchiveCard: (state, { payload }) => {
+      state.focusFirstArchiveCard = !!payload;
+    },
   },
 });
 
@@ -154,6 +158,7 @@ export const {
   updateOpenDialogs,
   updateApiCategory,
   updateHistory,
+  updateFocusFirstArchiveCard,
 } = mainSlice.actions;
 
 export default mainSlice.reducer;

@@ -6,6 +6,7 @@ import {
 } from "../redux/selectors";
 import {
   setRandomArchives,
+  updateFocusFirstArchiveCard,
   updateInitialLoadRandom,
   updateLoadingRandomArchives,
 } from "../redux/slices/appSlice";
@@ -52,8 +53,9 @@ export const useRandomArchives = () => {
   }, [dispatch, makeInitialRandomArchivesRequest, requestNewArchives]);
 
   const getNewRandomArchives = useCallback(() => {
+    dispatch(updateFocusFirstArchiveCard(true));
     setRequestNewArchives(true);
-  }, []);
+  }, [dispatch]);
 
   return { randomArchives, loadingRandomArchives, getNewRandomArchives };
 };

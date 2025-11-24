@@ -134,3 +134,8 @@ export const getOpenDialogs = createSelector(getReduxState, (state) => {
 export const getHistory = createSelector(getReduxState, (state) => {
   return state?.history ?? [];
 });
+
+export const getFocusFirstArchiveCard = createSelector(
+  getReduxState,
+  (state) => state?.focusFirstArchiveCard
+);
