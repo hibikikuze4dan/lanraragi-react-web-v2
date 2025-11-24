@@ -20,7 +20,7 @@ export const useArchiveActionsDialogLogic = ({
         const closeButton = document.querySelector(
           `#${COMPONENT_IDS.ARCHIVE_ACTIONS_DIALOG_CLOSE_BUTTON}`
         );
-        console.log(closeButton);
+
         closeButton?.focus();
       }, 250);
     }
