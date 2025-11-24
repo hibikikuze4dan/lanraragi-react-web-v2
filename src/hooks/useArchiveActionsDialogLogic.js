@@ -4,9 +4,9 @@ import { updateDialogActionType } from "../redux/slices/appSlice";
 import { useEffect } from "react";
 import { COMPONENT_IDS } from "../constants";
 
-export const useArchiveActionsDialogLogic = ({
-  autoFocusCloseButton = true,
-}) => {
+export const useArchiveActionsDialogLogic = (
+  { autoFocusCloseButton } = { autoFocusCloseButton: true }
+) => {
   const dispatch = useDispatch();
   const dialogActionType = useSelector(getDialogActionType);
 
