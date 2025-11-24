@@ -1,5 +1,4 @@
 export const sortElementsByTabOrder = (elements = []) => {
-  console.log(elements);
   return elements.sort((elementA, elementB) => {
     const elementATabIndex = elementA?.tabIndex ?? 0;
     const elementBTabIndex = elementB?.tabIndex ?? 0;
