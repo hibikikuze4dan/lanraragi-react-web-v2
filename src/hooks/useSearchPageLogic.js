@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { SEARCH_PARAMETER_DEFAULTS } from "../constants";
 import {
   updateCurrentSearchParameters,
+  updateFocusFirstArchiveCard,
   updateLoadingSearchArchives,
   updateSearchData,
 } from "../redux/slices/appSlice";
@@ -34,6 +35,7 @@ export const useSearchPageLogic = () => {
   const handleNewSearch = (newSearchParameters = SEARCH_PARAMETER_DEFAULTS) => {
     dispatch(updateCurrentSearchParameters({ ...newSearchParameters }));
     dispatch(updateLoadingSearchArchives(true));
+    dispatch(updateFocusFirstArchiveCard(true));
     requestSearchForArchives(newSearchParameters).then((response) => {
       updateLastSearch({ ...newSearchParameters, start: "0" });
       dispatch(updateSearchData(response));
