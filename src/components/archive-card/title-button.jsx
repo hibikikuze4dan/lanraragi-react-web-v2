@@ -3,14 +3,23 @@ import { Truncate } from "@re-dev/react-truncate";
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { getCurrentArchiveId } from "../../redux/selectors";
-import { KEYBOARD_KEY_CODES } from "../../constants";
+import {
+  COMPONENT_CLASSNAMES,
+  COMPONENT_IDS,
+  KEYBOARD_KEY_CODES,
+  TARGETED_BUTTON_CLASSNAMES_FOR_ARCHIVE_CARD_ARROW_KEY_NAVIGATION,
+} from "../../constants";
+import { focusCardTitleOnArrowKeyDown } from "../../utils/focusCardTitleOnArrowKeyDown";
+import moveFocusRelative from "../../utils/moveFocusRelative";
+import getElementsByMultipleClassnames from "../../utils/getElementsByMultipleClassnames";
 
 export const TitleButton = ({ archive }) => {
   const ref = useRef();
   const currentArchiveId = useSelector(getCurrentArchiveId);
   const [shouldTuncate, setShouldTruncate] = useState(true);
   const [attemptedScroll, setAttemptedScroll] = useState(false);
-  const { ENTER, SPACE } = KEYBOARD_KEY_CODES;
+  const { ENTER, SPACE, ARROW_DOWN, ARROW_UP, ARROW_LEFT, ARROW_RIGHT } =
+    KEYBOARD_KEY_CODES;
 
   const archiveId = archive?.arcid ?? "";
 
@@ -38,15 +47,34 @@ export const TitleButton = ({ archive }) => {
   };
 
   const onKeyDown = (event) => {
-    const isValidKey = [SPACE].includes(event?.code);
-    if (isValidKey) {
+    const eventCode = event?.code;
+    const isSpaceKey = [SPACE].includes(eventCode);
+    const isUpDownArrowKeys = [ARROW_DOWN, ARROW_UP].includes(eventCode);
+    const isLeftRightArrowKeys = [ARROW_LEFT, ARROW_RIGHT].includes(eventCode);
+    if (isSpaceKey) {
       event.preventDefault();
+    } else if (isUpDownArrowKeys) {
+      event.preventDefault();
+      focusCardTitleOnArrowKeyDown({
+        arrowKeyDirection: eventCode,
+        archiveId: archiveId,
+      });
+    } else if (isLeftRightArrowKeys) {
+      event.preventDefault();
+      moveFocusRelative({
+        element: event?.target,
+        arrowKey: eventCode,
+        elementList: getElementsByMultipleClassnames(
+          TARGETED_BUTTON_CLASSNAMES_FOR_ARCHIVE_CARD_ARROW_KEY_NAVIGATION
+        ),
+      });
     }
   };
 
   return (
     <Typography
-      id={`arcive-card-title-button-${archiveId}`}
+      className={`${COMPONENT_CLASSNAMES.ARCHIVE_CARD_TITLE_BUTTON}`}
+      id={`${COMPONENT_IDS.TITLE_BUTTON(archiveId)}`}
       ref={ref}
       role="button"
       tabIndex={0}

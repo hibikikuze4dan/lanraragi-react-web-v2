@@ -4,6 +4,7 @@ import { SearchPageButtons } from "./search-page-buttons";
 import { SearchAccordion } from "./search-accordion";
 import { SearchArchiveCardList } from "./search-archive-card-list";
 import { useDatabaseStats } from "../../../hooks/useDatabaseStats";
+import { COMPONENT_IDS } from "../../../constants";
 
 export const SearchPage = () => {
   useDatabaseStats(true);
@@ -11,7 +12,7 @@ export const SearchPage = () => {
 
   return (
     <Grid2
-      id="search-page"
+      id={`${COMPONENT_IDS.SEARCH_PAGE}`}
       container
       columns={columnsDisplayed}
       justifyContent="center"

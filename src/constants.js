@@ -147,3 +147,23 @@ export const KEYBOARD_KEY_CODES = {
   ENTER,
   SPACE,
 };
+
+export const COMPONENT_IDS = {
+  LOADED_CHILDREN_WRAPPER: "loaded-children-wrapper",
+  TITLE_BUTTON: (archiveId = "") => `arcive-card-title-button-${archiveId}`,
+  RANDOM_PAGE: "random-page",
+  SEARCH_PAGE: "search-page",
+};
+
+export const COMPONENT_CLASSNAMES = {
+  ARCHIVE_CARD_ACTIONS_BUTTON: "archive-card-actions-button-classname",
+  ARCHIVE_CARD_READ_BUTTON: "archive-card-read-button-classname",
+  ARCHIVE_CARD_TITLE_BUTTON: "archive-card-title-button",
+};
+
+export const TARGETED_BUTTON_CLASSNAMES_FOR_ARCHIVE_CARD_ARROW_KEY_NAVIGATION =
+  [
+    COMPONENT_CLASSNAMES.ARCHIVE_CARD_ACTIONS_BUTTON,
+    COMPONENT_CLASSNAMES.ARCHIVE_CARD_READ_BUTTON,
+    COMPONENT_CLASSNAMES.ARCHIVE_CARD_TITLE_BUTTON,
+  ];

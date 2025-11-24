@@ -56,7 +56,7 @@ export const Pages = () => {
     >
       <UrlPage>
         <Grid2 id={TOP_OF_PAGE_ID} />
-        <Box className="w-full">
+        <Box id="pages-component-box" className="w-full">
           <PageComponent />
         </Box>
         <ArchiveActionsDialog actionType={dialogActionType} />

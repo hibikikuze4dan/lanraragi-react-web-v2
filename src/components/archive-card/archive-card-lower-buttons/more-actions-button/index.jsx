@@ -6,8 +6,12 @@ import { useDispatch } from "react-redux";
 import { updateCurrentArchiveId } from "../../../../redux/slices/appSlice";
 import { isDesktop } from "react-device-detect";
 import useOpenDialogs from "../../../../hooks/useOpenDialogs";
+import { COMPONENT_CLASSNAMES } from "../../../../constants";
 
-export const MoreActionsButton = ({ archive }) => {
+export const MoreActionsButton = ({
+  archive,
+  onButtonKeyDown = () => null,
+}) => {
   const dispatch = useDispatch();
   const archiveId = archive?.arcid ?? "";
   const moreButtonRef = useRef();
@@ -33,10 +37,12 @@ export const MoreActionsButton = ({ archive }) => {
     <>
       <Button
         aria-label={`More options for archive ${archive?.title ?? ""}`}
+        className={COMPONENT_CLASSNAMES.ARCHIVE_CARD_ACTIONS_BUTTON}
         id={moreButtonId}
         fullWidth
         ref={moreButtonRef}
         onClick={onMoreButtonClick}
+        onKeyDown={onButtonKeyDown}
         variant="text"
       >
         <MoreHoriz />
