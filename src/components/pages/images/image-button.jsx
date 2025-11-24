@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getDisplayAppBar } from "../../../redux/selectors";
 import clsx from "clsx";
-import { IMAGE_BUTTON_CLASSNAME } from "../../../classnames";
+import { COMPONENT_CLASSNAMES } from "../../../constants";
 
 export const ImageButton = ({
   imageUrl,
@@ -56,7 +56,7 @@ export const ImageButton = ({
         id={`${imageId}-button-id`}
         className={clsx(
           "px-0",
-          IMAGE_BUTTON_CLASSNAME,
+          COMPONENT_CLASSNAMES.IMAGE_BUTTON_CLASSNAME,
           hasImageLoaded && "min-h-400 flex content-start items-start"
         )}
         onClick={onImageClick}

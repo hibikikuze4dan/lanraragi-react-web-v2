@@ -1,5 +1,6 @@
 import { Button, Grid2 } from "@mui/material";
-import { RETURN_NULL } from "../../constants";
+import { COMPONENT_CLASSNAMES, RETURN_NULL } from "../../constants";
+import clsx from "clsx";
 
 export const EndOfArchiveButtonsFactory = ({
   buttonsData = [],
@@ -21,7 +22,10 @@ export const EndOfArchiveButtonsFactory = ({
             <Button
               fullWidth
               variant="outlined"
-              className="py-4 h-full"
+              className={clsx(
+                "py-4 h-full",
+                COMPONENT_CLASSNAMES.END_OF_ARCHIVE_BUTTON
+              )}
               onClick={onClick}
               startIcon={<Icon />}
             >

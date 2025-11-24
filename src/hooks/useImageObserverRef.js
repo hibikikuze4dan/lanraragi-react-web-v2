@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { IMAGE_BUTTON_CLASSNAME } from "../classnames";
+import { COMPONENT_CLASSNAMES } from "../constants";
 
 export const useImageObserverRef = (pages = 0) => {
   const [imagesToDisplay, setImagesToDisplay] = useState(10);
@@ -23,7 +23,9 @@ export const useImageObserverRef = (pages = 0) => {
   }, [pages, imagesToDisplay, needMorePages]);
 
   useEffect(() => {
-    const images = document.querySelectorAll(`.${IMAGE_BUTTON_CLASSNAME}`);
+    const images = document.querySelectorAll(
+      `.${COMPONENT_CLASSNAMES.IMAGE_BUTTON_CLASSNAME}`
+    );
 
     const previousPageButton = document.getElementById("images-end");
 

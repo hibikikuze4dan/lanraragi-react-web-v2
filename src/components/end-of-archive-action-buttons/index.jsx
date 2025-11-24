@@ -1,6 +1,7 @@
 import { Grid2 } from "@mui/material";
 import clsx from "clsx";
 import {
+  COMPONENT_CLASSNAMES,
   PAGE_ICONS,
   RETURN_NULL,
   SINGLE_PAGE_VIEW_MODE,
@@ -18,6 +19,7 @@ import { IMAGES_VIEW_MODE } from "../../local-storage/constants";
 import { createLocalStorageInstance } from "../../local-storage";
 import TransitionButtons from "./transition-buttons";
 import EndOfArchiveButtonsFactory from "./button-factory";
+import { useEffect } from "react";
 
 const { get: getImagesViewMode } = createLocalStorageInstance(IMAGES_VIEW_MODE);
 
@@ -58,6 +60,17 @@ export const EndOfArchiveActionButtons = ({
       onClick: onReturnClick,
     },
   ];
+
+  useEffect(() => {
+    setTimeout(() => {
+      const firstEndOfArchiveButton = document.querySelector(
+        `.${COMPONENT_CLASSNAMES.END_OF_ARCHIVE_BUTTON}`
+      );
+      if (firstEndOfArchiveButton && isSingleImageMode) {
+        firstEndOfArchiveButton?.focus();
+      }
+    }, 125);
+  }, [isSingleImageMode]);
 
   return (
     <Grid2

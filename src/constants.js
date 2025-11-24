@@ -159,6 +159,8 @@ export const COMPONENT_CLASSNAMES = {
   ARCHIVE_CARD_ACTIONS_BUTTON: "archive-card-actions-button-classname",
   ARCHIVE_CARD_READ_BUTTON: "archive-card-read-button-classname",
   ARCHIVE_CARD_TITLE_BUTTON: "archive-card-title-button",
+  IMAGE_BUTTON_CLASSNAME: "image-page-image-button",
+  END_OF_ARCHIVE_BUTTON: "end-of-archive-button",
 };
 
 export const TARGETED_BUTTON_CLASSNAMES_FOR_ARCHIVE_CARD_ARROW_KEY_NAVIGATION =
