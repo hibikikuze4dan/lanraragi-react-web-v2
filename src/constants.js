@@ -150,6 +150,12 @@ export const KEYBOARD_KEY_CODES = {
 
 export const COMPONENT_IDS = {
   ARCHIVE_ACTIONS_DIALOG_CLOSE_BUTTON: "archive-actions-dialog-close-button",
+  END_OF_ARCHIVE_BUTTON_CATEGORIZE: "end-of-archive-button-categorize",
+  END_OF_ARCHIVE_BUTTON_RATE: "end-of-archive-button-rate",
+  END_OF_ARCHIVE_BUTTON_LAST_IMAGE: "end-of-archive-button-last-image",
+  END_OF_ARCHIVE_BUTTON_ARCHIVES: "end-of-archive-button-archives",
+  END_OF_ARCHIVE_BUTTON_PREVIOUS: "end-of-archive-button-previous",
+  END_OF_ARCHIVE_BUTTON_NEXT: "end-of-archive-button-next",
   LOADED_CHILDREN_WRAPPER: "loaded-children-wrapper",
   TITLE_BUTTON: (archiveId = "") => `arcive-card-title-button-${archiveId}`,
   RANDOM_PAGE: "random-page",

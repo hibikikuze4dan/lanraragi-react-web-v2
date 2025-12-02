@@ -5,6 +5,7 @@ import clsx from "clsx";
 export const EndOfArchiveButtonsFactory = ({
   buttonsData = [],
   gridSize = 12,
+  onButtonKeyDown = RETURN_NULL,
 }) => {
   return (
     <>
@@ -12,6 +13,7 @@ export const EndOfArchiveButtonsFactory = ({
         const Icon = data?.icon ?? Grid2;
         const onClick = data?.onClick ?? RETURN_NULL;
         const label = data?.label ?? "";
+        const id = data?.id ?? "";
 
         return (
           <Grid2
@@ -21,13 +23,15 @@ export const EndOfArchiveButtonsFactory = ({
           >
             <Button
               fullWidth
-              variant="outlined"
               className={clsx(
                 "py-4 h-full",
                 COMPONENT_CLASSNAMES.END_OF_ARCHIVE_BUTTON
               )}
+              id={id}
               onClick={onClick}
+              onKeyDown={onButtonKeyDown}
               startIcon={<Icon />}
+              variant="outlined"
             >
               {label}
             </Button>
