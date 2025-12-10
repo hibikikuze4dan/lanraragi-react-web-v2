@@ -1,3 +1,5 @@
+export * from "./constants";
+
 export const createLocalStorageInstance = (key = "") => {
   const get = () => localStorage.getItem(key);
 
@@ -13,3 +15,5 @@ export const createLocalStorageInstance = (key = "") => {
 
   return { get, set };
 };
+
+export default createLocalStorageInstance;

@@ -7,6 +7,7 @@ import { ImagesViewMode } from "./images-view-mode";
 import { RatingNamespaceSetting } from "./rating-namespace-setting";
 import { ForceNoFunMode } from "./force-no-fun-mode";
 import { ClientVsApiHistory } from "./client-vs-api-history";
+import ReadingDirectionSetting from "./reading-direction-setting";
 
 export const SETTINGS_TO_DISPLAY = [
   {
@@ -36,6 +37,12 @@ export const SETTINGS_TO_DISPLAY = [
     description:
       "Determines the way archive images are displayed when reading an archive.",
     component: ImagesViewMode,
+  },
+  {
+    title: "Reading Direction",
+    description:
+      "Determines whether progression is from going left or right when in Single Page View Mode",
+    component: ReadingDirectionSetting,
   },
   {
     title: "Rating Namespace",
