@@ -5,6 +5,8 @@ import { useArchivePages } from "../../../../hooks/useArchivePages";
 import { preloadImage } from "../../../../utils/prelaodImage";
 import { updateDisplayAppBar } from "../../../../redux/slices/appSlice";
 import { useSwipeable } from "react-swipeable";
+import { useReadingDirectionSetting } from "../../../../hooks/useReadingDirectionSetting";
+import { READING_DIRECTIONS } from "../../../../constants";
 
 export const useSwipeImagesLogic = () => {
   const centerFloatingButtonId = "swipe-images-center-floating-button";
@@ -13,11 +15,14 @@ export const useSwipeImagesLogic = () => {
   const [currentPageIndex, updateCurrentPageIndex] = useState(0);
   const [loadedImage, setLoadedImage] = useState(false);
   const { archivePagesAsLinks, getPageLink } = useArchivePages();
+  const { userSettingReadingDirection } = useReadingDirectionSetting();
+  const [currentPage, setCurrentPage] = useState(null);
   const loadedImagesMap = useRef(new Map());
   const hasImages = archivePagesAsLinks?.length ?? false;
   const doneWithImages =
     currentPageIndex >= (archivePagesAsLinks?.length ?? 0) && hasImages;
-  const [currentPage, setCurrentPage] = useState(null);
+  const isReadingDirectionLeftToRight =
+    userSettingReadingDirection === READING_DIRECTIONS.LEFT_TO_RIGHT;
 
   const setCurrentPageIndex = (index) => {
     updateCurrentPageIndex(index);
@@ -42,14 +47,22 @@ export const useSwipeImagesLogic = () => {
 
   const onCenterClick = () => dispatch(updateDisplayAppBar(!displayAppBar));
   const nextImage = () => {
-    if (!doneWithImages) {
-      setCurrentPageIndex((index) => index + 1);
+    const change = isReadingDirectionLeftToRight ? 1 : -1;
+    const progressionCheck = isReadingDirectionLeftToRight
+      ? !doneWithImages
+      : currentPageIndex !== 0;
+    if (progressionCheck) {
+      setCurrentPageIndex((index) => index + change);
     }
     setLoadedImage(false);
   };
   const previousImage = () => {
-    if (currentPageIndex !== 0) {
-      setCurrentPageIndex((index) => index - 1);
+    const change = isReadingDirectionLeftToRight ? -1 : 1;
+    const progressionCheck = isReadingDirectionLeftToRight
+      ? currentPageIndex !== 0
+      : !doneWithImages;
+    if (progressionCheck) {
+      setCurrentPageIndex((index) => index + change);
     }
     setLoadedImage(false);
   };
