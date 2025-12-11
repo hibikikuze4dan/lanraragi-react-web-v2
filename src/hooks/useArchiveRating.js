@@ -14,16 +14,17 @@ import {
 import { updateArchiveTags } from "../utils/updateArchiveTags";
 import { updateArchiveInArray } from "../utils/updateArchiveInArray";
 import { useSnackbar } from "./useSnackbar";
+import useCurrentArchive from "./useCurrentArchive";
 
 export const useArchiveRating = () => {
   const dispatch = useDispatch();
   const { setNewSnackbarStatus } = useSnackbar();
+  const { archive } = useCurrentArchive();
   const searchArchives = useSelector(getSearchArchives);
   const randomArchives = useSelector(getRandomArchives);
   const searchArchive = useSelector(getCurrentArchiveFromSearchArchives);
   const randomArchive = useSelector(getCurrentArchiveFromRandomArchives);
 
-  const archive = searchArchive ?? randomArchive ?? {};
   const { tags, arcid } = archive;
 
   const onArchiveMetadataUpdateResponse = (response = {}) => {

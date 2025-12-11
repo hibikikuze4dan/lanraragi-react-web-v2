@@ -66,7 +66,7 @@ export const ArchiveCardLowerButtons = ({
       spacing={1}
       sx={BUTTON_INHERIT_BACKGROUND}
     >
-      <Grid2 size={isHistoryPage ? 12 : 6}>
+      <Grid2 size={6}>
         <Button
           fullWidth
           className={`${COMPONENT_CLASSNAMES.ARCHIVE_CARD_READ_BUTTON}`}
@@ -78,14 +78,12 @@ export const ArchiveCardLowerButtons = ({
           Read
         </Button>
       </Grid2>
-      {!isHistoryPage && (
-        <Grid2 size={6}>
-          <MoreActionsButton
-            archive={archive}
-            onButtonKeyDown={onButtonsKeyDown}
-          />
-        </Grid2>
-      )}
+      <Grid2 size={6}>
+        <MoreActionsButton
+          archive={archive}
+          onButtonKeyDown={onButtonsKeyDown}
+        />
+      </Grid2>
     </Grid2>
   );
 };

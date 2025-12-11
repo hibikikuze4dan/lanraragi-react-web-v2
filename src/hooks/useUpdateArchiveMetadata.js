@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useCurrentArchive from "./useCurrentArchive";
 import { putUpdateToArchiveMetadata } from "../requests/putUpdateToArchiveMetadata";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,6 +16,7 @@ export const useUpdateArchiveMetadata = () => {
   const searchArchives = useSelector(getSearchArchives);
   const randomArchives = useSelector(getRandomArchives);
   const { setNewSnackbarStatus } = useSnackbar();
+
   const {
     arcid: archiveId,
     title: archiveTitle,
@@ -26,6 +27,16 @@ export const useUpdateArchiveMetadata = () => {
   const [tags, updateTags] = useState(archiveTags ?? "");
   const [title, updateTitle] = useState(archiveTitle ?? "");
   const [summary, updateSummary] = useState(archiveSummary ?? "");
+
+  /*
+    This is so that the fields update if the archive
+    information is updated after a network call
+  */
+  useEffect(() => {
+    updateTags(archive?.tags ?? "");
+    updateTitle(archive?.title ?? "");
+    updateSummary(archive?.summary ?? "");
+  }, [archive]);
 
   const updateMetadata = () => {
     putUpdateToArchiveMetadata({ archiveId, title, tags, summary }).then(
