@@ -5,7 +5,7 @@ import EndOfArchiveActionButtons from "../../../end-of-archive-action-buttons";
 import { RETURN_NULL } from "../../../../constants";
 
 export const ArchiveEnd = ({
-  previousImage = RETURN_NULL,
+  onBackToLastImage = RETURN_NULL,
   setCurrentPageIndex = RETURN_NULL,
 }) => {
   const isSvp = useMediaQuery((theme) => theme.breakpoints.down("sm"));
@@ -30,7 +30,7 @@ export const ArchiveEnd = ({
         <Grid2 container>
           <EndOfArchiveActionButtons
             setCurrentPageIndex={setCurrentPageIndex}
-            previousImage={previousImage}
+            onBackToLastImage={onBackToLastImage}
           />
         </Grid2>
       </Grid2>

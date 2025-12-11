@@ -67,6 +67,11 @@ export const useSwipeImagesLogic = () => {
     setLoadedImage(false);
   };
 
+  const onBackToLastImage = () => {
+    setCurrentPageIndex((archivePagesAsLinks?.length ?? 0) - 1);
+    setLoadedImage(false);
+  };
+
   const handlers = useSwipeable({
     onSwipedLeft: () => {
       nextImage();
@@ -132,6 +137,7 @@ export const useSwipeImagesLogic = () => {
     loadedImage,
     setLoadedImage,
     onFloatingButtonKeyDown,
+    onBackToLastImage,
   };
 };
 

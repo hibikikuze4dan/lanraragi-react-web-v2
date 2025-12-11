@@ -21,6 +21,7 @@ export const SwipeImages = () => {
     onFloatingButtonKeyDown,
     setCurrentPageIndex,
     setLoadedImage,
+    onBackToLastImage,
   } = useSwipeImagesLogic();
 
   return (
@@ -65,7 +66,7 @@ export const SwipeImages = () => {
           <Grid2 size={12}>
             <ArchiveEnd
               setCurrentPageIndex={setCurrentPageIndex}
-              previousImage={previousImage}
+              onBackToLastImage={onBackToLastImage}
             />
           </Grid2>
         )}

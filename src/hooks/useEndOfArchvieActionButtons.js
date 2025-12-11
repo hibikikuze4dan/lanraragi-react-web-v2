@@ -32,7 +32,7 @@ const {
 } = COMPONENT_IDS;
 
 export const useEndOfArchiveButtons = (
-  { previousImage } = { previousImage: RETURN_NULL }
+  { onBackToLastImage } = { onBackToLastImage: RETURN_NULL }
 ) => {
   const dispatch = useDispatch();
   const { setActionType } = useArchiveActionsDialogLogic();
@@ -66,7 +66,7 @@ export const useEndOfArchiveButtons = (
             icon: Image,
             id: END_OF_ARCHIVE_BUTTON_LAST_IMAGE,
             label: "Back to Last Image",
-            onClick: previousImage,
+            onClick: onBackToLastImage,
           },
         ]
       : []),

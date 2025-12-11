@@ -6,11 +6,11 @@ import EndOfArchiveButtonsFactory from "./button-factory";
 import useEndOfArchiveButtons from "../../hooks/useEndOfArchvieActionButtons";
 
 export const EndOfArchiveActionButtons = ({
-  previousImage = RETURN_NULL,
+  onBackToLastImage = RETURN_NULL,
   setCurrentPageIndex = RETURN_NULL,
 }) => {
   const { isSingleImageMode, gridSize, buttonsData, onButtonKeyDown } =
-    useEndOfArchiveButtons({ previousImage });
+    useEndOfArchiveButtons({ onBackToLastImage });
 
   return (
     <Grid2
