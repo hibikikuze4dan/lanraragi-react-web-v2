@@ -3,6 +3,8 @@ import clsx from "clsx";
 import useCurrentArchive from "../../../../hooks/useCurrentArchive";
 import EndOfArchiveActionButtons from "../../../end-of-archive-action-buttons";
 import { RETURN_NULL } from "../../../../constants";
+import { useEffect } from "react";
+import { putUpdateReadingProgression } from "../../../../requests/putUpdateReadingProgression";
 
 export const ArchiveEnd = ({
   onBackToLastImage = RETURN_NULL,
@@ -10,6 +12,14 @@ export const ArchiveEnd = ({
 }) => {
   const isSvp = useMediaQuery((theme) => theme.breakpoints.down("sm"));
   const { archive } = useCurrentArchive();
+  const pagecount = archive?.pagecount;
+  const arcid = archive?.arcid;
+
+  useEffect(() => {
+    if (arcid && pagecount) {
+      putUpdateReadingProgression({ archiveId: arcid, page: pagecount });
+    }
+  }, [arcid, pagecount]);
 
   return (
     <>

@@ -8,14 +8,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { getDisplayAppBar } from "../../../redux/selectors";
 import clsx from "clsx";
 import { COMPONENT_CLASSNAMES } from "../../../constants";
+import { putUpdateReadingProgression } from "../../../requests/putUpdateReadingProgression";
 
 export const ImageButton = ({
+  archiveId,
+  archivePageCount,
   imageUrl,
   imageId,
   getPageLink,
   index = 0,
   setIntersectingImageRef,
   imagesToDisplay = 0,
+  lastImage = false,
 }) => {
   const dispatch = useDispatch();
   const displayAppBar = useSelector(getDisplayAppBar);
@@ -47,6 +51,10 @@ export const ImageButton = ({
 
     if ([imagesToDisplay - 5, imagesToDisplay].includes(index)) {
       setIntersectingImageRef(event?.target);
+    }
+
+    if (lastImage && archivePageCount) {
+      putUpdateReadingProgression({ archiveId, page: archivePageCount });
     }
   };
 

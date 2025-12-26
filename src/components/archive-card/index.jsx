@@ -3,8 +3,10 @@ import {
   CardActions,
   CardContent,
   CardMedia,
+  Grid2,
   Rating,
 } from "@mui/material";
+import SportsScore from "@mui/icons-material/SportsScore";
 import { memo, useEffect, useRef, useState } from "react";
 import { ArchiveCardLowerButtons } from "./archive-card-lower-buttons";
 import { TitleButton } from "./title-button";
@@ -26,6 +28,8 @@ export const ArchiveCard = memo(function ArchiveCard({
   const [maxWidth, setMaxWidth] = useState("100%");
   const [height, setHeight] = useState("100%");
   const archiveId = archive?.arcid ?? "";
+
+  const readAllOfArchive = archive?.pagecount === archive?.progress;
 
   const onImageLoad = () => {
     if (imageRef?.current) {
@@ -50,6 +54,11 @@ export const ArchiveCard = memo(function ArchiveCard({
   return (
     <Card className="h-full flex flex-col">
       <div className="min-h-75 max-h-75 content-center p-2 flex justify-center">
+        {readAllOfArchive && (
+          <Grid2 container className="relative">
+            <SportsScore />
+          </Grid2>
+        )}
         <CardMedia
           ref={imageRef}
           id={`archive-card-image-${archiveId}`}

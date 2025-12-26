@@ -3,17 +3,17 @@ import { LoadingSpinner } from "../../../loading-spinner";
 import { ImageButton } from "../image-button";
 import { useRef } from "react";
 import { useArchivePages } from "../../../../hooks/useArchivePages";
-import { getCurrentArchiveId } from "../../../../redux/selectors";
-import { useSelector } from "react-redux";
 import { useImageObserverRef } from "../../../../hooks/useImageObserverRef";
 import clsx from "clsx";
 import EndOfArchiveActionButtons from "../../../end-of-archive-action-buttons";
 import { SCROLL_IMAGES_START_ID } from "../../../../constants";
+import useCurrentArchive from "../../../../hooks/useCurrentArchive";
 
 export const ScrollImages = () => {
   const isSvp = useMediaQuery((theme) => theme.breakpoints.down("sm"));
-  const archiveId = useSelector(getCurrentArchiveId);
+  const { archive, currentArchiveId: archiveId } = useCurrentArchive();
   const { archivePagesAsLinks, getPageLink } = useArchivePages();
+  const archivePageCount = archive?.pagecount;
   const numOfImages = archivePagesAsLinks?.length ?? 0;
   const hasImages = !!numOfImages;
   const ref = useRef(null);
@@ -35,11 +35,14 @@ export const ScrollImages = () => {
           return (
             <Grid2 size={12} key={key}>
               <ImageButton
+                archiveId={archive?.arcid}
+                archivePageCount={archivePageCount}
+                getPageLink={getPageLink}
                 imageId={key}
                 index={index}
                 imageUrl={page}
-                getPageLink={getPageLink}
                 imagesToDisplay={imagesToDisplay}
+                lastImage={archivePageCount === index + 1}
                 setIntersectingImageRef={setIntersectingImageRef}
               />
             </Grid2>
