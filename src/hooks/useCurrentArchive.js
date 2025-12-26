@@ -16,7 +16,7 @@ export const useCurrentArchive = () => {
 
   const emptyArchiveObject = Object.keys(archive).length === 0;
 
-  if (!archive || emptyArchiveObject) {
+  if ((!archive || emptyArchiveObject) && currentArchiveId) {
     getArchiveMetadata({ archiveId: currentArchiveId }).then((archiveData) => {
       setArchive(archiveData);
     });
