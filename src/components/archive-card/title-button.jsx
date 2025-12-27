@@ -30,7 +30,10 @@ export const TitleButton = ({ archive, focusTitle = false }) => {
       setTimeout(() => {
         ref.current?.focus?.({ preventScroll: true });
         const scrollBlock = focusTitle ? "end" : "center";
-        ref.current?.scrollIntoView({ behavior: "smooth", block: scrollBlock });
+        ref.current?.scrollIntoView({
+          behavior: focusTitle ? "instant" : "smooth",
+          block: scrollBlock,
+        });
         dispatch(updateFocusFirstArchiveCard(false));
       }, 500);
     }
