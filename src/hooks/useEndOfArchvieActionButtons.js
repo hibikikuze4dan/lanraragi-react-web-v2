@@ -20,6 +20,8 @@ import { useDispatch } from "react-redux";
 import useAppPages from "./useAppPages";
 import getWrappedArrayIndex from "../utils/getWrappedArrayIndex";
 import useImageViewMode from "./useImageViewMode";
+import scrollToLogger from "../utils/scrollToLogger";
+import useCurrentArchive from "./useCurrentArchive";
 
 const {
   END_OF_ARCHIVE_BUTTON_CATEGORIZE,
@@ -36,6 +38,7 @@ export const useEndOfArchiveButtons = (
   const { updateAppPage, archiveOpenedFrom } = useAppPages();
   const { isViewModeAlwaysAsk, tempViewMode, imageViewMode } =
     useImageViewMode();
+  const { currentArchiveId } = useCurrentArchive();
   const isSingleImageMode = isViewModeAlwaysAsk
     ? tempViewMode === SINGLE_PAGE_VIEW_MODE
     : imageViewMode === SINGLE_PAGE_VIEW_MODE;
@@ -44,6 +47,22 @@ export const useEndOfArchiveButtons = (
   const onReturnClick = () => {
     dispatch(updateDisplayAppBar(true));
     updateAppPage(archiveOpenedFrom);
+
+    scrollToLogger({
+      element: document.getElementById(COMPONENT_IDS.PAGES_CONTAINER),
+      message: "useEndOfArchiveButtons start",
+      options: { block: "start", behavior: "instant" },
+    });
+
+    setTimeout(() => {
+      scrollToLogger({
+        element: document.getElementById(
+          COMPONENT_IDS.TITLE_BUTTON(currentArchiveId)
+        ),
+        message: "useEndOfArchiveButtons finish",
+        options: { block: "center", behavior: "smooth" },
+      });
+    }, 500);
   };
 
   const ReturnToIcon = PAGE_ICONS[archiveOpenedFrom] ?? Grid2;

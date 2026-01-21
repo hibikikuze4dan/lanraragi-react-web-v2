@@ -4,6 +4,7 @@ import {
   ALWAYS_ASK,
   HISTORY,
   IMAGES,
+  IMAGES_PAGE_ID,
   TEMP_VIEW_MODE_DIALOG,
 } from "../constants";
 import { useArchiveHistory } from "./useArchiveHistory";
@@ -16,6 +17,7 @@ import { putUpdateReadingProgression } from "../requests/putUpdateReadingProgres
 import useImageViewMode from "./useImageViewMode";
 import { useArchiveActionsDialogLogic } from "./useArchiveActionsDialogLogic";
 import useCurrentArchive from "./useCurrentArchive";
+import { scrollToLogger } from "../utils/scrollToLogger";
 import { useCallback } from "react";
 
 export const useReadingButtonLogic = () => {
@@ -37,6 +39,11 @@ export const useReadingButtonLogic = () => {
       dispatch(updateImagesScrollTarget(""));
       updateAppPage(IMAGES);
       await getNewArchivePages(archiveArcId);
+      scrollToLogger({
+        element: document.getElementById(IMAGES_PAGE_ID),
+        message: "useReadingButtonLogic",
+        options: { block: "start", behavior: "instant" },
+      });
       putUpdateReadingProgression({ archiveArcId });
     },
     [dispatch, getNewArchivePages, updateAppPage]

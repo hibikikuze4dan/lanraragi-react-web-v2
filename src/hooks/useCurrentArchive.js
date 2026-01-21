@@ -25,6 +25,7 @@ export const useCurrentArchive = () => {
   return {
     archive,
     currentArchiveId,
+    setArchive,
   };
 };
 

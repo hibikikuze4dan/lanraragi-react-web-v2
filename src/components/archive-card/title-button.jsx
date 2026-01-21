@@ -29,11 +29,6 @@ export const TitleButton = ({ archive, focusTitle = false }) => {
     if ((archiveId === currentArchiveId && !attemptedScroll) || focusTitle) {
       setTimeout(() => {
         ref.current?.focus?.({ preventScroll: true });
-        const scrollBlock = focusTitle ? "end" : "center";
-        ref.current?.scrollIntoView({
-          behavior: focusTitle ? "instant" : "smooth",
-          block: scrollBlock,
-        });
         dispatch(updateFocusFirstArchiveCard(false));
       }, 500);
     }
@@ -49,7 +44,7 @@ export const TitleButton = ({ archive, focusTitle = false }) => {
     const isValidKey = [ENTER, SPACE].includes(event?.code);
     if (isValidKey) {
       onClick();
-      ref.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+      // ref.current?.scrollIntoView({ behavior: "smooth", block: "center" });
     }
   };
 

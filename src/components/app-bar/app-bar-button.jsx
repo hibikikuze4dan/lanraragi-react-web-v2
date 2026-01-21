@@ -1,8 +1,9 @@
 import { Button, Grid2, Typography } from "@mui/material";
 import { useCallback } from "react";
 import useAppPages from "../../hooks/useAppPages.js";
-import { HISTORY } from "../../constants.js";
+import { COMPONENT_IDS, HISTORY } from "../../constants.js";
 import { useArchiveHistory } from "../../hooks/useArchiveHistory.js";
+import scrollToLogger from "../../utils/scrollToLogger.js";
 
 export const AppBarButton = ({ Icon, page }) => {
   const { updateAppPage } = useAppPages();
@@ -14,6 +15,11 @@ export const AppBarButton = ({ Icon, page }) => {
       refreshHistory();
     }
     updateAppPage(page);
+    scrollToLogger({
+      element: document.getElementById(COMPONENT_IDS.PAGES_CONTAINER),
+      message: "app-bar-button",
+      options: { behavior: "instant", block: "start" },
+    });
   }, [updateAppPage, page, clearHistoryState, refreshHistory]);
 
   return (

@@ -3,6 +3,7 @@ import ArrowBack from "@mui/icons-material/ArrowBack";
 import ArrowForward from "@mui/icons-material/ArrowForward";
 import { useSearchPageLogic } from "../../../hooks/useSearchPageLogic";
 import { memo } from "react";
+import scrollToLogger from "../../../utils/scrollToLogger";
 
 export const SearchPageButtons = memo(function SearchPageButton() {
   const {
@@ -15,6 +16,14 @@ export const SearchPageButtons = memo(function SearchPageButton() {
     handleNewSearch,
   } = useSearchPageLogic();
 
+  const scrollToTopSearchPageButtons = () => {
+    scrollToLogger({
+      element: document.querySelector(".search-page-buttons-wrapper"),
+      message: "search-page-buttons",
+      options: { block: "start", behavior: "instant" },
+    });
+  };
+
   const handleButtonClick =
     (nextButton = false) =>
     () => {
@@ -24,6 +33,7 @@ export const SearchPageButtons = memo(function SearchPageButton() {
           Number(nextButton ? nextPage : previousPage) * archivesRendered
         }`,
       });
+      scrollToTopSearchPageButtons();
     };
 
   const onChange = (event) => {
@@ -32,6 +42,7 @@ export const SearchPageButtons = memo(function SearchPageButton() {
       ...currentSearchParameters,
       start: `${Number(value) * archivesRendered}`,
     });
+    scrollToTopSearchPageButtons();
   };
 
   return (

@@ -138,6 +138,8 @@ export const READING_DIRECTIONS = {
   RIGHT_TO_LEFT: "RIGHT_TO_LEFT",
 };
 
+export const IMAGES_PAGE_ID = "images-page";
+
 export const SCROLL_IMAGES_START_ID = "images-start";
 
 export const RETURN_NULL = () => null;
@@ -175,6 +177,16 @@ export const COMPONENT_IDS = {
   TITLE_BUTTON: (archiveId = "") => `arcive-card-title-button-${archiveId}`,
   RANDOM_PAGE: "random-page",
   SEARCH_PAGE: "search-page",
+  IMAGES_PAGE: IMAGES_PAGE_ID,
+  HISTORY_PAGE: "history-page",
+  PAGES_CONTAINER: "pages-container",
+};
+
+export const PAGE_IDS = {
+  [RANDOM]: COMPONENT_IDS.RANDOM_PAGE,
+  [SEARCH]: COMPONENT_IDS.SEARCH_PAGE,
+  [HISTORY]: COMPONENT_IDS.HISTORY_PAGE,
+  [IMAGES]: COMPONENT_IDS.IMAGES_PAGE,
 };
 
 export const COMPONENT_CLASSNAMES = {

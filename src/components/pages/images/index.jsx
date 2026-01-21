@@ -3,6 +3,7 @@ import { useRef } from "react";
 import { ScrollImages } from "./scroll-images";
 import { SwipeImages } from "./swipe-images";
 import {
+  IMAGES_PAGE_ID,
   SCROLLING_PAGE_VIEW_MODE,
   SINGLE_PAGE_VIEW_MODE,
 } from "../../../constants";
@@ -30,7 +31,7 @@ export const ImagesPage = () => {
       <Grid2
         className="min-h-full min-w-full"
         ref={containerRef}
-        id="images-page"
+        id={IMAGES_PAGE_ID}
         container
         spacing={2}
         justifyContent="center"

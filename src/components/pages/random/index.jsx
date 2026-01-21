@@ -14,6 +14,7 @@ import {
 import { useRatingNamespace } from "../../../hooks/useRatingNamespace";
 import { useUrls } from "../../../hooks/useUrls";
 import { COMPONENT_IDS } from "../../../constants";
+import scrollToLogger from "../../../utils/scrollToLogger";
 
 export const RandomPage = () => {
   const { columnsDisplayed } = useColumnsDisplayed();
@@ -25,6 +26,15 @@ export const RandomPage = () => {
   const focusFirstArchiveCard = useSelector(getFocusFirstArchiveCard);
   const { getNewArchivePages } = useArchivePages();
   useSearchResults({ initLoad: true });
+
+  const onClick = () => {
+    getNewRandomArchives();
+    scrollToLogger({
+      element: document.getElementById("random-page"),
+      message: "Random Page",
+      options: { block: "start", behavior: "instant" },
+    });
+  };
 
   return (
     <>
@@ -62,7 +72,7 @@ export const RandomPage = () => {
           <Grid2 size={12}>
             <Button
               className="mt-10 mb-100 p-4"
-              onClick={getNewRandomArchives}
+              onClick={onClick}
               fullWidth
               startIcon={<Casino />}
               variant="outlined"

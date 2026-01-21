@@ -43,7 +43,7 @@ export const Pages = () => {
 
   useEffect(() => {
     if (currentPage && ref.current) {
-      ref.current?.scrollIntoView({ behavior: "instant", block: "start" });
+      // ref.current?.scrollIntoView({ behavior: "instant", block: "start" });
     }
   }, [currentPage]);
 
