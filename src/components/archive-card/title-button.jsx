@@ -36,6 +36,7 @@ export const TitleButton = ({ archive, focusTitle = false }) => {
   }, [archiveId, currentArchiveId, attemptedScroll, focusTitle, dispatch]);
 
   const onClick = () => {
+    console.log(archive);
     setShouldTruncate(!shouldTuncate);
   };
 
@@ -84,9 +85,13 @@ export const TitleButton = ({ archive, focusTitle = false }) => {
       onKeyDown={onKeyDown}
       onKeyUp={onKeyUp}
     >
-      <Truncate trimWhitespace lines={shouldTuncate ? 3 : 100}>
-        {archive?.title}
-      </Truncate>
+      {shouldTuncate ? (
+        <Truncate trimWhitespace lines={3}>
+          {archive?.title}
+        </Truncate>
+      ) : (
+        <span>{archive?.title}</span>
+      )}
     </Typography>
   );
 };
