@@ -2,24 +2,28 @@ import { Grid2 } from "@mui/material";
 import { useRef } from "react";
 import { ScrollImages } from "./scroll-images";
 import { SwipeImages } from "./swipe-images";
-import { createLocalStorageInstance } from "../../../local-storage";
-import { IMAGES_VIEW_MODE } from "../../../local-storage/constants";
 import {
   SCROLLING_PAGE_VIEW_MODE,
   SINGLE_PAGE_VIEW_MODE,
 } from "../../../constants";
+import useImageViewMode from "../../../hooks/useImageViewMode";
 
 const viewModes = {
   [SINGLE_PAGE_VIEW_MODE]: SwipeImages,
   [SCROLLING_PAGE_VIEW_MODE]: ScrollImages,
 };
 
-const { get: getImagesViewMode } = createLocalStorageInstance(IMAGES_VIEW_MODE);
-
 export const ImagesPage = () => {
   const containerRef = useRef(null);
+  const { tempViewMode, isViewModeAlwaysAsk, imageViewMode } =
+    useImageViewMode();
+  const AlwaysAskViewModeComponent =
+    viewModes?.[tempViewMode ?? SCROLLING_PAGE_VIEW_MODE] ?? Grid2;
   const ViewModeComponent =
-    viewModes?.[getImagesViewMode() ?? SCROLLING_PAGE_VIEW_MODE] ?? Grid2;
+    viewModes?.[imageViewMode ?? SCROLLING_PAGE_VIEW_MODE] ?? Grid2;
+  const Component = isViewModeAlwaysAsk
+    ? AlwaysAskViewModeComponent
+    : ViewModeComponent;
 
   return (
     <>
@@ -31,7 +35,7 @@ export const ImagesPage = () => {
         spacing={2}
         justifyContent="center"
       >
-        <ViewModeComponent />
+        <Component />
       </Grid2>
     </>
   );

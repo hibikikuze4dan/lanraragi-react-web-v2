@@ -24,6 +24,8 @@ export const PAGE_ICONS = {
   [SETTINGS]: Settings,
 };
 
+export const TEMP_VIEW_MODE_DIALOG = "temp_view_mode_dialog";
+
 export const VIEW_ARCHIVE_INFO = "view_archive_info";
 
 export const UPDATE_ARCHIVE_METADATA = "update_archvive_metadata";
@@ -118,9 +120,17 @@ export const SINGLE_PAGE_VIEW_MODE = "single_page";
 
 export const SCROLLING_PAGE_VIEW_MODE = "infinite_scroll";
 
+export const ALWAYS_ASK = "always_ask";
+
+export const VIEW_MODES_FOR_ALWAYS_ASK_DIALOG = [
+  SINGLE_PAGE_VIEW_MODE,
+  SCROLLING_PAGE_VIEW_MODE,
+];
+
 export const VIEW_MODES_FOR_ARCHIVE_IMAGES = [
   SINGLE_PAGE_VIEW_MODE,
   SCROLLING_PAGE_VIEW_MODE,
+  ALWAYS_ASK,
 ];
 
 export const READING_DIRECTIONS = {

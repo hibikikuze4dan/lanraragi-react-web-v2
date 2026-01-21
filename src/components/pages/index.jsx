@@ -23,6 +23,7 @@ import { useServerInfo } from "../../hooks/useServerInfo";
 import { MobileArchiveActionsDialog } from "../mobile-archive-actions-dialog";
 import useAppPages from "../../hooks/useAppPages";
 import clsx from "clsx";
+import TempViewModeDialog from "../dialogs/temp-view-mode-dialog";
 
 const PAGE_COMPONENTS = {
   [RANDOM]: RandomPage,
@@ -61,6 +62,7 @@ export const Pages = () => {
         </Box>
         <ArchiveActionsDialog actionType={dialogActionType} />
         <MobileArchiveActionsDialog />
+        <TempViewModeDialog />
         <Snackbar />
       </UrlPage>
     </Grid2>

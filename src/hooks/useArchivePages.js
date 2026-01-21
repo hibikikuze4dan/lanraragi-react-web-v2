@@ -52,3 +52,5 @@ export const useArchivePages = () => {
     getPageLink,
   };
 };
+
+export default useArchivePages;

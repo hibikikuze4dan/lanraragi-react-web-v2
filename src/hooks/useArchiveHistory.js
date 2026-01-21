@@ -24,7 +24,7 @@ export const useArchiveHistory = () => {
 
   const addArchiveToHistory = useCallback((archive) => {
     try {
-      if (!archive || Object.keys(archive).length < 1) {
+      if (!archive || Object.keys(archive ?? {}).length < 1) {
         return;
       }
       const localStorageArchiveHistory = getArchiveHistory();

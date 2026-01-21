@@ -139,3 +139,11 @@ export const getFocusFirstArchiveCard = createSelector(
   getReduxState,
   (state) => state?.focusFirstArchiveCard
 );
+
+export const getTempViewMode = createSelector(getReduxState, (state) =>
+  state?.tempViewMode ? `${state.tempViewMode}` : ""
+);
+
+export const getCurrentArchive = createSelector(getReduxState, (state) => {
+  return state?.currentArchive ?? {};
+});

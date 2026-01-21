@@ -18,11 +18,8 @@ import { updateDisplayAppBar } from "../redux/slices/appSlice";
 import { useArchiveActionsDialogLogic } from "./useArchiveActionsDialogLogic";
 import { useDispatch } from "react-redux";
 import useAppPages from "./useAppPages";
-import { IMAGES_VIEW_MODE } from "../local-storage/constants";
-import { createLocalStorageInstance } from "../local-storage";
 import getWrappedArrayIndex from "../utils/getWrappedArrayIndex";
-
-const { get: getImagesViewMode } = createLocalStorageInstance(IMAGES_VIEW_MODE);
+import useImageViewMode from "./useImageViewMode";
 
 const {
   END_OF_ARCHIVE_BUTTON_CATEGORIZE,
@@ -37,7 +34,11 @@ export const useEndOfArchiveButtons = (
   const dispatch = useDispatch();
   const { setActionType } = useArchiveActionsDialogLogic();
   const { updateAppPage, archiveOpenedFrom } = useAppPages();
-  const isSingleImageMode = getImagesViewMode() === SINGLE_PAGE_VIEW_MODE;
+  const { isViewModeAlwaysAsk, tempViewMode, imageViewMode } =
+    useImageViewMode();
+  const isSingleImageMode = isViewModeAlwaysAsk
+    ? tempViewMode === SINGLE_PAGE_VIEW_MODE
+    : imageViewMode === SINGLE_PAGE_VIEW_MODE;
   const gridSize = isSingleImageMode ? 6 : 12;
 
   const onReturnClick = () => {

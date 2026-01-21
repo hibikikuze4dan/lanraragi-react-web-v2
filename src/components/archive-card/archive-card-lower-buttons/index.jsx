@@ -1,46 +1,23 @@
 import AutoStories from "@mui/icons-material/AutoStories";
 import { Button, Grid2 } from "@mui/material";
-import { useDispatch } from "react-redux";
-import {
-  updateCurrentArchiveId,
-  updateImagesScrollTarget,
-} from "../../../redux/slices/appSlice";
 import {
   BUTTON_INHERIT_BACKGROUND,
   COMPONENT_CLASSNAMES,
-  HISTORY,
-  IMAGES,
   KEYBOARD_KEY_CODES,
   TARGETED_BUTTON_CLASSNAMES_FOR_ARCHIVE_CARD_ARROW_KEY_NAVIGATION,
 } from "../../../constants";
-import { useArchiveHistory } from "../../../hooks/useArchiveHistory";
-import useAppPages from "../../../hooks/useAppPages";
 import { MoreActionsButton } from "./more-actions-button";
-import { putUpdateReadingProgression } from "../../../requests/putUpdateReadingProgression";
 import moveFocusRelative from "../../../utils/moveFocusRelative";
 import getElementsByMultipleClassnames from "../../../utils/getElementsByMultipleClassnames";
+import useReadingButtonLogic from "../../../hooks/useReadingButtonLogic";
 
-export const ArchiveCardLowerButtons = ({
-  archive,
-  currentPage,
-  getNewArchivePages,
-}) => {
+export const ArchiveCardLowerButtons = ({ archive }) => {
   const { ARROW_LEFT, ARROW_RIGHT } = KEYBOARD_KEY_CODES;
   const archiveId = archive?.arcid ?? "";
-  const dispatch = useDispatch();
-  const { updateAppPage } = useAppPages();
-  const { addArchiveToHistory } = useArchiveHistory();
-  const isHistoryPage = currentPage === HISTORY;
-  const onReadButtonClick = async () => {
-    if (!isHistoryPage) {
-      addArchiveToHistory(archive);
-    }
+  const { onReadButtonClick } = useReadingButtonLogic();
 
-    dispatch(updateCurrentArchiveId(archiveId));
-    dispatch(updateImagesScrollTarget(""));
-    updateAppPage(IMAGES);
-    await getNewArchivePages(archiveId);
-    putUpdateReadingProgression({ archiveId });
+  const onClick = () => {
+    onReadButtonClick(archiveId);
   };
 
   const onButtonsKeyDown = (event) => {
@@ -71,7 +48,7 @@ export const ArchiveCardLowerButtons = ({
           fullWidth
           className={`${COMPONENT_CLASSNAMES.ARCHIVE_CARD_READ_BUTTON}`}
           startIcon={<AutoStories />}
-          onClick={onReadButtonClick}
+          onClick={onClick}
           onKeyDown={onButtonsKeyDown}
           variant="text"
         >

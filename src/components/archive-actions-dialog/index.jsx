@@ -60,7 +60,7 @@ export const ArchiveActionsDialog = ({ actionType }) => {
     <Dialog
       title={title}
       titleId="archive-actions-dialog-title"
-      open={!!actionType}
+      open={!!DIALOG_CONTENT?.[actionType]}
       onClose={onClose}
       fullScreen={isSvp}
       fullWidth

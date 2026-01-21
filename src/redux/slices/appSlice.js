@@ -11,6 +11,7 @@ const initialState = {
   apiCategories: [],
   archiveOpenedFrom: "",
   archivePages: [],
+  currentArchive: {},
   currentArchiveId: "",
   currentSearchParameters: SEARCH_PARAMETER_DEFAULTS,
   currentPage: "random",
@@ -33,6 +34,7 @@ const initialState = {
   searchParameters: SEARCH_PARAMETER_DEFAULTS,
   serverInfo: {},
   snackbarStatus: SNACKBAR_DEFAULT_STATUS,
+  tempViewMode: "",
 };
 
 const { get: getLastSearch } = createLocalStorageInstance(LAST_SEARCH);
@@ -130,6 +132,12 @@ const mainSlice = createSlice({
     updateFocusFirstArchiveCard: (state, { payload }) => {
       state.focusFirstArchiveCard = !!payload;
     },
+    updateTempViewMode: (state, { payload }) => {
+      state.tempViewMode = payload ?? "";
+    },
+    updateCurrentArchive: (state, { payload }) => {
+      state.currentArchive = { ...(payload ?? {}) };
+    },
   },
 });
 
@@ -159,6 +167,8 @@ export const {
   updateApiCategory,
   updateHistory,
   updateFocusFirstArchiveCard,
+  updateTempViewMode,
+  updateCurrentArchive,
 } = mainSlice.actions;
 
 export default mainSlice.reducer;
