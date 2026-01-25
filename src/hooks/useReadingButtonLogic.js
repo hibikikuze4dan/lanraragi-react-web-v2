@@ -44,9 +44,9 @@ export const useReadingButtonLogic = () => {
         message: "useReadingButtonLogic",
         options: { block: "start", behavior: "instant" },
       });
-      putUpdateReadingProgression({ archiveArcId });
+      putUpdateReadingProgression({ archiveId: archiveArcId, page: 1 });
     },
-    [dispatch, getNewArchivePages, updateAppPage]
+    [dispatch, getNewArchivePages, updateAppPage],
   );
 
   const onReadButtonClick = async (archiveArcId) => {

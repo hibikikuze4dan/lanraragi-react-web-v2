@@ -37,7 +37,7 @@ export const useTransitionButtonsLogic = ({
   const archivesToBeSearched = pathArchives?.[archiveOpenedFrom] ?? [];
 
   const currentArchiveIndex = archivesToBeSearched?.findIndex(
-    (arc) => arc?.arcid === archive?.arcid
+    (arc) => arc?.arcid === archive?.arcid,
   );
 
   const shouldNotRender =
@@ -46,7 +46,6 @@ export const useTransitionButtonsLogic = ({
   const nextArchive = archivesToBeSearched?.[currentArchiveIndex + 1];
   const previousArchive = archivesToBeSearched?.[currentArchiveIndex - 1];
 
-  console.log(archive, archivesToBeSearched, currentArchiveIndex);
   const onReadButtonClick =
     (isNextArchiveButton = false) =>
     async () => {

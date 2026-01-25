@@ -11,10 +11,25 @@ export const putUpdateReadingProgression = async ({
   archiveId,
   page = 1,
 } = {}) => {
+  if (!archiveId) {
+    console.warn(
+      "No archive ID was supplied to the putUpdateReadingProgression function",
+    );
+
+    return {
+      success: 0,
+      operation: "update_progress",
+      id: archiveId,
+      page,
+      lastreadtime: undefined,
+      error: null,
+    };
+  }
+
   try {
     const endpoint = READING_POSITION.replace(":id", archiveId).replace(
       ":page",
-      page
+      page,
     );
 
     const response = await axios({
