@@ -3,11 +3,14 @@ import { useCallback } from "react";
 import useAppPages from "../../hooks/useAppPages.js";
 import { COMPONENT_IDS, HISTORY } from "../../constants.js";
 import { useArchiveHistory } from "../../hooks/useArchiveHistory.js";
+import { useCurrentArchive } from "../../hooks/useCurrentArchive.js";
 import scrollToLogger from "../../utils/scrollToLogger.js";
 
 export const AppBarButton = ({ Icon, page }) => {
   const { updateAppPage } = useAppPages();
   const { clearHistoryState, refreshHistory } = useArchiveHistory();
+  const { getArchiveCardTitleButtonElementFromCurrentArchiveId } =
+    useCurrentArchive();
 
   const onClick = useCallback(() => {
     if (page === HISTORY) {
@@ -15,12 +18,32 @@ export const AppBarButton = ({ Icon, page }) => {
       refreshHistory();
     }
     updateAppPage(page);
-    scrollToLogger({
-      element: document.getElementById(COMPONENT_IDS.PAGES_CONTAINER),
-      message: "app-bar-button",
-      options: { behavior: "instant", block: "start" },
-    });
-  }, [updateAppPage, page, clearHistoryState, refreshHistory]);
+
+    setTimeout(() => {
+      const titleButton =
+        getArchiveCardTitleButtonElementFromCurrentArchiveId();
+
+      if (titleButton) {
+        scrollToLogger({
+          element: titleButton,
+          message: "app-bar-button",
+          options: { behavior: "smooth", block: "center" },
+        });
+      } else {
+        scrollToLogger({
+          element: document.getElementById(COMPONENT_IDS.PAGES_CONTAINER),
+          message: "app-bar-button",
+          options: { behavior: "instant", block: "start" },
+        });
+      }
+    }, 125);
+  }, [
+    updateAppPage,
+    page,
+    clearHistoryState,
+    refreshHistory,
+    getArchiveCardTitleButtonElementFromCurrentArchiveId,
+  ]);
 
   return (
     <Button
