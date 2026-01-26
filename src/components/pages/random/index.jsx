@@ -13,8 +13,17 @@ import {
 } from "../../../redux/selectors";
 import { useRatingNamespace } from "../../../hooks/useRatingNamespace";
 import { useUrls } from "../../../hooks/useUrls";
-import { COMPONENT_IDS } from "../../../constants";
+import {
+  ARROW_LEFT,
+  ARROW_RIGHT,
+  COMPONENT_CLASSNAMES,
+  COMPONENT_IDS,
+  TARGETED_BUTTON_CLASSNAMES_FOR_ARCHIVE_CARD_ARROW_KEY_NAVIGATION,
+} from "../../../constants";
 import scrollToLogger from "../../../utils/scrollToLogger";
+import clsx from "clsx";
+import moveFocusRelative from "../../../utils/moveFocusRelative";
+import getElementsByMultipleClassnames from "../../../utils/getElementsByMultipleClassnames";
 
 export const RandomPage = () => {
   const { columnsDisplayed } = useColumnsDisplayed();
@@ -34,6 +43,21 @@ export const RandomPage = () => {
       message: "Random Page",
       options: { block: "start", behavior: "instant" },
     });
+  };
+
+  const onButtonsKeyDown = (event) => {
+    const eventCode = event?.code;
+    const isLeftRightArrowKeys = [ARROW_LEFT, ARROW_RIGHT].includes(eventCode);
+    if (isLeftRightArrowKeys) {
+      event.preventDefault();
+      moveFocusRelative({
+        element: event?.target,
+        arrowKey: eventCode,
+        elementList: getElementsByMultipleClassnames(
+          TARGETED_BUTTON_CLASSNAMES_FOR_ARCHIVE_CARD_ARROW_KEY_NAVIGATION,
+        ),
+      });
+    }
   };
 
   return (
@@ -71,8 +95,12 @@ export const RandomPage = () => {
         <Grid2 container>
           <Grid2 size={12}>
             <Button
-              className="mt-10 mb-100 p-4"
+              className={clsx(
+                COMPONENT_CLASSNAMES.MORE_ARCHIVES_BUTTON,
+                "mt-10 mb-100 p-4",
+              )}
               onClick={onClick}
+              onKeyDown={onButtonsKeyDown}
               fullWidth
               startIcon={<Casino />}
               variant="outlined"
