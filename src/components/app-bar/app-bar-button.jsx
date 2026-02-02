@@ -29,6 +29,7 @@ export const AppBarButton = ({ Icon, page }) => {
           message: "app-bar-button",
           options: { behavior: "smooth", block: "center" },
         });
+        titleButton?.focus({ preventScroll: true });
       } else {
         scrollToLogger({
           element: document.getElementById(COMPONENT_IDS.PAGES_CONTAINER),
