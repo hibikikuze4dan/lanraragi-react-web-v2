@@ -12,9 +12,7 @@ import { ArchiveCardLowerButtons } from "./archive-card-lower-buttons";
 import { TitleButton } from "./title-button";
 import { makeTagsObject } from "../../utils/makeTagsObject";
 import { useArchiveThumbnail } from "../../hooks/useArchiveThumbnail";
-import { useDispatch } from "react-redux";
-import { COMPONENT_IDS } from "../../constants";
-import { updateFocusFirstArchiveCard } from "../../redux/slices/appSlice";
+import useArchiveFocusLogic from "../../hooks/useArchiveFocusLogic";
 
 export const ArchiveCard = memo(function ArchiveCard({
   archive,
@@ -24,10 +22,10 @@ export const ArchiveCard = memo(function ArchiveCard({
   ratingNamespace,
   index = 0,
 }) {
-  const dispatch = useDispatch();
   const [thumbnailUrl, setThumbnailUrl] = useState("");
   const [triedToGetThumbnail, setTriedToGetThumbnail] = useState(false);
   const { getThumbnailUrl } = useArchiveThumbnail();
+  const { focusArchiveCardTitle } = useArchiveFocusLogic();
   const imageRef = useRef();
   const [maxWidth, setMaxWidth] = useState("100%");
   const [height, setHeight] = useState("100%");
@@ -38,11 +36,7 @@ export const ArchiveCard = memo(function ArchiveCard({
 
   const focusTitle = () => {
     if (callFocus) {
-      const element = document.getElementById(
-        COMPONENT_IDS.TITLE_BUTTON(archiveId),
-      );
-      element?.focus?.();
-      dispatch(updateFocusFirstArchiveCard(false));
+      focusArchiveCardTitle(archiveId);
     }
   };
 

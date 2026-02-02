@@ -22,6 +22,7 @@ import getWrappedArrayIndex from "../utils/getWrappedArrayIndex";
 import useImageViewMode from "./useImageViewMode";
 import scrollToLogger from "../utils/scrollToLogger";
 import useCurrentArchive from "./useCurrentArchive";
+import useArchiveFocusLogic from "./useArchiveFocusLogic";
 
 const {
   END_OF_ARCHIVE_BUTTON_CATEGORIZE,
@@ -31,10 +32,11 @@ const {
 } = COMPONENT_IDS;
 
 export const useEndOfArchiveButtons = (
-  { onBackToLastImage } = { onBackToLastImage: RETURN_NULL }
+  { onBackToLastImage } = { onBackToLastImage: RETURN_NULL },
 ) => {
   const dispatch = useDispatch();
   const { setActionType } = useArchiveActionsDialogLogic();
+  const { focusArchiveCardTitle } = useArchiveFocusLogic();
   const { updateAppPage, archiveOpenedFrom } = useAppPages();
   const { isViewModeAlwaysAsk, tempViewMode, imageViewMode } =
     useImageViewMode();
@@ -57,11 +59,12 @@ export const useEndOfArchiveButtons = (
     setTimeout(() => {
       scrollToLogger({
         element: document.getElementById(
-          COMPONENT_IDS.TITLE_BUTTON(currentArchiveId)
+          COMPONENT_IDS.TITLE_BUTTON(currentArchiveId),
         ),
         message: "useEndOfArchiveButtons finish",
         options: { block: "center", behavior: "smooth" },
       });
+      focusArchiveCardTitle(currentArchiveId);
     }, 500);
   };
 
@@ -101,7 +104,7 @@ export const useEndOfArchiveButtons = (
   useEffect(() => {
     setTimeout(() => {
       const firstEndOfArchiveButton = document.querySelector(
-        `.${COMPONENT_CLASSNAMES.END_OF_ARCHIVE_BUTTON}`
+        `.${COMPONENT_CLASSNAMES.END_OF_ARCHIVE_BUTTON}`,
       );
       if (firstEndOfArchiveButton && isSingleImageMode) {
         firstEndOfArchiveButton?.focus();
@@ -113,12 +116,12 @@ export const useEndOfArchiveButtons = (
     const eventCode = event?.code;
     const buttons = Array.from(
       document.querySelectorAll(
-        `.${COMPONENT_CLASSNAMES.END_OF_ARCHIVE_BUTTON}`
-      )
+        `.${COMPONENT_CLASSNAMES.END_OF_ARCHIVE_BUTTON}`,
+      ),
     );
 
     const currentButtonIndex = buttons?.findIndex(
-      (element) => element?.id === event?.target?.id
+      (element) => element?.id === event?.target?.id,
     );
 
     let targetedIndex;
