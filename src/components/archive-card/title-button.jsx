@@ -1,8 +1,6 @@
 import { Typography } from "@mui/material";
 import { Truncate } from "@re-dev/react-truncate";
-import { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getCurrentArchiveId } from "../../redux/selectors";
+import { useRef, useState } from "react";
 import {
   COMPONENT_CLASSNAMES,
   COMPONENT_IDS,
@@ -12,28 +10,14 @@ import {
 import { focusCardTitleOnArrowKeyDown } from "../../utils/focusCardTitleOnArrowKeyDown";
 import moveFocusRelative from "../../utils/moveFocusRelative";
 import getElementsByMultipleClassnames from "../../utils/getElementsByMultipleClassnames";
-import { updateFocusFirstArchiveCard } from "../../redux/slices/appSlice";
 
-export const TitleButton = ({ archive, focusTitle = false }) => {
+export const TitleButton = ({ archive }) => {
   const ref = useRef();
-  const dispatch = useDispatch();
-  const currentArchiveId = useSelector(getCurrentArchiveId);
   const [shouldTuncate, setShouldTruncate] = useState(true);
-  const [attemptedScroll, setAttemptedScroll] = useState(false);
   const { ENTER, SPACE, ARROW_DOWN, ARROW_UP, ARROW_LEFT, ARROW_RIGHT } =
     KEYBOARD_KEY_CODES;
 
   const archiveId = archive?.arcid ?? "";
-
-  useEffect(() => {
-    if ((archiveId === currentArchiveId && !attemptedScroll) || focusTitle) {
-      setTimeout(() => {
-        ref.current?.focus?.({ preventScroll: true });
-        dispatch(updateFocusFirstArchiveCard(false));
-      }, 500);
-    }
-    setAttemptedScroll(true);
-  }, [archiveId, currentArchiveId, attemptedScroll, focusTitle, dispatch]);
 
   const onClick = () => {
     console.log(archive);
@@ -45,7 +29,6 @@ export const TitleButton = ({ archive, focusTitle = false }) => {
     const isValidKey = [ENTER, SPACE].includes(event?.code);
     if (isValidKey) {
       onClick();
-      // ref.current?.scrollIntoView({ behavior: "smooth", block: "center" });
     }
   };
 
@@ -68,7 +51,7 @@ export const TitleButton = ({ archive, focusTitle = false }) => {
         element: event?.target,
         arrowKey: eventCode,
         elementList: getElementsByMultipleClassnames(
-          TARGETED_BUTTON_CLASSNAMES_FOR_ARCHIVE_CARD_ARROW_KEY_NAVIGATION
+          TARGETED_BUTTON_CLASSNAMES_FOR_ARCHIVE_CARD_ARROW_KEY_NAVIGATION,
         ),
       });
     }

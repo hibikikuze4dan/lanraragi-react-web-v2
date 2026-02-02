@@ -6,7 +6,7 @@ import { ArchiveCard } from "../../archive-card";
 import { useColumnsDisplayed } from "../../../hooks/useColumnsDisplayed";
 import { useSearchResults } from "../../../hooks/useSearchResults";
 import { useArchivePages } from "../../../hooks/useArchivePages";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getCurrentPage,
   getFocusFirstArchiveCard,
@@ -24,8 +24,10 @@ import scrollToLogger from "../../../utils/scrollToLogger";
 import clsx from "clsx";
 import moveFocusRelative from "../../../utils/moveFocusRelative";
 import getElementsByMultipleClassnames from "../../../utils/getElementsByMultipleClassnames";
+import { updateFocusFirstArchiveCard } from "../../../redux/slices/appSlice";
 
 export const RandomPage = () => {
+  const dispatch = useDispatch();
   const { columnsDisplayed } = useColumnsDisplayed();
   const { loadingRandomArchives, randomArchives, getNewRandomArchives } =
     useRandomArchives();
@@ -43,6 +45,7 @@ export const RandomPage = () => {
       message: "Random Page",
       options: { block: "start", behavior: "instant" },
     });
+    dispatch(updateFocusFirstArchiveCard(true));
   };
 
   const onButtonsKeyDown = (event) => {

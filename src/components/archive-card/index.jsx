@@ -12,6 +12,9 @@ import { ArchiveCardLowerButtons } from "./archive-card-lower-buttons";
 import { TitleButton } from "./title-button";
 import { makeTagsObject } from "../../utils/makeTagsObject";
 import { useArchiveThumbnail } from "../../hooks/useArchiveThumbnail";
+import { useDispatch } from "react-redux";
+import { COMPONENT_IDS } from "../../constants";
+import { updateFocusFirstArchiveCard } from "../../redux/slices/appSlice";
 
 export const ArchiveCard = memo(function ArchiveCard({
   archive,
@@ -21,21 +24,38 @@ export const ArchiveCard = memo(function ArchiveCard({
   ratingNamespace,
   index = 0,
 }) {
+  const dispatch = useDispatch();
   const [thumbnailUrl, setThumbnailUrl] = useState("");
   const [triedToGetThumbnail, setTriedToGetThumbnail] = useState(false);
   const { getThumbnailUrl } = useArchiveThumbnail();
   const imageRef = useRef();
   const [maxWidth, setMaxWidth] = useState("100%");
   const [height, setHeight] = useState("100%");
+  const callFocus = focusFirstArchiveCard && index === 0;
   const archiveId = archive?.arcid ?? "";
 
   const readAllOfArchive = archive?.pagecount === archive?.progress;
+
+  const focusTitle = () => {
+    if (callFocus) {
+      const element = document.getElementById(
+        COMPONENT_IDS.TITLE_BUTTON(archiveId),
+      );
+      element?.focus?.();
+      dispatch(updateFocusFirstArchiveCard(false));
+    }
+  };
 
   const onImageLoad = () => {
     if (imageRef?.current) {
       setMaxWidth(`${imageRef.current?.naturalWidth}px`);
       setHeight(`${imageRef.current?.naturalHeight}px`);
     }
+    focusTitle();
+  };
+
+  const onImageLoadError = () => {
+    focusTitle();
   };
 
   useEffect(() => {
@@ -70,6 +90,7 @@ export const ArchiveCard = memo(function ArchiveCard({
           width={500}
           height={300}
           onLoad={onImageLoad}
+          onError={onImageLoadError}
           sx={{ maxWidth, height }}
         />
       </div>
@@ -77,6 +98,7 @@ export const ArchiveCard = memo(function ArchiveCard({
         <CardContent className="grow px-4 content-center">
           <TitleButton
             archive={archive}
+            index={index}
             focusTitle={focusFirstArchiveCard && index === 0}
           />
         </CardContent>

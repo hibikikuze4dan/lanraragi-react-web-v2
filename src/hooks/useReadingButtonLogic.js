@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux";
 import useAppPages from "./useAppPages";
 import {
   ALWAYS_ASK,
+  COMPONENT_IDS,
   HISTORY,
   IMAGES,
   IMAGES_PAGE_ID,
@@ -58,6 +59,16 @@ export const useReadingButtonLogic = () => {
 
     if (imageViewMode === ALWAYS_ASK) {
       setActionType(TEMP_VIEW_MODE_DIALOG);
+      setTimeout(() => {
+        const element = document.getElementById(
+          COMPONENT_IDS.TEMP_VIEW_MODE_DIALOG_FORM_LABEL,
+        );
+        if (element) {
+          element.tabIndex = 0;
+          element?.focus?.();
+          element.tabIndex = -1;
+        }
+      }, 250);
       return;
     }
 

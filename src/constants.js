@@ -180,6 +180,8 @@ export const COMPONENT_IDS = {
   IMAGES_PAGE: IMAGES_PAGE_ID,
   HISTORY_PAGE: "history-page",
   PAGES_CONTAINER: "pages-container",
+  TEMP_VIEW_MODE_DIALOG: "temp-view-mode-dialog",
+  TEMP_VIEW_MODE_DIALOG_FORM_LABEL: "temp-view-mode-dialog-radio-group-label",
 };
 
 export const PAGE_IDS = {

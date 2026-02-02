@@ -8,6 +8,7 @@ import {
   RadioGroup,
 } from "@mui/material";
 import {
+  COMPONENT_IDS,
   TEMP_VIEW_MODE_DIALOG,
   VIEW_MODES_FOR_ALWAYS_ASK_DIALOG,
 } from "../../../constants";
@@ -18,10 +19,11 @@ import useReadingButtonLogic from "../../../hooks/useReadingButtonLogic";
 import useImageViewMode from "../../../hooks/useImageViewMode";
 import useCurrentArchive from "../../../hooks/useCurrentArchive";
 
+const { TEMP_VIEW_MODE_DIALOG_FORM_LABEL } = COMPONENT_IDS;
+
 export const TempViewModeDialog = () => {
-  const formLabel = "temp-view-mode-dialog-radio-group-label";
   const [dialogTempViewMode, setDialogTempViewMode] = useState(
-    VIEW_MODES_FOR_ALWAYS_ASK_DIALOG[0]
+    VIEW_MODES_FOR_ALWAYS_ASK_DIALOG[0],
   );
   const { currentArchiveId } = useCurrentArchive();
   const { setActionType, dialogActionType } = useArchiveActionsDialogLogic();
@@ -43,11 +45,11 @@ export const TempViewModeDialog = () => {
       <Grid2 container>
         <Grid2 size={12}>
           <FormControl className="w-full">
-            <FormLabel className="pb-6" id={formLabel}>
+            <FormLabel className="mb-6" id={TEMP_VIEW_MODE_DIALOG_FORM_LABEL}>
               View Mode
             </FormLabel>
             <RadioGroup
-              aria-labelledby={formLabel}
+              aria-labelledby={TEMP_VIEW_MODE_DIALOG_FORM_LABEL}
               name="temp-view-mode-dialog-radio-group"
               value={dialogTempViewMode}
               onChange={onRadioButtonChange}
