@@ -1,5 +1,6 @@
 import { useSnackbar } from "./useSnackbar";
 import { putUpdateThumbnail } from "../requests/putUpdateThumbnail";
+import { SNACKBAR_MESSAGES } from "../constants";
 
 export const useRegenerateThumbnail = () => {
   const { setNewSnackbarStatus } = useSnackbar();
@@ -7,7 +8,7 @@ export const useRegenerateThumbnail = () => {
   const regenerateThumbnail = ({ archiveId, page = 1 }) => {
     if (!archiveId) {
       return setNewSnackbarStatus({
-        message: "No archive id supplied, cannot regenerate thumbnail!",
+        message: SNACKBAR_MESSAGES.REGENERATE_THUMBNAIL_NO_ID,
         severity: "error",
       });
     }
@@ -15,13 +16,13 @@ export const useRegenerateThumbnail = () => {
     putUpdateThumbnail({ archiveId, page }).then((response) => {
       if (response.error || response.success === 0) {
         return setNewSnackbarStatus({
-          message: "Something went wrong while trying to update the thumbnail",
+          message: SNACKBAR_MESSAGES.REGENERATE_THUMBNAIL_ERROR,
           severity: "error",
         });
       }
 
       setNewSnackbarStatus({
-        message: "Successfully regenerated the thumbnail!",
+        message: SNACKBAR_MESSAGES.REGENERATE_THUMBNAIL_SUCCESS,
         severity: "success",
       });
     });

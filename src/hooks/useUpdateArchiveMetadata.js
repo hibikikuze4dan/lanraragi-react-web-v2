@@ -9,6 +9,7 @@ import {
   setRandomArchives,
   updateSearchArchives,
 } from "../redux/slices/appSlice";
+import { SNACKBAR_MESSAGES } from "../constants";
 
 export const useUpdateArchiveMetadata = () => {
   const dispatch = useDispatch();
@@ -43,8 +44,7 @@ export const useUpdateArchiveMetadata = () => {
       (resposne) => {
         if (resposne.error || resposne.success === 0) {
           return setNewSnackbarStatus({
-            message:
-              "Something went wrong while trying to update the metadata for the archive!",
+            message: SNACKBAR_MESSAGES.UPDATE_METADATA_ERROR,
             severity: "error",
           });
         }
@@ -66,10 +66,10 @@ export const useUpdateArchiveMetadata = () => {
         dispatch(setRandomArchives(newRandomArchives));
 
         return setNewSnackbarStatus({
-          message: "Successfully updated archive metadata!",
+          message: SNACKBAR_MESSAGES.UPDATE_METADATA_SUCCESS,
           severity: "success",
         });
-      }
+      },
     );
   };
 

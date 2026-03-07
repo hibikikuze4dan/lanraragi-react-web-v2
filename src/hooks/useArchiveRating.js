@@ -15,6 +15,7 @@ import { updateArchiveTags } from "../utils/updateArchiveTags";
 import { updateArchiveInArray } from "../utils/updateArchiveInArray";
 import { useSnackbar } from "./useSnackbar";
 import useCurrentArchive from "./useCurrentArchive";
+import { SNACKBAR_MESSAGES } from "../constants";
 
 export const useArchiveRating = () => {
   const dispatch = useDispatch();
@@ -33,8 +34,7 @@ export const useArchiveRating = () => {
     if (error || response === 0) {
       setNewSnackbarStatus({
         severity: "error",
-        message:
-          "Something went wrong while trying to update the archives categories",
+        message: SNACKBAR_MESSAGES.UPDATE_METADATA_ERROR,
       });
     } else {
       setNewSnackbarStatus({
@@ -75,7 +75,7 @@ export const useArchiveRating = () => {
             }) ?? randomArchives;
           dispatch(setRandomArchives(updatedRandomArchives));
         }
-      }
+      },
     );
   };
 

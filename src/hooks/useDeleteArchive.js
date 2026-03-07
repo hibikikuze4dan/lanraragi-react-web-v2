@@ -7,6 +7,7 @@ import {
 } from "../redux/slices/appSlice";
 import { deleteArchive as deleteArchiveRequest } from "../requests/deleteArchive";
 import { useSnackbar } from "./useSnackbar";
+import { SNACKBAR_MESSAGES } from "../constants";
 
 export const useDeleteArchive = () => {
   const dispatch = useDispatch();
@@ -21,12 +22,12 @@ export const useDeleteArchive = () => {
 
     deleteArchiveRequest(archiveId).then((response) => {
       if (response?.error || response?.success === 0) {
-        const error = response?.error ?? "Sorry, something went wrong";
+        const error = response?.error ?? SNACKBAR_MESSAGES.SOMETHING_WENT_WRONG;
         setNewSnackbarStatus({ message: error, severity: "error" });
         return;
       }
 
-      const message = "Successfully deleted archive!";
+      const message = SNACKBAR_MESSAGES.DELETE_ARCHIVE_SUCCESS;
       setNewSnackbarStatus({ message, severity: "success" });
 
       const newSearchArchives =

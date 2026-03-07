@@ -209,3 +209,16 @@ export const TARGETED_BUTTON_CLASSNAMES_FOR_ARCHIVE_CARD_ARROW_KEY_NAVIGATION =
   ];
 
 export const URL_NAMESPACES = ["url", "source", "origin"];
+
+export const SNACKBAR_MESSAGES = {
+  DELETE_ARCHIVE_SUCCESS: "Successfully deleted archive!",
+  REGENERATE_THUMBNAIL_NO_ID:
+    "No archive id supplied, cannot regenerate thumbnail!",
+  REGENERATE_THUMBNAIL_ERROR:
+    "Something went wrong while trying to update the thumbnail",
+  REGENERATE_THUMBNAIL_SUCCESS: "Successfully regenerated the thumbnail!",
+  SOMETHING_WENT_WRONG: "Sorry, something went wrong",
+  UPDATE_METADATA_ERROR:
+    "Something went wrong while trying to update the metadata for the archive!",
+  UPDATE_METADATA_SUCCESS: "Successfully updated archive metadata!",
+};
