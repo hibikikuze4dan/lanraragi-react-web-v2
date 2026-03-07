@@ -4,9 +4,10 @@ import {
   GENERAL_TAG_TYPE,
   SEARCH,
   SEARCH_PARAMETER_DEFAULTS,
+  URL_NAMESPACES,
 } from "../../../../constants";
 import dayjs from "dayjs";
-import { isValidUrl } from "../../../../utils/isValidUrl";
+import validateUrl from "../../../../utils/validateUrl";
 
 export const TagButton = ({
   tag,
@@ -16,7 +17,7 @@ export const TagButton = ({
   handleUpdateSearchParameters,
   closeDialog,
 }) => {
-  const isTagAUrl = isValidUrl(tag, namespace);
+  const tagUrl = URL_NAMESPACES.includes(namespace) ? validateUrl(tag) : null;
 
   const dateTag =
     namespace === DATE_ADDED_NAMESPACE
@@ -45,9 +46,9 @@ export const TagButton = ({
       fullWidth
       variant="outlined"
       onClick={onClick}
-      {...(isTagAUrl
+      {...(tagUrl
         ? {
-            href: tag,
+            href: tagUrl,
             target: "_blank",
             rel: "noopener noreferrer",
             onClick: null,
