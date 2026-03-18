@@ -3,6 +3,7 @@ import { useSearchParameters } from "../../../../hooks/useSearchParameters";
 import { useDatabaseStats } from "../../../../hooks/useDatabaseStats";
 import { matchSorter } from "match-sorter";
 import { last } from "es-toolkit";
+import { useCallback, useMemo } from "react";
 
 export const SearchFilterTextField = () => {
   const { statsAsStrings } = useDatabaseStats();
@@ -10,10 +11,13 @@ export const SearchFilterTextField = () => {
     useSearchParameters();
   const filter = searchParameters?.filter ?? "";
 
-  const onTextFieldChange = (event) => {
-    const value = event?.target?.value ?? "";
-    handleUpdateSearchParameters({ filter: value });
-  };
+  const onTextFieldChange = useCallback(
+    (event) => {
+      const value = event?.target?.value ?? "";
+      handleUpdateSearchParameters({ filter: value });
+    },
+    [handleUpdateSearchParameters],
+  );
 
   const onAutocompleteChange = (event, value) => {
     const filters = filter.split(", ");
@@ -33,8 +37,8 @@ export const SearchFilterTextField = () => {
     }).slice(0, 25);
   };
 
-  const input = (inputProps) => {
-    return (
+  const input = useMemo(() => {
+    const textFieldInput = (inputProps) => (
       <TextField
         {...inputProps}
         id="search-filter-text-field"
@@ -44,7 +48,9 @@ export const SearchFilterTextField = () => {
         fullWidth
       />
     );
-  };
+
+    return textFieldInput;
+  }, [onTextFieldChange]);
 
   const lastSectionOfValue = last(filter.split(", "));
   const options = lastSectionOfValue ? statsAsStrings : [];
