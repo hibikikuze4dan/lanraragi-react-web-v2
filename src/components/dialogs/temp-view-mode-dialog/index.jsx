@@ -4,11 +4,11 @@ import {
   FormControlLabel,
   FormLabel,
   Grid2,
-  Radio,
   RadioGroup,
 } from "@mui/material";
 import {
   COMPONENT_IDS,
+  KEYBOARD_KEY_CODES,
   TEMP_VIEW_MODE_DIALOG,
   VIEW_MODES_FOR_ALWAYS_ASK_DIALOG,
 } from "../../../constants";
@@ -18,6 +18,7 @@ import { useState } from "react";
 import useReadingButtonLogic from "../../../hooks/useReadingButtonLogic";
 import useImageViewMode from "../../../hooks/useImageViewMode";
 import useCurrentArchive from "../../../hooks/useCurrentArchive";
+import TempViewModeDialogRadioButton from "./radio-button";
 
 const { TEMP_VIEW_MODE_DIALOG_FORM_LABEL } = COMPONENT_IDS;
 
@@ -40,8 +41,22 @@ export const TempViewModeDialog = () => {
     openImagePageAndGetImages(currentArchiveId);
   };
 
+  const onKeyDown = (event) => {
+    const isSubmitKey = [
+      KEYBOARD_KEY_CODES.ENTER,
+      KEYBOARD_KEY_CODES.SPACE,
+    ].includes(event.code);
+
+    if (isSubmitKey) {
+      onClick();
+      return;
+    }
+  };
+
+  const isOpen = dialogActionType === TEMP_VIEW_MODE_DIALOG;
+
   return (
-    <Dialog open={dialogActionType === TEMP_VIEW_MODE_DIALOG} onClose={onClose}>
+    <Dialog open={isOpen} onClose={onClose}>
       <Grid2 container>
         <Grid2 size={12}>
           <FormControl className="w-full">
@@ -53,6 +68,7 @@ export const TempViewModeDialog = () => {
               name="temp-view-mode-dialog-radio-group"
               value={dialogTempViewMode}
               onChange={onRadioButtonChange}
+              onKeyDown={onKeyDown}
             >
               {VIEW_MODES_FOR_ALWAYS_ASK_DIALOG.map((viewMode) => {
                 return (
@@ -65,7 +81,13 @@ export const TempViewModeDialog = () => {
                         {viewMode.replace(/_/g, " ")}
                       </span>
                     }
-                    control={<Radio />}
+                    control={
+                      <TempViewModeDialogRadioButton
+                        autoFocus={viewMode === dialogTempViewMode}
+                        onSubmit={onClick}
+                        viewMode={viewMode}
+                      />
+                    }
                   />
                 );
               })}

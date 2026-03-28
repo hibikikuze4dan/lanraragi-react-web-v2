@@ -182,6 +182,8 @@ export const COMPONENT_IDS = {
   PAGES_CONTAINER: "pages-container",
   TEMP_VIEW_MODE_DIALOG: "temp-view-mode-dialog",
   TEMP_VIEW_MODE_DIALOG_FORM_LABEL: "temp-view-mode-dialog-radio-group-label",
+  TEMP_VIEW_MODE_DIALOG_RADIO: (radioId = "") =>
+    `temp-view-mode-dialog-radio-${radioId}`,
 };
 
 export const PAGE_IDS = {
