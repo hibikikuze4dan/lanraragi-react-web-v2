@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getDisplayAppBar } from "../../../redux/selectors";
 import clsx from "clsx";
-import { COMPONENT_CLASSNAMES } from "../../../constants";
+import { COMPONENT_CLASSNAMES, COMPONENT_IDS } from "../../../constants";
 import { putUpdateReadingProgression } from "../../../requests/putUpdateReadingProgression";
 import focusElement from "../../../utils/focusElement";
 
@@ -60,7 +60,9 @@ export const ImageButton = ({
     }
 
     if (isScrollImages && index === 0) {
-      focusElement({ element: event?.target?.parentElement });
+      focusElement({
+        element: document.getElementById(COMPONENT_IDS.SCROLL_BOX),
+      });
     }
   };
 

@@ -179,6 +179,7 @@ export const COMPONENT_IDS = {
   LOADED_IMAGES_WIDGET: "scroll-images-loaded-images-floating-button",
   PAGES_CONTAINER: "pages-container",
   RANDOM_PAGE: "random-page",
+  SCROLL_BOX: "page-scroll-box",
   SEARCH_PAGE: "search-page",
   TEMP_VIEW_MODE_DIALOG: "temp-view-mode-dialog",
   TEMP_VIEW_MODE_DIALOG_FORM_LABEL: "temp-view-mode-dialog-radio-group-label",

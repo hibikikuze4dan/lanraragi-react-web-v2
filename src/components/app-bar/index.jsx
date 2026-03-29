@@ -3,7 +3,7 @@ import { AppBarComponent } from "./app-bar.jsx";
 import { useSelector } from "react-redux";
 import { getDisplayAppBar } from "../../redux/selectors.js";
 import clsx from "clsx";
-import { IMAGES } from "../../constants.js";
+import { COMPONENT_IDS, IMAGES } from "../../constants.js";
 import useAppPages from "../../hooks/useAppPages.js";
 
 export const AppBar = ({ children }) => {
@@ -23,8 +23,9 @@ export const AppBar = ({ children }) => {
         <Box
           className={clsx(
             !isSvp && "max-h-svh overflow-scroll grow",
-            isSvp && "grow"
+            isSvp && "grow",
           )}
+          id={COMPONENT_IDS.SCROLL_BOX}
         >
           <Grid2
             className={clsx("w-full max-w-svw", !isImagesPage && "px-2")}
