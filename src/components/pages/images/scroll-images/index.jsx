@@ -1,4 +1,4 @@
-import { Grid2, useMediaQuery } from "@mui/material";
+import { Grid2, Typography, useMediaQuery } from "@mui/material";
 import { LoadingSpinner } from "../../../loading-spinner";
 import { ImageButton } from "../image-button";
 import { useRef } from "react";
@@ -6,7 +6,7 @@ import { useArchivePages } from "../../../../hooks/useArchivePages";
 import { useImageObserverRef } from "../../../../hooks/useImageObserverRef";
 import clsx from "clsx";
 import EndOfArchiveActionButtons from "../../../end-of-archive-action-buttons";
-import { SCROLL_IMAGES_START_ID } from "../../../../constants";
+import { COMPONENT_IDS, SCROLL_IMAGES_START_ID } from "../../../../constants";
 import useCurrentArchive from "../../../../hooks/useCurrentArchive";
 
 export const ScrollImages = () => {
@@ -18,7 +18,7 @@ export const ScrollImages = () => {
   const hasImages = !!numOfImages;
   const ref = useRef(null);
   const { imagesToDisplay, setIntersectingImageRef } = useImageObserverRef(
-    numOfImages ?? 0
+    numOfImages ?? 0,
   );
   const archiveImagesToDisplay = archivePagesAsLinks.slice(0, imagesToDisplay);
 
@@ -52,6 +52,19 @@ export const ScrollImages = () => {
       <Grid2 className={clsx(isSvp && "px-2")} size={12}>
         <EndOfArchiveActionButtons />
       </Grid2>
+      {hasImages && (
+        <Typography
+          className={clsx(
+            "fixed bg-[rgba(0,0,0,0.5)] backdrop-filter-[blur(4px)] rounded-full text-xs text-white tabular-nums whitespace-nowrap opactiy-[0.65] hover:opacity-[1] opacity-ease-in select-none px-1",
+            isSvp && "bottom-14 right-4 back",
+            !isSvp && "bottom-6 right-8",
+          )}
+          id={COMPONENT_IDS.LOADED_IMAGES_WIDGET}
+        >
+          {archiveImagesToDisplay?.length ?? ""} /{" "}
+          {archivePagesAsLinks?.length ?? ""}
+        </Typography>
+      )}
       <Grid2 size={12} id="images-end" />
     </>
   );

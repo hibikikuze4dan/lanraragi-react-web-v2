@@ -173,17 +173,18 @@ export const COMPONENT_IDS = {
   END_OF_ARCHIVE_BUTTON_ARCHIVES: "end-of-archive-button-archives",
   END_OF_ARCHIVE_BUTTON_PREVIOUS: "end-of-archive-button-previous",
   END_OF_ARCHIVE_BUTTON_NEXT: "end-of-archive-button-next",
+  HISTORY_PAGE: "history-page",
+  IMAGES_PAGE: IMAGES_PAGE_ID,
   LOADED_CHILDREN_WRAPPER: "loaded-children-wrapper",
-  TITLE_BUTTON: (archiveId = "") => `arcive-card-title-button-${archiveId}`,
+  LOADED_IMAGES_WIDGET: "scroll-images-loaded-images-floating-button",
+  PAGES_CONTAINER: "pages-container",
   RANDOM_PAGE: "random-page",
   SEARCH_PAGE: "search-page",
-  IMAGES_PAGE: IMAGES_PAGE_ID,
-  HISTORY_PAGE: "history-page",
-  PAGES_CONTAINER: "pages-container",
   TEMP_VIEW_MODE_DIALOG: "temp-view-mode-dialog",
   TEMP_VIEW_MODE_DIALOG_FORM_LABEL: "temp-view-mode-dialog-radio-group-label",
   TEMP_VIEW_MODE_DIALOG_RADIO: (radioId = "") =>
     `temp-view-mode-dialog-radio-${radioId}`,
+  TITLE_BUTTON: (archiveId = "") => `arcive-card-title-button-${archiveId}`,
 };
 
 export const PAGE_IDS = {
