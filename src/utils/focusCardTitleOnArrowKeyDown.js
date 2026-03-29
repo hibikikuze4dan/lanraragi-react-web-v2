@@ -3,6 +3,7 @@ import {
   COMPONENT_IDS,
   KEYBOARD_KEY_CODES,
 } from "../constants";
+import focusElement from "./focusElement";
 import { getWrappedArrayIndex } from "./getWrappedArrayIndex";
 
 export const focusCardTitleOnArrowKeyDown = ({
@@ -16,11 +17,11 @@ export const focusCardTitleOnArrowKeyDown = ({
   const targetId = COMPONENT_IDS.TITLE_BUTTON(archiveId);
   const titleButtons = Array.from(
     document.getElementsByClassName(
-      COMPONENT_CLASSNAMES.ARCHIVE_CARD_TITLE_BUTTON
-    )
+      COMPONENT_CLASSNAMES.ARCHIVE_CARD_TITLE_BUTTON,
+    ),
   );
   const currentTitleButtonIndex = titleButtons.findIndex(
-    (button) => button?.id === `${targetId}`
+    (button) => button?.id === `${targetId}`,
   );
 
   if (currentTitleButtonIndex === -1) return;
@@ -28,17 +29,17 @@ export const focusCardTitleOnArrowKeyDown = ({
   if (KEYBOARD_KEY_CODES.ARROW_DOWN === arrowKeyDirection) {
     const nextTitleButtonIndex = getWrappedArrayIndex(
       titleButtons,
-      currentTitleButtonIndex + 1
+      currentTitleButtonIndex + 1,
     );
     const nextTitleButton = titleButtons[nextTitleButtonIndex];
-    nextTitleButton?.focus();
+    focusElement({ element: nextTitleButton });
   } else if (KEYBOARD_KEY_CODES.ARROW_UP === arrowKeyDirection) {
     const previousTitleButtonIndex = getWrappedArrayIndex(
       titleButtons,
-      currentTitleButtonIndex + -1
+      currentTitleButtonIndex + -1,
     );
     const previousTitleButton = titleButtons[previousTitleButtonIndex];
-    previousTitleButton?.focus();
+    focusElement({ element: previousTitleButton });
   }
 
   return;

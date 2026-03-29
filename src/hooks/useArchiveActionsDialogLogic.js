@@ -3,9 +3,10 @@ import { getDialogActionType } from "../redux/selectors";
 import { updateDialogActionType } from "../redux/slices/appSlice";
 import { useEffect } from "react";
 import { COMPONENT_IDS } from "../constants";
+import focusElement from "../utils/focusElement";
 
 export const useArchiveActionsDialogLogic = (
-  { autoFocusCloseButton } = { autoFocusCloseButton: true }
+  { autoFocusCloseButton } = { autoFocusCloseButton: true },
 ) => {
   const dispatch = useDispatch();
   const dialogActionType = useSelector(getDialogActionType);
@@ -18,10 +19,10 @@ export const useArchiveActionsDialogLogic = (
     if (dialogActionType && autoFocusCloseButton) {
       setTimeout(() => {
         const closeButton = document.querySelector(
-          `#${COMPONENT_IDS.ARCHIVE_ACTIONS_DIALOG_CLOSE_BUTTON}`
+          `#${COMPONENT_IDS.ARCHIVE_ACTIONS_DIALOG_CLOSE_BUTTON}`,
         );
 
-        closeButton?.focus();
+        focusElement({ element: closeButton });
       }, 250);
     }
   }, [dialogActionType, autoFocusCloseButton]);

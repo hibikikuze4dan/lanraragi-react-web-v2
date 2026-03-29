@@ -9,6 +9,7 @@ import { getDisplayAppBar } from "../../../redux/selectors";
 import clsx from "clsx";
 import { COMPONENT_CLASSNAMES } from "../../../constants";
 import { putUpdateReadingProgression } from "../../../requests/putUpdateReadingProgression";
+import focusElement from "../../../utils/focusElement";
 
 export const ImageButton = ({
   archiveId,
@@ -19,6 +20,7 @@ export const ImageButton = ({
   index = 0,
   setIntersectingImageRef,
   imagesToDisplay = 0,
+  isScrollImages = false,
   lastImage = false,
 }) => {
   const dispatch = useDispatch();
@@ -56,6 +58,10 @@ export const ImageButton = ({
     if (lastImage && archivePageCount) {
       putUpdateReadingProgression({ archiveId, page: archivePageCount });
     }
+
+    if (isScrollImages && index === 0) {
+      focusElement({ element: event?.target?.parentElement });
+    }
   };
 
   return (
@@ -65,9 +71,10 @@ export const ImageButton = ({
         className={clsx(
           "px-0",
           COMPONENT_CLASSNAMES.IMAGE_BUTTON_CLASSNAME,
-          hasImageLoaded && "min-h-400 flex content-start items-start"
+          hasImageLoaded && "min-h-400 flex content-start items-start",
         )}
         onClick={onImageClick}
+        disableFocusRipple
         variant="text"
       >
         <img

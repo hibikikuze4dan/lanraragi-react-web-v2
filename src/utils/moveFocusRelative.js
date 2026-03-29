@@ -1,3 +1,4 @@
+import focusElement from "./focusElement";
 import getFocusableElementsInTabOrder from "./getFocusableElementsInTabOrder";
 
 export const moveFocusRelative = ({ element, arrowKey = "", elementList }) => {
@@ -18,7 +19,7 @@ export const moveFocusRelative = ({ element, arrowKey = "", elementList }) => {
     return;
   }
 
-  focusables[elementToBeFocusedIndex]?.focus();
+  focusElement({ element: focusables[elementToBeFocusedIndex] });
 };
 
 export default moveFocusRelative;

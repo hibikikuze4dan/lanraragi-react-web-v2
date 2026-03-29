@@ -23,6 +23,7 @@ import useImageViewMode from "./useImageViewMode";
 import scrollToLogger from "../utils/scrollToLogger";
 import useCurrentArchive from "./useCurrentArchive";
 import useArchiveFocusLogic from "./useArchiveFocusLogic";
+import focusElement from "../utils/focusElement";
 
 const {
   END_OF_ARCHIVE_BUTTON_CATEGORIZE,
@@ -107,7 +108,7 @@ export const useEndOfArchiveButtons = (
         `.${COMPONENT_CLASSNAMES.END_OF_ARCHIVE_BUTTON}`,
       );
       if (firstEndOfArchiveButton && isSingleImageMode) {
-        firstEndOfArchiveButton?.focus();
+        focusElement({ element: firstEndOfArchiveButton });
       }
     }, 125);
   }, [isSingleImageMode]);
@@ -130,7 +131,7 @@ export const useEndOfArchiveButtons = (
     } else if (KEYBOARD_KEY_CODES.ARROW_RIGHT === eventCode) {
       targetedIndex = getWrappedArrayIndex(buttons, currentButtonIndex + 1);
     }
-    buttons?.[targetedIndex]?.focus();
+    focusElement({ element: buttons?.[targetedIndex] });
   };
 
   return {

@@ -5,6 +5,7 @@ import { COMPONENT_IDS, HISTORY } from "../../constants.js";
 import { useArchiveHistory } from "../../hooks/useArchiveHistory.js";
 import { useCurrentArchive } from "../../hooks/useCurrentArchive.js";
 import scrollToLogger from "../../utils/scrollToLogger.js";
+import focusElement from "../../utils/focusElement.js";
 
 export const AppBarButton = ({ Icon, page }) => {
   const { updateAppPage } = useAppPages();
@@ -29,7 +30,10 @@ export const AppBarButton = ({ Icon, page }) => {
           message: "app-bar-button",
           options: { behavior: "smooth", block: "center" },
         });
-        titleButton?.focus({ preventScroll: true });
+        focusElement({
+          element: titleButton,
+          options: { preventScroll: true },
+        });
       } else {
         scrollToLogger({
           element: document.getElementById(COMPONENT_IDS.PAGES_CONTAINER),

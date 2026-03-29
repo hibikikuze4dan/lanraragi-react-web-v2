@@ -1,6 +1,7 @@
 import { Radio } from "@mui/material";
 import { useLayoutEffect, useRef } from "react";
 import { COMPONENT_IDS } from "../../../../constants";
+import focusElement from "../../../../utils/focusElement";
 
 export const TempViewModeDialogRadioButton = ({
   children,
@@ -12,7 +13,7 @@ export const TempViewModeDialogRadioButton = ({
 
   useLayoutEffect(() => {
     if (ref.current && autoFocus) {
-      ref?.current?.focus();
+      focusElement({ element: ref?.current });
     }
   }, [autoFocus]);
 

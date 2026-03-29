@@ -42,6 +42,7 @@ export const ScrollImages = () => {
                 index={index}
                 imageUrl={page}
                 imagesToDisplay={imagesToDisplay}
+                isScrollImages
                 lastImage={archivePageCount === index + 1}
                 setIntersectingImageRef={setIntersectingImageRef}
               />

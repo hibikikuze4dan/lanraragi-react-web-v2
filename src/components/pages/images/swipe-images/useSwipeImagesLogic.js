@@ -7,6 +7,7 @@ import { updateDisplayAppBar } from "../../../../redux/slices/appSlice";
 import { useSwipeable } from "react-swipeable";
 import { useReadingDirectionSetting } from "../../../../hooks/useReadingDirectionSetting";
 import { READING_DIRECTIONS } from "../../../../constants";
+import focusElement from "../../../../utils/focusElement";
 
 export const useSwipeImagesLogic = () => {
   const centerFloatingButtonId = "swipe-images-center-floating-button";
@@ -115,7 +116,9 @@ export const useSwipeImagesLogic = () => {
 
   useEffect(() => {
     if (hasImages && !doneWithImages) {
-      document.getElementById(centerFloatingButtonId)?.focus?.();
+      focusElement({
+        element: document.getElementById(centerFloatingButtonId),
+      });
     }
   }, [hasImages, doneWithImages, centerFloatingButtonId]);
 

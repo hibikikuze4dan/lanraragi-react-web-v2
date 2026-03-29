@@ -2,6 +2,7 @@ import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { COMPONENT_IDS } from "../constants";
 import { updateFocusFirstArchiveCard } from "../redux/slices/appSlice";
+import focusElement from "../utils/focusElement";
 
 export const useArchiveFocusLogic = () => {
   const dispatch = useDispatch();
@@ -23,7 +24,7 @@ export const useArchiveFocusLogic = () => {
         COMPONENT_IDS.TITLE_BUTTON(archiveId),
       );
 
-      element?.focus?.({ preventScroll: true });
+      focusElement({ element, options: { preventScroll: true } });
       dispatch(updateFocusFirstArchiveCard(false));
     },
     [dispatch],
