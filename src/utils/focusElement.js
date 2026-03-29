@@ -7,8 +7,7 @@ export const focusElement = (
 ) => {
   if (!element) return;
 
-  // eslint-disable-next-line no-undef
-  if (process?.env?.NODE_ENV === "development") {
+  if (import.meta.env.DEV === true) {
     console.log(`[Focus]`, { reason, element, stack: new Error().stack });
   }
 
