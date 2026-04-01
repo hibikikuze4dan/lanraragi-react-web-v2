@@ -14,43 +14,48 @@ export const TransitionButtons = ({
   setCurrentPageIndex = RETURN_NULL,
   onButtonKeyDown = RETURN_NULL,
 }) => {
-  const { onReadButtonClick, shouldNotRender } = useTransitionButtonsLogic({
-    setCurrentPageIndex,
-  });
+  const { onReadButtonClick, shouldNotRender, nextArchive, previousArchive } =
+    useTransitionButtonsLogic({
+      setCurrentPageIndex,
+    });
 
   return shouldNotRender ? null : (
     <>
       <Grid2 size={gridSize}>
-        <Button
-          fullWidth
-          className={clsx(
-            "py-4 h-full",
-            COMPONENT_CLASSNAMES.END_OF_ARCHIVE_BUTTON
-          )}
-          id={COMPONENT_IDS.END_OF_ARCHIVE_BUTTON_PREVIOUS}
-          onClick={onReadButtonClick(false)}
-          onKeyDown={onButtonKeyDown}
-          startIcon={<NavigateBefore />}
-          variant="outlined"
-        >
-          Previous Archive
-        </Button>
+        {previousArchive?.arcid && (
+          <Button
+            fullWidth
+            className={clsx(
+              "py-4 h-full",
+              COMPONENT_CLASSNAMES.END_OF_ARCHIVE_BUTTON,
+            )}
+            id={COMPONENT_IDS.END_OF_ARCHIVE_BUTTON_PREVIOUS}
+            onClick={onReadButtonClick(false)}
+            onKeyDown={onButtonKeyDown}
+            startIcon={<NavigateBefore />}
+            variant="outlined"
+          >
+            Previous Archive
+          </Button>
+        )}
       </Grid2>
       <Grid2 size={gridSize}>
-        <Button
-          fullWidth
-          className={clsx(
-            "py-4 h-full",
-            COMPONENT_CLASSNAMES.END_OF_ARCHIVE_BUTTON
-          )}
-          id={COMPONENT_IDS.END_OF_ARCHIVE_BUTTON_NEXT}
-          onClick={onReadButtonClick(true)}
-          onKeyDown={onButtonKeyDown}
-          startIcon={<NavigateNext />}
-          variant="outlined"
-        >
-          Next Archive
-        </Button>
+        {nextArchive?.arcid && (
+          <Button
+            fullWidth
+            className={clsx(
+              "py-4 h-full",
+              COMPONENT_CLASSNAMES.END_OF_ARCHIVE_BUTTON,
+            )}
+            id={COMPONENT_IDS.END_OF_ARCHIVE_BUTTON_NEXT}
+            onClick={onReadButtonClick(true)}
+            onKeyDown={onButtonKeyDown}
+            startIcon={<NavigateNext />}
+            variant="outlined"
+          >
+            Next Archive
+          </Button>
+        )}
       </Grid2>
     </>
   );

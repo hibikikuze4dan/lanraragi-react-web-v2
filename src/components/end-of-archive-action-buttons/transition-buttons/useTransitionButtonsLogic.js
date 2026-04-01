@@ -72,7 +72,9 @@ export const useTransitionButtonsLogic = ({
     };
 
   return {
+    nextArchive,
     onReadButtonClick,
+    previousArchive,
     shouldNotRender,
   };
 };
