@@ -8,37 +8,43 @@ import {
   RETURN_NULL,
 } from "../../../constants";
 import clsx from "clsx";
+import useImageViewMode from "../../../hooks/useImageViewMode";
 
 export const TransitionButtons = ({
   gridSize = 12,
   setCurrentPageIndex = RETURN_NULL,
   onButtonKeyDown = RETURN_NULL,
 }) => {
+  const { isScrollViewModeActive } = useImageViewMode();
   const { onReadButtonClick, shouldNotRender, nextArchive, previousArchive } =
     useTransitionButtonsLogic({
       setCurrentPageIndex,
     });
 
+  const showOnlyNextButton = isScrollViewModeActive && !previousArchive?.arcid;
+
   return shouldNotRender ? null : (
     <>
-      <Grid2 size={gridSize}>
-        {previousArchive?.arcid && (
-          <Button
-            fullWidth
-            className={clsx(
-              "py-4 h-full",
-              COMPONENT_CLASSNAMES.END_OF_ARCHIVE_BUTTON,
-            )}
-            id={COMPONENT_IDS.END_OF_ARCHIVE_BUTTON_PREVIOUS}
-            onClick={onReadButtonClick(false)}
-            onKeyDown={onButtonKeyDown}
-            startIcon={<NavigateBefore />}
-            variant="outlined"
-          >
-            Previous Archive
-          </Button>
-        )}
-      </Grid2>
+      {!showOnlyNextButton && (
+        <Grid2 size={gridSize}>
+          {previousArchive?.arcid && (
+            <Button
+              fullWidth
+              className={clsx(
+                "py-4 h-full",
+                COMPONENT_CLASSNAMES.END_OF_ARCHIVE_BUTTON,
+              )}
+              id={COMPONENT_IDS.END_OF_ARCHIVE_BUTTON_PREVIOUS}
+              onClick={onReadButtonClick(false)}
+              onKeyDown={onButtonKeyDown}
+              startIcon={<NavigateBefore />}
+              variant="outlined"
+            >
+              Previous Archive
+            </Button>
+          )}
+        </Grid2>
+      )}
       <Grid2 size={gridSize}>
         {nextArchive?.arcid && (
           <Button

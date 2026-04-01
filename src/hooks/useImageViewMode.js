@@ -1,6 +1,10 @@
 import { useState } from "react";
 import createLocalStorageInstance, { IMAGES_VIEW_MODE } from "../local-storage";
-import { ALWAYS_ASK, VIEW_MODES_FOR_ARCHIVE_IMAGES } from "../constants";
+import {
+  ALWAYS_ASK,
+  VIEW_MODES_FOR_ARCHIVE_IMAGES,
+  SCROLLING_PAGE_VIEW_MODE,
+} from "../constants";
 import { useDispatch, useSelector } from "react-redux";
 import { getTempViewMode } from "../redux/selectors";
 import { updateTempViewMode } from "../redux/slices/appSlice";
@@ -11,7 +15,7 @@ const { get: getImagesViewMode, set: setImagesViewMode } =
 export const useImageViewMode = () => {
   const dispatch = useDispatch();
   const [imageViewMode, setImageViewModeState] = useState(
-    getImagesViewMode() ?? VIEW_MODES_FOR_ARCHIVE_IMAGES[1]
+    getImagesViewMode() ?? VIEW_MODES_FOR_ARCHIVE_IMAGES[1],
   );
   const isViewModeAlwaysAsk = getImagesViewMode() === ALWAYS_ASK;
   const tempViewMode = useSelector(getTempViewMode);
@@ -25,8 +29,13 @@ export const useImageViewMode = () => {
     setImagesViewMode(newViewMode);
   };
 
+  const isScrollViewModeActive =
+    getImagesViewMode() === SCROLLING_PAGE_VIEW_MODE ||
+    tempViewMode === SCROLLING_PAGE_VIEW_MODE;
+
   return {
     imageViewMode,
+    isScrollViewModeActive,
     isViewModeAlwaysAsk,
     setTempViewMode,
     tempViewMode,
