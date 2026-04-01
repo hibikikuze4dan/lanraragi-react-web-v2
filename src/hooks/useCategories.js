@@ -18,7 +18,10 @@ export const useCategories = ({ initLoad = false } = {}) => {
   useEffect(() => {
     if (initLoad && categoriesEmpty) {
       requestAllCategories().then((apiCategories) => {
-        dispatch(updateApiCategories(apiCategories));
+        const sortedCategories = apiCategories.sort((categoryA, categoryB) =>
+          categoryA?.name?.localeCompare?.(categoryB?.name),
+        );
+        dispatch(updateApiCategories(sortedCategories));
       });
     }
   }, [dispatch, initLoad, categoriesEmpty]);
