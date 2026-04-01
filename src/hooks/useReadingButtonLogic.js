@@ -9,10 +9,7 @@ import {
 } from "../constants";
 import { useArchiveHistory } from "./useArchiveHistory";
 import { useArchivePages } from "./useArchivePages";
-import {
-  updateCurrentArchiveId,
-  updateImagesScrollTarget,
-} from "../redux/slices/appSlice";
+import { updateImagesScrollTarget } from "../redux/slices/appSlice";
 import { putUpdateReadingProgression } from "../requests/putUpdateReadingProgression";
 import useImageViewMode from "./useImageViewMode";
 import { useArchiveActionsDialogLogic } from "./useArchiveActionsDialogLogic";
@@ -25,7 +22,7 @@ export const useReadingButtonLogic = () => {
   const { appPage, updateAppPage } = useAppPages();
   const { getNewArchivePages } = useArchivePages();
   const { addArchiveToHistory } = useArchiveHistory();
-  const { archive } = useCurrentArchive();
+  const { archive, setCurrentArchive } = useCurrentArchive();
   const { imageViewMode } = useImageViewMode();
   const { setActionType } = useArchiveActionsDialogLogic({
     autoFocusCloseButton: true,
@@ -35,7 +32,7 @@ export const useReadingButtonLogic = () => {
 
   const openImagePageAndGetImages = useCallback(
     async (archiveArcId) => {
-      dispatch(updateCurrentArchiveId(archiveArcId));
+      setCurrentArchive(archiveArcId);
       dispatch(updateImagesScrollTarget(""));
       updateAppPage(IMAGES);
       await getNewArchivePages(archiveArcId);
@@ -46,7 +43,7 @@ export const useReadingButtonLogic = () => {
       });
       putUpdateReadingProgression({ archiveId: archiveArcId, page: 1 });
     },
-    [dispatch, getNewArchivePages, updateAppPage],
+    [dispatch, getNewArchivePages, updateAppPage, setCurrentArchive],
   );
 
   const onReadButtonClick = async (archiveArcId) => {
@@ -54,7 +51,7 @@ export const useReadingButtonLogic = () => {
       addArchiveToHistory(archive);
     }
 
-    dispatch(updateCurrentArchiveId(archiveArcId));
+    setCurrentArchive(archiveArcId);
 
     if (imageViewMode === ALWAYS_ASK) {
       setActionType(TEMP_VIEW_MODE_DIALOG);

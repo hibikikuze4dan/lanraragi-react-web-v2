@@ -1,4 +1,3 @@
-import { useDispatch } from "react-redux";
 import useAppPages from "../../../hooks/useAppPages";
 import { useArchivePages } from "../../../hooks/useArchivePages";
 import useCurrentArchive from "../../../hooks/useCurrentArchive";
@@ -12,17 +11,15 @@ import {
   RETURN_NULL,
   SEARCH,
 } from "../../../constants";
-import { updateCurrentArchiveId } from "../../../redux/slices/appSlice";
 import { putUpdateReadingProgression } from "../../../requests/putUpdateReadingProgression";
 import scrollToLogger from "../../../utils/scrollToLogger";
 
 export const useTransitionButtonsLogic = ({
   setCurrentPageIndex = RETURN_NULL,
 }) => {
-  const dispatch = useDispatch();
   const { archiveOpenedFrom, appPage } = useAppPages();
   const { getNewArchivePages } = useArchivePages();
-  const { archive, setArchive } = useCurrentArchive();
+  const { archive, setArchive, setCurrentArchive } = useCurrentArchive();
   const { randomArchives } = useRandomArchives();
   const { addArchiveToHistory } = useArchiveHistory();
   const { archives: searchArchives } = useSearchResults();
@@ -65,7 +62,7 @@ export const useTransitionButtonsLogic = ({
         message: "useTransitionButtonLogic",
         options: { block: "start", behavior: "instant" },
       });
-      dispatch(updateCurrentArchiveId(archiveId));
+      setCurrentArchive(archiveId);
       setCurrentPageIndex(0);
 
       setArchive(archiveToUse);
