@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import {
+  getCurrentArchive,
   getCurrentArchiveFromRandomArchives,
   getCurrentArchiveFromSearchArchives,
   getCurrentArchiveId,
@@ -15,15 +16,15 @@ import {
 export const useCurrentArchive = () => {
   const dispatch = useDispatch();
   const currentArchiveId = useSelector(getCurrentArchiveId);
+  const currentArchive = useSelector(getCurrentArchive);
   const searchArchive = useSelector(getCurrentArchiveFromSearchArchives);
   const randomArchive = useSelector(getCurrentArchiveFromRandomArchives);
 
-  const [archive, setArchive] = useState(searchArchive ?? randomArchive ?? {});
+  const archive = currentArchive ?? searchArchive ?? randomArchive ?? {};
 
   const setCurrentArchive = useCallback(
     (arcId = "") => {
       getArchiveMetadata({ archiveId: arcId }).then((arcData) => {
-        setArchive(arcData);
         dispatch(updateCurrentArchiveId(arcId));
         dispatch(updateCurrentArchive(arcData));
       });
@@ -43,7 +44,6 @@ export const useCurrentArchive = () => {
     archive,
     currentArchiveId,
     getArchiveCardTitleButtonElementFromCurrentArchiveId,
-    setArchive,
     setCurrentArchive,
   };
 };
